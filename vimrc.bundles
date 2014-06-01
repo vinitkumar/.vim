@@ -173,12 +173,6 @@
         endif
     " }
 
-    " PHP {
-        if count(g:spf13_bundle_groups, 'php')
-            Bundle 'spf13/PIV'
-            Bundle 'arnaud-lb/vim-php-namespace'
-        endif
-    " }
 
     " Python {
         if count(g:spf13_bundle_groups, 'python')
@@ -200,27 +194,7 @@
         endif
     " }
 
-    " Scala {
-        if count(g:spf13_bundle_groups, 'scala')
-            Bundle 'derekwyatt/vim-scala'
-            Bundle 'derekwyatt/vim-sbt'
-        endif
-    " }
 
-    " Haskell {
-        if count(g:spf13_bundle_groups, 'haskell')
-            Bundle 'travitch/hasksyn'
-            Bundle 'dag/vim2hs'
-            Bundle 'Twinside/vim-haskellConceal'
-            Bundle 'Twinside/vim-haskellFold'
-            Bundle 'lukerandall/haskellmode-vim'
-            Bundle 'eagletmt/neco-ghc'
-            Bundle 'eagletmt/ghcmod-vim'
-            Bundle 'Shougo/vimproc'
-            Bundle 'adinapoli/cumino'
-            Bundle 'bitc/vim-hdevtools'
-        endif
-    " }
 
     " HTML {
         if count(g:spf13_bundle_groups, 'html')
@@ -231,20 +205,7 @@
         endif
     " }
 
-    " Ruby {
-        if count(g:spf13_bundle_groups, 'ruby')
-            Bundle 'tpope/vim-rails'
-            let g:rubycomplete_buffer_loading = 1
-            "let g:rubycomplete_classes_in_global = 1
-            "let g:rubycomplete_rails = 1
-        endif
-    " }
 
-    " Go Lang {
-        if count(g:spf13_bundle_groups, 'go')
-            Bundle 'Blackrush/vim-gocode'
-        endif
-    " }
 
     " Misc {
         if count(g:spf13_bundle_groups, 'misc')
