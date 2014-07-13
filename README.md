@@ -20,7 +20,7 @@ vim +BundleInstall +qall
 
 ## Notes
 
-- Fully configured with realtime static analysis of Python/Javascript.
-- Could be used for C, C++, Python, Javascript, Lisp out of the box.
+Fully configured with realtime static analysis of Python/Javascript.
+Could be used for C, C++, Python, Javascript, Lisp out of the box.
 
 
