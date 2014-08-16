@@ -1,4 +1,137 @@
 
+""""""""""""""""""""""""""
+" CtrlP
+  " Open ctrlp with cmd+p
+  let g:ctrlp_map = '<D-p>'
+
+  " Open goto symbol on current buffer
+  nmap <D-r> :MyCtrlPTag<cr>
+  imap <D-r> <esc>:MyCtrlPTag<cr>
+
+  " Open goto symbol on all buffers
+  nmap <D-R> :CtrlPBufTagAll<cr>
+  imap <D-R> <esc>:CtrlPBufTagAll<cr>
+
+  " Open goto file
+  nmap <D-t> :CtrlP<cr>
+  imap <D-t> <esc>:CtrlP<cr>
+
+  " Comment lines with cmd+/
+  map <D-/> :TComment<cr>
+  vmap <D-/> :TComment<cr>gv
+
+  " Indent lines with cmd+[ and cmd+]
+  nmap <D-]> >>
+  nmap <D-[> <<
+  vmap <D-[> <gv
+  vmap <D-]> >gv
+
+  "Open sidebar with cmd+k
+  map <D-k> :NERDTreeTabsToggle<CR>
+
+  " This mapping makes Ctrl-Tab switch between tabs.
+  " Ctrl-Shift-Tab goes the other way.
+  noremap <C-Tab> :tabnext<CR>
+  noremap <C-S-Tab> :tabprev<CR>
+
+  " switch between tabs with cmd+1, cmd+2,..."
+  map <D-1> 1gt
+  map <D-2> 2gt
+  map <D-3> 3gt
+  map <D-4> 4gt
+  map <D-5> 5gt
+  map <D-6> 6gt
+  map <D-7> 7gt
+  map <D-8> 8gt
+  map <D-9> 9gt
+
+  " until we have default MacVim shortcuts this is the only way to use it in
+  " insert mode
+  imap <D-1> <esc>1gt
+  imap <D-2> <esc>2gt
+  imap <D-3> <esc>3gt
+  imap <D-4> <esc>4gt
+  imap <D-5> <esc>5gt
+  imap <D-6> <esc>6gt
+  imap <D-7> <esc>7gt
+  imap <D-8> <esc>8gt
+  imap <D-9> <esc>9gt
+
+" ----------------------------------------- "
+" Plugin configs 			    			"
+" ----------------------------------------- "
+
+let g:ctrlp_cmd = 'CtrlPMixed'			" search anything (in files, buffers and MRU files at the same time.)
+let g:ctrlp_working_path_mode = 'ra'	" search for nearest ancestor like .git, .hg, and the directory of the current file
+let g:ctrlp_match_window_bottom = 0		" show the match window at the top of the screen
+let g:ctrlp_by_filename = 1
+let g:ctrlp_max_height = 10				" maxiumum height of match window
+let g:ctrlp_switch_buffer = 'et'		" jump to a file if it's open already
+let g:ctrlp_use_caching = 1				" enable caching
+let g:ctrlp_clear_cache_on_exit=0  		" speed up by not removing clearing cache evertime
+let g:ctrlp_mruf_max = 250 				" number of recently opened files
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn|build)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+  \ }
+
+""""""""""""""""""""""""""""""
+" airline
+""""""""""""""""""""""""""""""
+let g:airline_theme             = 'badwolf'
+let g:airline_enable_branch     = 1
+let g:airline_enable_syntastic  = 1
+
+" vim-powerline symbols
+let g:airline_left_sep          = '⮀'
+let g:airline_left_alt_sep      = '⮁'
+let g:airline_right_sep         = '⮂'
+let g:airline_right_alt_sep     = '⮃'
+let g:airline_branch_prefix     = '⭠'
+let g:airline_readonly_symbol   = '⭤'
+let g:airline_linecolumn_prefix = '⭡'
+
+
+
+
+
+func! MyPrtMappings()
+    let g:ctrlp_prompt_mappings = {
+        \ 'AcceptSelection("e")': ['<c-t>'],
+        \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
+        \ }
+endfunc
+
+func! MyCtrlPTag()
+    let g:ctrlp_prompt_mappings = {
+        \ 'AcceptSelection("e")': ['<cr>', '<2-LeftMouse>'],
+        \ 'AcceptSelection("t")': ['<c-t>'],
+        \ }
+    CtrlPBufTag
+endfunc
+
+let g:ctrlp_buffer_func = { 'exit': 'MyPrtMappings' }
+com! MyCtrlPTag call MyCtrlPTag()
+
+" TODO: add javascript and some other languages who doesn't have ctags support
+" coffee: https://gist.github.com/michaelglass/5210282
+" go: http://stackoverflow.com/a/8236826/462233
+" objc:  http://www.gregsexton.org/2011/04/objective-c-exuberant-ctags-regex/
+" rust: https://github.com/mozilla/rust/blob/master/src/etc/ctags.rust
+let g:ctrlp_buftag_types = {
+\ 'go'     	   : '--language-force=go --golang-types=ftv',
+\ 'coffee'     : '--language-force=coffee --coffee-types=cmfvf',
+\ 'markdown'   : '--language-force=markdown --markdown-types=hik',
+\ 'objc'       : '--language-force=objc --objc-types=mpci',
+\ 'rc'         : '--language-force=rust --rust-types=fTm'
+\ }
+
+
+
+
+
+
 " Environment {
 
     " Identify platform {
@@ -78,7 +211,7 @@
         " Always switch to the current file directory
     endif
 
-    "set autowrite                       " Automatically write a file when leaving a modified buffer
+    set autowrite                       " Automatically write a file when leaving a modified buffer
     set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
     set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
     set virtualedit=onemore             " Allow for cursor beyond last character
@@ -191,42 +324,55 @@
 
 " Formatting {
 
-    set nowrap                      " Do not wrap long lines
-    set autoindent                  " Indent at the same level of the previous line
-    set shiftwidth=4                " Use indents of 4 spaces
-    set expandtab                   " Tabs are spaces, not tabs
-    set tabstop=4                   " An indentation every four columns
-    set softtabstop=4               " Let backspace delete indent
-    set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
-    set splitright                  " Puts new vsplit windows to the right of the current
-    set splitbelow                  " Puts new split windows to the bottom of the current
-    "set matchpairs+=<:>             " Match, to be used with %
-    set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
-    "set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
-    " Remove trailing whitespaces and ^M chars
-    " To disable the stripping of whitespace, add the following to your
-    " .vimrc.before.local file:
-    "   let g:spf13_keep_trailing_whitespace = 1
-    autocmd FileType make setlocal noexpandtab    
-    autocmd FileType c,cpp,java,go,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer> if !exists('g:spf13_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
-    autocmd FileType go autocmd BufWritePre <buffer> Fmt
-    autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
-    autocmd FileType python set tabstop=4|set shiftwidth=4|set expandtab
-    autocmd FileType javascript set tabstop=2|set shiftwidth=2|set expandtab
-    autocmd FileType html,css,less set tabstop=2|set shiftwidth=2|set expandtab
+    set autoindent " Copy indent from last line when starting new line.
+    set colorcolumn=80 " mark col 80
+    set backspace=indent,eol,start
+    set cursorline " Highlight current line
+    set diffopt=filler " Add vertical spaces to keep right and left aligned
+    set diffopt+=iwhite " Ignore whitespace changes (focus on code changes)
+    set encoding=utf-8 nobomb " BOM often causes trouble
+    set esckeys " Allow cursor keys in insert mode.
+    set expandtab " Expand tabs to spaces
+    set ignorecase
+    set smartcase
+    " set foldcolumn=4 " Column to show folds
+    " set foldenable
+    " set foldlevel=2
+    " set foldlevelstart=2 " Sets `foldlevel` when editing a new buffer
+    " set foldmethod=indent " Markers are used to specify folds.
+    " set foldnestmax=3 " Set max fold nesting level
+    set hidden " When a buffer is brought to foreground, remember undo history and marks.
+    set history=1000 " Increase history from 20 default to 1000
+    set hlsearch " Highlight searches
+    set incsearch " Highlight dynamically as pattern is typed.
+    set laststatus=2 " Always show status line
+    set magic " Enable extended regexes.
+    set nocompatible " Make vim more useful
+    set noerrorbells " Disable error bells.
+    set nostartofline
+    set noshowmode
+    " set nowrap " Do not wrap lines.
+    set nu " Enable line numbers.
+    set report=0 " Show all changes.
+    set ruler " Show the cursor position
+    set scrolloff=3 " Start scrolling three lines before horizontal border of window.
+    set shiftwidth=2 " The # of spaces for indenting.
+    set shortmess=I " Don't show the intro message when starting vim.
+    set showmode " Show the current mode.
+    set showtabline=2 " Always show tab bar.
+    set smarttab " At start of line, <Tab> inserts shiftwidth spaces, <Bs> deletes shiftwidth spaces.
+    set tabstop=2
+    set softtabstop=2 " Tab key results in 2 spaces
+    set title " Show the filename in the window titlebar.
+    set ttyfast " Send more characters at a given time.
+    set wildchar=<TAB> " Character for CLI expansion (TAB-completion).
+    set wildmenu " Hitting TAB in command mode will show possible completions above command line.
+    set wildmode=list:longest " Complete only until point of ambiguity.
 
-    
-    autocmd FileType haskell setlocal expandtab shiftwidth=2 softtabstop=2
-    " preceding line best in a plugin but here for now.
+    set wrap
+    set textwidth=79
+    set formatoptions=qrn1
 
-    autocmd BufNewFile,BufRead *.coffee set filetype=coffee
-
-    " Workaround vim-commentary for Haskell
-    autocmd FileType haskell setlocal commentstring=--\ %s
-    " Workaround broken colour highlighting in Haskell
-    autocmd FileType haskell setlocal nospell
-
-" }
 
 " Key (re)Mappings {
 
@@ -590,11 +736,12 @@
             let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 
             " Enable omni completion.
+            autocmd VimEnter * NERDTree
             autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
             autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
             autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-            autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
             autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+            autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
             autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
             autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
@@ -766,7 +913,8 @@
             autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
             autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
             autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-
+            autocmd FileType python set ft=python.django " For SnipMate
+            autocmd FileType html set ft=htmldjango.html " For SnipMate
             " Enable heavy omni completion.
             if !exists('g:neocomplcache_omni_patterns')
                 let g:neocomplcache_omni_patterns = {}
@@ -837,28 +985,6 @@
         let g:indent_guides_enable_on_vim_startup = 1
     " }
 
-    " vim-airline {
-        " Set configuration options for the statusline plugin vim-airline.
-        " Use the powerline theme and optionally enable powerline symbols.
-        " To use the symbols , , , , , , and .in the statusline
-        " segments add the following to your .vimrc.before.local file:
-        "   let g:airline_powerline_fonts=1
-        " If the previous symbols do not render for you then install a
-        " powerline enabled font.
-
-        " See `:echo g:airline_theme_map` for some more choices
-        " Default in terminal vim is 'dark'
-        if !exists('g:airline_theme')
-            let g:airline_theme = 'badwolf'
-        endif
-        if !exists('g:airline_powerline_fonts')
-            " Use the default set of separators with a few customizations
-            let g:airline_left_sep='›'  " Slightly fancier than '>'
-            let g:airline_right_sep='‹' " Slightly fancier than '<'
-        endif
-    " }
-
-" }
 
 " GUI Settings {
 
@@ -870,7 +996,7 @@
             if LINUX() && has("gui_running")
                 set guifont=Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
             elseif OSX() && has("gui_running")
-                set guifont=Monaco:h12
+                set guifont=Monaco:h12,Consolas:h14
                 set guioptions=egmrt
             elseif WINDOWS() && has("gui_running")
                 set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
@@ -1002,3 +1128,29 @@
         endif
     endif
 " }
+
+let g:instant_markdown_autostart = 1
+
+" Markdown
+autocmd! BufRead *.mkd set ai formatoptions=tcroqn2 comments=n:> ft=markdown
+autocmd! BufRead *.md set ai formatoptions=tcroqn2 comments=n:> ft=markdown
+autocmd! BufRead *.mdown set ai formatoptions=tcroqn2 comments=n:> ft=markdown
+autocmd! BufRead *.markdown set ai formatoptions=tcroqn2 comments=n:> ft=markdown
+
+" CSS3
+au BufRead,BufNewFile *.scss set filetype=scss
+au BufRead,BufNewFile *.css set ft=css syntax=css
+
+" HTML5
+au BufRead,BufNewFile *.html set ft=html syntax=html
+au BufRead,BufNewFile *.hbs set ft=html syntax=html
+au BufRead,BufNewFile *.mustache set ft=html syntax=html
+au BufRead,BufNewFile *.haml set ft=haml
+
+au BufRead,BufNewFile *.js set ft=javascript syntax=javascript
+au BufRead,BufNewfile *.rb set ft=ruby syntax=ruby
+
+autocmd! BufWritePre * :%s/\s\+$//e
+autocmd FileType mail :nmap <F8> :w<CR>:!aspell -e -c %<CR>:e<CR>
+
+
