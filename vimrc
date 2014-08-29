@@ -600,7 +600,6 @@ let g:airline_linecolumn_prefix = '⭡'
   "}
 
   " YouCompleteMe {
-      if count(g:spf13_bundle_groups, 'youcompleteme')
           let g:acp_enableAtStartup = 0
 
           " enable completion from tags
@@ -639,7 +638,6 @@ let g:airline_linecolumn_prefix = '⭡'
           " When enabled, there can be too much visual noise
           " especially when splits are used.
           set completeopt-=preview
-      endif
   " }
 
 

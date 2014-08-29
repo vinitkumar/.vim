@@ -21,6 +21,7 @@
 " Bundles {
 
     Bundle 'gmarik/vundle'
+    Bundle 'MarcWeber/vim-addon-mw-utils'
     Bundle 'mileszs/ack.vim'
     Bundle 'scrooloose/nerdtree'
     Bundle 'altercation/vim-colors-solarized'
@@ -42,8 +43,6 @@
     Bundle 'mattn/gist-vim'
     Bundle 'scrooloose/nerdcommenter'
     Bundle 'godlygeek/tabular'
-    Bundle 'garbas/vim-snipmate'
-    Bundle 'honza/vim-snippets'
     Bundle 'Valloric/YouCompleteMe'
     Bundle 'SirVer/ultisnips'
     Bundle 'honza/vim-snippets'
@@ -66,7 +65,3 @@
     Bundle 'tpope/vim-cucumber'
     Bundle 'sjl/badwolf'
     Bundle 'vinitkumar/vim-tomorrow-theme'
-
-  if filereadable(expand("~/.vim/bundle/vim-snippets/snippets/support_functions.vim"))
-    source ~/.vim/bundle/vim-snippets/snippets/support_functions.vim
-  endif
