@@ -26,6 +26,7 @@
     Bundle 'scrooloose/nerdtree'
     Bundle 'altercation/vim-colors-solarized'
     Bundle 'spf13/vim-colors'
+    Bundle 'bling/vim-airline'
     Bundle 'tpope/vim-surround'
     Bundle 'spf13/vim-autoclose'
     Bundle 'kien/ctrlp.vim'
