@@ -39,6 +39,11 @@
     endif
 " }
 
+" Use config for secret stuff
+  if filereadable(expand("~/.vimrc.config"))
+    source ~/.vimrc.config
+  endif
+" }
 
 """"""""""""""""""""""""""""""
 " airline
@@ -126,10 +131,6 @@ let g:airline_linecolumn_prefix = '⭡'
   " a new buffer is opened; to prevent this behavior, add the following to
   " your .vimrc.before.local file:
   "   let g:spf13_no_autochdir = 1
-  if !exists('g:spf13_no_autochdir')
-    autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
-    " Always switch to the current file directory
-  endif
 
   set autowrite                       " Automatically write a file when leaving a modified buffer
   set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
@@ -425,8 +426,6 @@ let g:airline_linecolumn_prefix = '⭡'
 
   " Shortcuts
   " Change Working Directory to that of the current file
-  cmap cwd lcd %:p:h
-  cmap cd. lcd %:p:h
 
   " Visual shifting (does not exit Visual mode)
   vnoremap < <gv
@@ -527,21 +526,6 @@ let g:airline_linecolumn_prefix = '⭡'
       let g:snips_author = 'Steve Francia <steve.francia@gmail.com>'
     " }
 
-    " NerdTree {
-      map <C-e> <plug>NERDTreeTabsToggle<CR>
-      map <leader>e :NERDTreeFind<CR>
-      nmap <leader>nt :NERDTreeFind<CR>
-
-      let NERDTreeShowBookmarks=1
-      let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
-      let NERDTreeChDirMode=0
-      let NERDTreeQuitOnOpen=1
-      let NERDTreeMouseMode=2
-      let NERDTreeShowHidden=1
-      let NERDTreeKeepTreeInNewTab=1
-      let g:nerdtree_tabs_open_on_gui_startup=0
-    " }
-
     " Tabularize {
       nmap <Leader>a& :Tabularize /&<CR>
       vmap <Leader>a& :Tabularize /&<CR>
@@ -603,6 +587,11 @@ let g:airline_linecolumn_prefix = '⭡'
           let g:acp_enableAtStartup = 0
 
           " enable completion from tags
+          let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
+          let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
+          let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
+          let g:ycm_complete_in_comments = 1 " Completion in comments
+          let g:ycm_complete_in_strings = 1 " Completion in string
           let g:ycm_collect_identifiers_from_tags_files = 1
 
           " remap Ultisnips for compatibility for YCM
@@ -611,7 +600,6 @@ let g:airline_linecolumn_prefix = '⭡'
           let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 
           " Enable omni completion.
-          autocmd VimEnter * NERDTree
           autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
           autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
           autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
@@ -619,6 +607,7 @@ let g:airline_linecolumn_prefix = '⭡'
           autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
           autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
           autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+          au FileType py set textwidth=79 " PEP-8 Friendly
 
           " Haskell post write lint and check with ghcmod
           " $ `cabal install ghcmod` if missing and ensure
@@ -812,11 +801,18 @@ autocmd FileType mail :nmap <F8> :w<CR>:!aspell -e -c %<CR>:e<CR>
 " Pymode VirtualEnv Auto Detection
 let g:pymode_virtualenv = 1
 
+" Silver surfer related settings
+if executable('ag')
+    " Note we extract the column as well as the file and line number
+    set grepprg=ag\ --nogroup\ --nocolor\ --column
+    set grepformat=%f:%l:%c%m
+endif
+
 
 " Vim-Go related Settings
 
 
 let g:go_errcheck_bin="/Users/vinitkumar/go/bin/errcheck"
 let g:go_golint_bin="/Users/vinitkumar/go/bin/golint"
-
+let g:github_upstream_issues = 1
 set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
