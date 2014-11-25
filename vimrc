@@ -109,7 +109,7 @@ let g:airline_linecolumn_prefix = '⭡'
 
 " General {
 
-  set background=light         " Assume a dark background
+  set background=dark         " Assume a dark background
   " if !has('gui')
     "set term=$TERM          " Make arrow and other keys work
   " endif
@@ -183,6 +183,7 @@ let g:airline_linecolumn_prefix = '⭡'
 
 " }
 
+let $PATH = '/usr/local/bin:'.$PATH
 
 " Vim UI {
   let g:Powerline_symbols = 'compatible'
@@ -192,11 +193,13 @@ let g:airline_linecolumn_prefix = '⭡'
     let g:badwolf_termtrans=1
     let g:badwolf_contrast="normal"
     let g:badwolf_visibility="normal"
-    color badwolf             " Load a colorscheme
+    color molokai              " Load a colorscheme
   endif
 
   set tabpagemax=15               " Only show 15 tabs
   set showmode                    " Display the current mode
+
+  set lines=999
 
   set cursorline                  " Highlight current line
 
