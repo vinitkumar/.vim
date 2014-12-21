@@ -10,7 +10,7 @@ search.
 
 ```bash
 git clone git@github.com:vinitkumar/.vim.git
-git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 cd .vim
 cp vimrc ~/.vimrc
 cp vimrc.before ~/.vimrc.before
