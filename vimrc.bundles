@@ -45,6 +45,7 @@
     Plugin 'nathanaelkane/vim-indent-guides'
     Plugin 'scrooloose/syntastic'
     Plugin 'mattn/webapi-vim'
+    Plugin 'Shougo/neocomplcache'
     Plugin 'fs111/pydoc.vim'
     Plugin 'airblade/vim-gitgutter'
     Plugin 'gregsexton/gitv'
