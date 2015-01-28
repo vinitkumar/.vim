@@ -49,3 +49,4 @@
     Plugin 'vinitkumar/vim-tomorrow-theme'
     Plugin 'tpope/vim-fugitive'
     Plugin 'pangloss/vim-javascript'
+Bundle 'wakatime/vim-wakatime'
