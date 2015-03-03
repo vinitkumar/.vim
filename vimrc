@@ -22,6 +22,8 @@ Plugin 'tpope/vim-sensible'
 Plugin 'majutsushi/tagbar'
 Plugin 'vinitkumar/vim-tomorrow-theme'
 Plugin 'mrtazz/DoxygenToolkit.vim'
+Plugin 'rizzatti/dash.vim'
+Plugin 'Ack.vim'
 
 
 """"""""""""""""""""""""""""""
@@ -54,7 +56,7 @@ set mouse=a
 syntax on
 set autoread
 
-set background=light
+set background=dark
 colorscheme base16-google 
 let g:colors_name="base16-google"
 
@@ -64,16 +66,77 @@ set guioptions-=M
 set guioptions-=T
 set guioptions-=e
 " Whitespace
+set backspace=indent,eol,start  " Backspace for dummies
+set linespace=0                 " No extra spaces between rows
+set nu                          " Line numbers on
+set showmatch                   " Show matching brackets/parenthesis
+set incsearch                   " Find as you type search
+set hlsearch                    " Highlight search terms
+set winminheight=0              " Windows can be 0 line high
+set ignorecase                  " Case insensitive search
+set smartcase                   " Case sensitive when uc present
+set wildmenu                    " Show list instead of just completing
+set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
+set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
+set scrolljump=5                " Lines to scroll when cursor leaves screen
+set scrolloff=3                 " Minimum lines to keep above and below cursor
+set foldenable                  " Auto fold code
+set list
+set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+
+" }
+
+" Formatting {
+
+set autoindent " Copy indent from last line when starting new line.
+set colorcolumn=80 " mark col 80
 set backspace=indent,eol,start
-set autoindent
-set tabstop=4
-set softtabstop=4
-set textwidth=80
-set shiftwidth=4
-set noexpandtab
+set cursorline " Highlight current line
+set diffopt=filler " Add vertical spaces to keep right and left aligned
+set diffopt+=iwhite " Ignore whitespace changes (focus on code changes)
+set encoding=utf-8 nobomb " BOM often causes trouble
+set esckeys " Allow cursor keys in insert mode.
+set expandtab " Expand tabs to spaces
+set ignorecase
+set smartcase
+set foldcolumn=4 " Column to show folds
+set foldenable
+set foldlevel=2
+set foldlevelstart=2 " Sets `foldlevel` when editing a new buffer
+set foldmethod=indent " Markers are used to specify folds.
+set foldnestmax=3 " Set max fold nesting level
+set hidden " When a buffer is brought to foreground, remember undo history and marks.
+set history=1000 " Increase history from 20 default to 1000
+set hlsearch " Highlight searches
+set incsearch " Highlight dynamically as pattern is typed.
+set laststatus=2 " Always show status line
+set magic " Enable extended regexes.
+set nocompatible " Make vim more useful
+set noerrorbells " Disable error bells.
+set nostartofline
+set noshowmode
+" set nowrap " Do not wrap lines.
+set nu " Enable line numbers.
+set report=0 " Show all changes.
+set ruler " Show the cursor position
+set scrolloff=3 " Start scrolling three lines before horizontal border of window.
+set shiftwidth=2 " The # of spaces for indenting.
+set shortmess=I " Don't show the intro message when starting vim.
+set showmode " Show the current mode.
+set showtabline=2 " Always show tab bar.
+set smarttab " At start of line, <Tab> inserts shiftwidth spaces, <Bs> deletes shiftwidth spaces.
+set tabstop=2
+set softtabstop=2 " Tab key results in 2 spaces
+set title " Show the filename in the window titlebar.
+set ttyfast " Send more characters at a given time.
+set wildchar=<TAB> " Character for CLI expansion (TAB-completion).
+set wildmenu " Hitting TAB in command mode will show possible completions above command line.
+set wildmode=list:longest " Complete only until point of ambiguity.
+
 set wrap
+set textwidth=79
 set formatoptions=qrn1
-set cindent
+
 
 " We do utf-8
 scriptencoding utf-8
