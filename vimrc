@@ -19,12 +19,15 @@ Plugin 'bling/vim-airline'
 Plugin 'chriskempson/base16-vim'
 Plugin 'sjl/badwolf'
 Plugin 'tpope/vim-sensible'
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-easytags'
 Plugin 'majutsushi/tagbar'
 Plugin 'vinitkumar/vim-tomorrow-theme'
 Plugin 'mrtazz/DoxygenToolkit.vim'
 Plugin 'rizzatti/dash.vim'
 Plugin 'Ack.vim'
-
+Plugin 'mattn/webapi-vim'
+Plugin 'mattn/gist-vim'
 
 """"""""""""""""""""""""""""""
 " vim-powerline symbols
@@ -41,6 +44,15 @@ let g:airline_branch_prefix     = '⭠'
 let g:airline_readonly_symbol   = '⭤'
 let g:airline_linecolumn_prefix = '⭡'
 "
+
+"tagbar related settings
+set tags=./tags;,~/.vimtags
++" Sensible defaults
+let g:easytags_events = ['BufReadPost', 'BufWritePost']
+let g:easytags_async = 1
+let g:easytags_dynamic_files = 2
+let g:easytags_resolve_links = 1
+let g:easytags_suppress_ctags_warning = 1
 
 " Disable the scrollbars
 set guioptions-=r
@@ -181,6 +193,16 @@ endif
 let g:ctrlp_working_path_mode = ''
 set wildignore=.svn,CVS,.git,.hg,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,.DS_Store,*.aux,*.out,*.toc,tmp,*.scssc,*.pyc
 set wildmenu
+
+
+" Gist related settings
+
+let g:gist_detect_filetype = 1
+let g:gist_open_browser_after_post = 1
+let g:gist_clip_command = 'pbcopy'
+let g:gist_post_private = 1
+let g:gist_get_multiplefile = 1
+
 
 
 " Configuration
