@@ -17,7 +17,7 @@ cp vimrc ~/.vimrc
 vim +BundleInstall +qall
 ```
 
-![vim-screenshot](https://cldup.com/Z6g6NFPIkh-3000x3000.png)
+![vim-screenshot](https://cldup.com/1dmJIl_QKV-3000x3000.png)
 
 In order to install the older version of my dotvim:
 
