@@ -28,6 +28,8 @@ Plugin 'rizzatti/dash.vim'
 Plugin 'Ack.vim'
 Plugin 'mattn/webapi-vim'
 Plugin 'mattn/gist-vim'
+Plugin 'groenewege/vim-less'
+
 
 """"""""""""""""""""""""""""""
 " vim-powerline symbols
@@ -77,6 +79,8 @@ set guioptions-=m
 set guioptions-=M
 set guioptions-=T
 set guioptions-=e
+set guifont=Monaco:h12
+set antialias
 " Whitespace
 set backspace=indent,eol,start  " Backspace for dummies
 set linespace=0                 " No extra spaces between rows
@@ -221,3 +225,7 @@ let NERDTreeIgnore = ['\.pyc$']
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
+
+" Spell check always on
+set spell spelllang=en_us
+
