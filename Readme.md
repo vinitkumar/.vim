@@ -27,6 +27,7 @@ git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 cd .vim
 git fetch origin
 git checkout origin/master-old
+cp vimrc ~/.vimrc
 cp vimrc.before ~/.vimrc.before
 cp vimrc.bundles ~/.vimrc.bundles
 vim +BundleInstall +qall
