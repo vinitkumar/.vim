@@ -12,40 +12,40 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'scrooloose/nerdtree'
-Plugin 'git://git.wincent.com/command-t.git'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'bling/vim-airline'
 Plugin 'chriskempson/base16-vim'
 Plugin 'sjl/badwolf'
-Plugin 'tpope/vim-sensible'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 Plugin 'majutsushi/tagbar'
 Plugin 'vinitkumar/vim-tomorrow-theme'
 Plugin 'mrtazz/DoxygenToolkit.vim'
-Plugin 'rizzatti/dash.vim'
 Plugin 'Ack.vim'
 Plugin 'mattn/webapi-vim'
 Plugin 'mattn/gist-vim'
 Plugin 'groenewege/vim-less'
+Plugin 'mattn/emmet-vim'
+Plugin 'whatyouhide/vim-gotham'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
 
 
 """"""""""""""""""""""""""""""
 " vim-powerline symbols
 let g:airline_theme             = 'badwolf'
-let g:airline_enable_branch     = 1
-let g:airline_enable_syntastic  = 1
+let g:airline#extensions#syntastic#enabled = 1
 
-" vim-powerline symbols
-let g:airline_left_sep          = '⮀'
-let g:airline_left_alt_sep      = '⮁'
-let g:airline_right_sep         = '⮂'
-let g:airline_right_alt_sep     = '⮃'
-let g:airline_branch_prefix     = '⭠'
-let g:airline_readonly_symbol   = '⭤'
-let g:airline_linecolumn_prefix = '⭡'
-"
+let g:airline_left_sep = '⮀'
+let g:airline_left_alt_sep = '⮁'
+let g:airline_right_sep = '⮂'
+let g:airline_right_alt_sep = '⮃'
+let g:airline_symbols.branch = '⭠'
+let g:airline_symbols.readonly = '⭤'
+let g:airline_symbols.linenr = '⭡'
+
 
 "tagbar related settings
 set tags=./tags;,~/.vimtags
@@ -71,20 +71,14 @@ syntax on
 set autoread
 
 set background=dark
-colorscheme base16-google 
-let g:colors_name="base16-google"
-
-" disable ugly gtk stuff
-set guioptions-=m
-set guioptions-=M
-set guioptions-=T
-set guioptions-=e
+colorscheme gotham256
+let g:colors_name="gotham256"
 set guifont=Monaco:h12
 set antialias
 " Whitespace
+
 set backspace=indent,eol,start  " Backspace for dummies
 set linespace=0                 " No extra spaces between rows
-set nu                          " Line numbers on
 set showmatch                   " Show matching brackets/parenthesis
 set incsearch                   " Find as you type search
 set hlsearch                    " Highlight search terms
@@ -106,41 +100,27 @@ set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic white
 
 set autoindent " Copy indent from last line when starting new line.
 set colorcolumn=80 " mark col 80
-set backspace=indent,eol,start
 set cursorline " Highlight current line
 set diffopt=filler " Add vertical spaces to keep right and left aligned
 set diffopt+=iwhite " Ignore whitespace changes (focus on code changes)
 set encoding=utf-8 nobomb " BOM often causes trouble
 set esckeys " Allow cursor keys in insert mode.
 set expandtab " Expand tabs to spaces
-set ignorecase
-set smartcase
-set foldcolumn=4 " Column to show folds
-set foldenable
+set foldcolumn=2 " Column to show folds
 set foldlevel=2
 set foldlevelstart=2 " Sets `foldlevel` when editing a new buffer
 set foldmethod=indent " Markers are used to specify folds.
 set foldnestmax=3 " Set max fold nesting level
 set hidden " When a buffer is brought to foreground, remember undo history and marks.
-set history=1000 " Increase history from 20 default to 1000
-set hlsearch " Highlight searches
-set incsearch " Highlight dynamically as pattern is typed.
+set history=100 " Increase history from 20 default to 1000
 set laststatus=2 " Always show status line
 set magic " Enable extended regexes.
 set nocompatible " Make vim more useful
 set noerrorbells " Disable error bells.
 set nostartofline
 set noshowmode
-" set nowrap " Do not wrap lines.
-set nu " Enable line numbers.
 set report=0 " Show all changes.
 set ruler " Show the cursor position
-set scrolloff=3 " Start scrolling three lines before horizontal border of window.
-set shiftwidth=2 " The # of spaces for indenting.
-set shortmess=I " Don't show the intro message when starting vim.
-set showmode " Show the current mode.
-set showtabline=2 " Always show tab bar.
-set smarttab " At start of line, <Tab> inserts shiftwidth spaces, <Bs> deletes shiftwidth spaces.
 set tabstop=2
 set softtabstop=2 " Tab key results in 2 spaces
 set title " Show the filename in the window titlebar.
@@ -195,7 +175,7 @@ endif
 
 " CtrlP related settings
 let g:ctrlp_working_path_mode = ''
-set wildignore=.svn,CVS,.git,.hg,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,.DS_Store,*.aux,*.out,*.toc,tmp,*.scssc,*.pyc
+set wildignore=.svn,CVS,.git,.hg,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,.DS_Store,*.aux,*.out,*.toc,tmp,*.scssc,*.pyc,tags
 set wildmenu
 
 
@@ -206,7 +186,6 @@ let g:gist_open_browser_after_post = 1
 let g:gist_clip_command = 'pbcopy'
 let g:gist_post_private = 1
 let g:gist_get_multiplefile = 1
-
 
 
 " Configuration
@@ -228,4 +207,21 @@ filetype plugin indent on    " required
 
 " Spell check always on
 set spell spelllang=en_us
+
+" Python Specific settings
+autocmd FileType python set sw=4
+autocmd FileType python set ts=4
+autocmd FileType python set sts=4
+
+" JavaScript
+autocmd FileType javascript set sw=2
+autocmd FileType javascript set ts=2
+autocmd FileType javascript set sts=2
+
+
+" html
+autocmd FileType html set sw=2
+autocmd FileType html set ts=2
+autocmd FileType html set sts=2
+
 
