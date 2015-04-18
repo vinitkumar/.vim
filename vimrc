@@ -31,7 +31,7 @@ Plugin 'whatyouhide/vim-gotham'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
-
+Plugin 'bronson/vim-trailing-whitespace'
 
 """"""""""""""""""""""""""""""
 " vim-powerline symbols
@@ -42,9 +42,6 @@ let g:airline_left_sep = '⮀'
 let g:airline_left_alt_sep = '⮁'
 let g:airline_right_sep = '⮂'
 let g:airline_right_alt_sep = '⮃'
-let g:airline_symbols.branch = '⭠'
-let g:airline_symbols.readonly = '⭤'
-let g:airline_symbols.linenr = '⭡'
 
 
 "tagbar related settings
@@ -224,4 +221,19 @@ autocmd FileType html set sw=2
 autocmd FileType html set ts=2
 autocmd FileType html set sts=2
 
+" No backup
+set nobackup
+set noswapfile
+
+" Paste large amount of text in vim
+set pastetoggle=<F2>
+
+" Save key stroke
+nnoremap ; :
+
+" Space the final frontier
+let mapleader = "\<Space>"
+
+nnoremap <Leader>o :CtrlP<CR>
+nnoremap <Leader>w :w<CR>
 
