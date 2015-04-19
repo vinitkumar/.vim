@@ -32,6 +32,9 @@ Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
 Plugin 'bronson/vim-trailing-whitespace'
+Plugin 'mhinz/vim-startify'
+Plugin 'scrooloose/syntastic'
+
 
 """"""""""""""""""""""""""""""
 " vim-powerline symbols
@@ -59,7 +62,7 @@ set guioptions-=L
 
 
 
-" General 
+" General
 
 set nu
 set numberwidth=3
@@ -68,8 +71,8 @@ syntax on
 set autoread
 
 set background=dark
-colorscheme gotham256
-let g:colors_name="gotham256"
+colorscheme molokai
+let g:colors_name="molokai"
 set guifont=Monaco:h12
 set antialias
 " Whitespace
@@ -86,10 +89,14 @@ set wildmenu                    " Show list instead of just completing
 set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
 set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
 set scrolljump=5                " Lines to scroll when cursor leaves screen
-set scrolloff=3                 " Minimum lines to keep above and below cursor
+set scrolloff=999               " Minimum lines to keep above and below cursor
 set foldenable                  " Auto fold code
 set list
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+set splitbelow
+set splitright
+set visualbell
+
 
 " }
 
@@ -236,4 +243,30 @@ let mapleader = "\<Space>"
 
 nnoremap <Leader>o :CtrlP<CR>
 nnoremap <Leader>w :w<CR>
+
+" Use tab as emap character
+imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+
+" cd to the directory containing the file in the buffer. Both the local
+" and global flavors.
+nmap <leader>cd :cd %:h<CR>
+nmap <leader>lcd :lcd %:h<CR>
+
+" Shortcut to edit the vimrc
+nmap <silent> <leader>vimrc :e ~/.vimrc<CR>
+
+" Shortcut to yanking to the system clipboard
+map <leader>y "*y
+map <leader>p "*p
+
+
+" Command to write as root if we dont' have permission
+cmap w!! %!sudo tee > /dev/null %
+
+" AutoCMDs
+
+" Clear whitespace at the end of lines automatically
+autocmd BufWritePre * :%s/\s\+$//e
+
+let g:syntastic_python_checker="pyflakes"
 
