@@ -32,7 +32,7 @@ Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
 Plugin 'bronson/vim-trailing-whitespace'
-
+Plugin 'fatih/vim-go'
 
 """"""""""""""""""""""""""""""
 " vim-powerline symbols
@@ -242,8 +242,6 @@ let mapleader = "\<Space>"
 nnoremap <Leader>o :CtrlP<CR>
 nnoremap <Leader>w :w<CR>
 
-" Use tab as emap character
-imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 
 " cd to the directory containing the file in the buffer. Both the local
 " and global flavors.
@@ -266,3 +264,10 @@ cmap w!! %!sudo tee > /dev/null %
 " Clear whitespace at the end of lines automatically
 autocmd BufWritePre * :%s/\s\+$//e
 
+
+" Vim-Go related Settings
+let g:go_errcheck_bin="/Users/vinitkumar/go/bin/errcheck"
+let g:go_golint_bin="/Users/vinitkumar/go/bin/golint"
+let g:go_fmt_autosave = 1
+let g:github_upstream_issues = 1
+set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
