@@ -32,8 +32,6 @@ Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
 Plugin 'bronson/vim-trailing-whitespace'
-Plugin 'mhinz/vim-startify'
-Plugin 'scrooloose/syntastic'
 
 
 """"""""""""""""""""""""""""""
@@ -268,11 +266,3 @@ cmap w!! %!sudo tee > /dev/null %
 " Clear whitespace at the end of lines automatically
 autocmd BufWritePre * :%s/\s\+$//e
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 1
