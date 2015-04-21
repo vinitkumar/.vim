@@ -1,8 +1,8 @@
 ## Dotvim
 
-These are my dotvim files that I use in my daily development. I have for long used a modified version of 
+These are my dotvim files that I use in my daily development. I have for long used a modified version of
 spf13 with heavy customizations on top of it. But with time, it felt a bit sluggish and heavy. So decided
-to start my .vimrc from scratch. The following config is a direct result of this. It feels very fast and it 
+to start my .vimrc from scratch. The following config is a direct result of this. It feels very fast and it
 is fun to write code in my Vim again. Hope you enjoy it and if you do, you can tip me here at https://gratipay.com/vinitkme/. Thanks! :)
 
 ## Installation:
@@ -32,6 +32,11 @@ cp vimrc.before ~/.vimrc.before
 cp vimrc.bundles ~/.vimrc.bundles
 vim +BundleInstall +qall
 ```
+
+## Fonts
+
+Install the font [Inconsolata for Powerline.otf](https://github.com/powerline/fonts/raw/master/Inconsolata/Inconsolata%20for%20Powerline.otf)
+
 
 ## Notes:
 

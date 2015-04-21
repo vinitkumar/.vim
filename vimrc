@@ -71,7 +71,7 @@ set autoread
 set background=dark
 colorscheme molokai
 let g:colors_name="molokai"
-set guifont=Monaco:h12
+set guifont=Inconsolata\ for\ Powerline:h14
 set antialias
 " Whitespace
 
@@ -271,3 +271,4 @@ let g:go_golint_bin="/Users/vinitkumar/go/bin/golint"
 let g:go_fmt_autosave = 1
 let g:github_upstream_issues = 1
 set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
+
