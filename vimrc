@@ -9,29 +9,11 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'davidhalter/jedi-vim'
 Plugin 'scrooloose/nerdtree'
-Plugin 'kien/ctrlp.vim'
-Plugin 'tmhedberg/SimpylFold'
 Plugin 'bling/vim-airline'
-Plugin 'chriskempson/base16-vim'
 Plugin 'sjl/badwolf'
-Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-easytags'
-Plugin 'majutsushi/tagbar'
-Plugin 'vinitkumar/vim-tomorrow-theme'
-Plugin 'mrtazz/DoxygenToolkit.vim'
-Plugin 'Ack.vim'
 Plugin 'mattn/webapi-vim'
 Plugin 'mattn/gist-vim'
-Plugin 'groenewege/vim-less'
-Plugin 'mattn/emmet-vim'
-Plugin 'whatyouhide/vim-gotham'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
-Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'fatih/vim-go'
 
 """"""""""""""""""""""""""""""
@@ -43,16 +25,6 @@ let g:airline_left_sep = '⮀'
 let g:airline_left_alt_sep = '⮁'
 let g:airline_right_sep = '⮂'
 let g:airline_right_alt_sep = '⮃'
-
-
-"tagbar related settings
-set tags=./tags;,~/.vimtags
-+" Sensible defaults
-let g:easytags_events = ['BufReadPost', 'BufWritePost']
-let g:easytags_async = 1
-let g:easytags_dynamic_files = 2
-let g:easytags_resolve_links = 1
-let g:easytags_suppress_ctags_warning = 1
 
 " Disable the scrollbars
 set guioptions-=r
@@ -175,11 +147,6 @@ if &term == 'xterm' || &term == 'screen'
 	set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
 endif
 
-" CtrlP related settings
-let g:ctrlp_working_path_mode = ''
-set wildignore=.svn,CVS,.git,.hg,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,.DS_Store,*.aux,*.out,*.toc,tmp,*.scssc,*.pyc,tags
-set wildmenu
-
 
 " Gist related settings
 
@@ -188,15 +155,6 @@ let g:gist_open_browser_after_post = 1
 let g:gist_clip_command = 'pbcopy'
 let g:gist_post_private = 1
 let g:gist_get_multiplefile = 1
-
-
-" Configuration
-let g:DoxygenToolkit_briefTag_pre="@Synopsis  "
-let g:DoxygenToolkit_paramTag_pre="@Param "
-let g:DoxygenToolkit_returnTag="@Returns   "
-let g:DoxygenToolkit_blockHeader="-------------------------------"
-let g:DoxygenToolkit_blockFooter="---------------------------------"
-let g:DoxygenToolkit_authorName="Vinit Kumar"
 
 
 "Nerdtree
