@@ -1,15 +1,10 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
-" let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
-Plugin 'scrooloose/nerdtree'
 Plugin 'bling/vim-airline'
 Plugin 'sjl/badwolf'
 Plugin 'mattn/webapi-vim'
@@ -17,49 +12,32 @@ Plugin 'mattn/gist-vim'
 Plugin 'fatih/vim-go'
 Plugin 'Shougo/neocomplete.vim'
 
-""""""""""""""""""""""""""""""
-" vim-powerline symbols
 let g:airline_theme             = 'badwolf'
 let g:airline#extensions#syntastic#enabled = 1
-
 let g:airline_left_sep = '⮀'
 let g:airline_left_alt_sep = '⮁'
 let g:airline_right_sep = '⮂'
 let g:airline_right_alt_sep = '⮃'
 
-" Disable the scrollbars
 set guioptions-=r
 set guioptions-=L
-
-
-
-" General
-
 set nu
-set numberwidth=3
 set mouse=a
-syntax on
-set autoread
-
 set background=dark
 colorscheme molokai
 let g:colors_name="molokai"
 set guifont=Inconsolata\ for\ Powerline:h14
 set antialias
-" Whitespace
-
-set backspace=indent,eol,start  " Backspace for dummies
+set backspace=2  " Backspace for dummies
 set linespace=0                 " No extra spaces between rows
 set showmatch                   " Show matching brackets/parenthesis
 set incsearch                   " Find as you type search
 set hlsearch                    " Highlight search terms
 set winminheight=0              " Windows can be 0 line high
-set ignorecase                  " Case insensitive search
 set smartcase                   " Case sensitive when uc present
 set wildmenu                    " Show list instead of just completing
 set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
 set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
-set scrolljump=5                " Lines to scroll when cursor leaves screen
 set scrolloff=999               " Minimum lines to keep above and below cursor
 set foldenable                  " Auto fold code
 set list
@@ -67,55 +45,29 @@ set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic white
 set splitbelow
 set splitright
 set visualbell
-
-
-" }
-
-" Formatting {
-
-set autoindent " Copy indent from last line when starting new line.
-set colorcolumn=80 " mark col 80
-set cursorline " Highlight current line
-set diffopt=filler " Add vertical spaces to keep right and left aligned
-set diffopt+=iwhite " Ignore whitespace changes (focus on code changes)
-set encoding=utf-8 nobomb " BOM often causes trouble
-set esckeys " Allow cursor keys in insert mode.
-set expandtab " Expand tabs to spaces
-set foldcolumn=2 " Column to show folds
-set foldlevel=2
-set foldlevelstart=2 " Sets `foldlevel` when editing a new buffer
-set foldmethod=indent " Markers are used to specify folds.
-set foldnestmax=3 " Set max fold nesting level
 set hidden " When a buffer is brought to foreground, remember undo history and marks.
 set history=100 " Increase history from 20 default to 1000
 set laststatus=2 " Always show status line
-set magic " Enable extended regexes.
 set nocompatible " Make vim more useful
 set noerrorbells " Disable error bells.
 set nostartofline
-set noshowmode
-set report=0 " Show all changes.
 set ruler " Show the cursor position
-set tabstop=2
-set softtabstop=2 " Tab key results in 2 spaces
 set title " Show the filename in the window titlebar.
-set ttyfast " Send more characters at a given time.
-set wildchar=<TAB> " Character for CLI expansion (TAB-completion).
-set wildmenu " Hitting TAB in command mode will show possible completions above command line.
-set wildmode=list:longest " Complete only until point of ambiguity.
-
-set wrap
-set textwidth=79
-set formatoptions=qrn1
-
-
-" We do utf-8
 scriptencoding utf-8
 set encoding=utf-8
-
-" Tagbar related settings
-nmap <F8> :TagbarToggle<CR>
-
+set nobackup
+set noswapfile
+set pastetoggle=<F2>
+nnoremap ; :
+let mapleader = "\<Space>"
+nnoremap <Leader>w :w<CR>
+nmap <leader>cd :cd %:h<CR>
+nmap <leader>lcd :lcd %:h<CR>
+nmap <silent> <leader>vimrc :e ~/.vimrc<CR>
+map <leader>y "*y
+map <leader>p "*p
+cmap w!! %!sudo tee > /dev/null %
+autocmd BufWritePre * :%s/\s\+$//e
 
 " Add the virtualenv's site-packages to vim path
 if has('python')
@@ -159,8 +111,8 @@ let g:gist_get_multiplefile = 1
 
 
 "Nerdtree
-nmap <C-u> :NERDTreeToggle<CR>
-let NERDTreeIgnore = ['\.pyc$']
+"nmap <C-u> :NERDTreeToggle<CR>
+"let NERDTreeIgnore = ['\.pyc$']
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -169,59 +121,26 @@ filetype plugin indent on    " required
 " Spell check always on
 set spell spelllang=en_us
 
-" Python Specific settings
 autocmd FileType python set sw=4
 autocmd FileType python set ts=4
 autocmd FileType python set sts=4
-
-" JavaScript
+autocmd FileType go set sw=4
+autocmd FileType go set tabstop=4
+autocmd FileType go set sts=0
+autocmd FileType go set expandtab
+autocmd FileType go set smarttab
 autocmd FileType javascript set sw=2
 autocmd FileType javascript set ts=2
 autocmd FileType javascript set sts=2
-
-
-" html
 autocmd FileType html set sw=2
 autocmd FileType html set ts=2
 autocmd FileType html set sts=2
-
-" No backup
-set nobackup
-set noswapfile
-
-" Paste large amount of text in vim
-set pastetoggle=<F2>
-
-" Save key stroke
-nnoremap ; :
-
-" Space the final frontier
-let mapleader = "\<Space>"
-
-nnoremap <Leader>o :CtrlP<CR>
-nnoremap <Leader>w :w<CR>
-
-
-" cd to the directory containing the file in the buffer. Both the local
-" and global flavors.
-nmap <leader>cd :cd %:h<CR>
-nmap <leader>lcd :lcd %:h<CR>
-
-" Shortcut to edit the vimrc
-nmap <silent> <leader>vimrc :e ~/.vimrc<CR>
-
-" Shortcut to yanking to the system clipboard
-map <leader>y "*y
-map <leader>p "*p
-
-
-" Command to write as root if we dont' have permission
-cmap w!! %!sudo tee > /dev/null %
-
-" AutoCMDs
-
-" Clear whitespace at the end of lines automatically
-autocmd BufWritePre * :%s/\s\+$//e
+au FileType go nmap <Leader>i <Plug>(go-info)
+au FileType go nmap <Leader>gd <Plug>(go-doc)
+au FileType go nmap <Leader>r <Plug>(go-run)
+au FileType go nmap <Leader>b <Plug>(go-build)
+au FileType go nmap <Leader>t <Plug>(go-test)
+au FileType go nmap gd <Plug>(go-def-tab)
 
 
 " Vim-Go related Settings
@@ -230,42 +149,23 @@ let g:go_golint_bin="/Users/vinitkumar/go/bin/golint"
 let g:go_fmt_autosave = 1
 let g:github_upstream_issues = 1
 setlocal omnifunc=go#complete#Complete
+let g:acp_enableAtStartup = 0
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 
- " Disable AutoComplPop.
- let g:acp_enableAtStartup = 0
- " Use neocomplete.
- let g:neocomplete#enable_at_startup = 1
- " Use smartcase.
- let g:neocomplete#enable_smart_case = 1
- " Set minimum syntax keyword length.
- let g:neocomplete#sources#syntax#min_keyword_length = 3
-
- " Plugin key-mappings.
- inoremap <expr><C-g>     neocomplete#undo_completion()
- inoremap <expr><C-l>     neocomplete#complete_common_string()
-
- " Recommended key-mappings.
- " <CR>: close popup and save indent.
- inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
- function! s:my_cr_function()
+function! s:my_cr_function()
      return neocomplete#close_popup() . "\<CR>"
- endfunction
- " <TAB>: completion.
- inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
- " <C-h>, <BS>: close popup and delete backword char.
- inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
- inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
- inoremap <expr><C-y>  neocomplete#close_popup()
- inoremap <expr><C-e>  neocomplete#cancel_popup()
+endfunction
 
- " Go related mappings
- au FileType go nmap <Leader>i <Plug>(go-info)
- au FileType go nmap <Leader>gd <Plug>(go-doc)
- au FileType go nmap <Leader>r <Plug>(go-run)
- au FileType go nmap <Leader>b <Plug>(go-build)
- au FileType go nmap <Leader>t <Plug>(go-test)
- au FileType go nmap gd <Plug>(go-def-tab)
-
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
 
 set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
 
