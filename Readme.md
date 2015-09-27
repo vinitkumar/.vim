@@ -14,6 +14,7 @@ git clone git@github.com:vinitkumar/.vim.git
 git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 cd .vim
 cp vimrc ~/.vimrc
+cp gvimrc ~/.gvimrc
 vim +BundleInstall +qall
 ```
 
