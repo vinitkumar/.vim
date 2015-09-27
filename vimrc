@@ -216,5 +216,7 @@ nmap <C-u> :NERDTreeToggle<CR>
 nmap <C-c> :NERDTreeCWD<CR>
 let NERDTreeIgnore = ['\.pyc$']
 
+highlight ExtraWhitespace ctermbg=darkgreen guibg=lightgreen
+
 set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
 
