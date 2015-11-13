@@ -10,7 +10,7 @@ import re
 ipdb_breakpoint = 'import ipdb; ipdb.set_trace()'
 pprint_block = 'import pprint; pprint.pprint()'
 tenjin_breakpoint = '<?py import ipdb; ipdb.set_trace() ?>'
-js_breakpoint = 'console.log();'
+js_breakpoint = 'debugger;'
 go_breakpoint = 'log.Println()'
 
 def set_pprint():

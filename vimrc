@@ -11,12 +11,14 @@ Plugin 'sjl/badwolf'
 Plugin 'mattn/webapi-vim'
 Plugin 'mattn/gist-vim'
 Plugin 'fatih/vim-go'
+Plugin 'klen/python-mode'
 Plugin 'Shougo/neocomplete.vim'
+Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdtree'
 Plugin 'wakatime/vim-wakatime'
 Plugin 'vinitkumar/vim-misc'
 Plugin 'kien/ctrlp.vim'
-Plugin 'mileszs/ack.vim'
+Plugin 'rking/ag.vim'
 Plugin 'scrooloose/syntastic'
 Plugin 'mitsuhiko/fruity-vim-colorscheme'
 Plugin 'tpope/vim-git'
@@ -25,8 +27,10 @@ Plugin 'tpope/vim-commentary'
 Plugin 'pangloss/vim-javascript'
 Plugin 'maksimr/vim-jsbeautify'
 Plugin 'exu/pgsql.vim'
+"Plugin 'xolox/vim-colorscheme-switcher'
+"Plugin 'xolox/vim-misc'
 Plugin 'mitsuhiko/vim-python-combined'
-
+Plugin 'google/vim-colorscheme-primary'
 
 let g:airline_theme             = 'badwolf'
 let g:airline#extensions#syntastic#enabled = 1
@@ -37,10 +41,11 @@ let g:airline_right_alt_sep = '⮃'
 
 set nu
 set mouse=a
-set background=dark
-colorscheme fruity
+set t_Co=256
+set background=light
+colorscheme primary
 let g:colors_name="molokai"
-set guifont=Inconsolata\ for\ Powerline:h14
+set guifont=Monaco:h12
 set antialias
 set backspace=2  " Backspace for dummies
 set linespace=0                 " No extra spaces between rows
@@ -74,7 +79,7 @@ map <leader>y "*y
 map <leader>p "*p
 cmap w!! %!sudo tee > /dev/null %
 autocmd BufWritePre * :%s/\s\+$//e
-
+nmap <F8> :TagbarToggle<CR>
 " Add the virtualenv's site-packages to vim path
 if has('python')
 py << EOF
@@ -185,7 +190,10 @@ au FileType go nmap <Leader>r <Plug>(go-run)
 au FileType go nmap <Leader>b <Plug>(go-build)
 au FileType go nmap <Leader>t <Plug>(go-test)
 au FileType go nmap gd <Plug>(go-def-tab)
-
+au BufNewFile,BufRead *.js, *.html, *.css, *.less
+    \ set tabstop=2
+    \ set softtabstop=2
+    \ set shiftwidth=2
 
 " Vim-Go related Settings
 let g:go_errcheck_bin="/Users/vinitkumar/go/bin/errcheck"
