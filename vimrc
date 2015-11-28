@@ -141,6 +141,7 @@ autocmd FileType python setlocal expandtab sw=4 ts=4 sts=4
 autocmd FileType c setlocal expandtab sw=2 ts=2 sts=2
 autocmd FileType html setlocal expandtab sw=2 ts=2 sts=2
 autocmd FileType less setlocal expandtab sw=2 ts=2 sts=2
+autocmd FileType htmldjango setlocal expandtab sw=2 ts=2 sts=2
 autocmd FileType css setlocal expandtab sw=2 ts=2 sts=2
 au FileType go nmap <Leader>i <Plug>(go-info)
 au FileType go nmap <Leader>gd <Plug>(go-doc)
