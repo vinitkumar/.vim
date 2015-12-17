@@ -10,8 +10,10 @@ if has("gui_macvim")
   macm Window.Select\ Previous\ Tab  key=<D-M-LEFT>
   macm Window.Select\ Next\ Tab	   key=<D-M-RIGHT>
 
-  " Open new window via cmd+shift+n
-  macmenu File.New\ Window key=<D-N>
+  " create a new menu item with title "New File" and bind it to cmd+n
+  " new files will be created on a new tab
+  an 10.190 File.New\ File <nop>
+  macmenu File.New\ File action=addNewTab: key=<D-n>
 
 endif
 

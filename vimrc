@@ -166,6 +166,10 @@ inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 
 
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+let g:ctrlp_match_window_bottom = 0		" show the match window at the top of the screen
+let g:ctrlp_by_filename = 1
+let g:ctrlp_max_height = 10				" maxiumum height of match window
+let g:ctrlp_switch_buffer = 'et'		" jump to a file if it's open already
 
 function! s:my_cr_function()
      return neocomplete#close_popup() . "\<CR>"
