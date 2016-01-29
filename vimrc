@@ -11,7 +11,9 @@ Plugin 'sjl/badwolf'
 Plugin 'mattn/webapi-vim'
 Plugin 'mattn/gist-vim'
 Plugin 'fatih/vim-go'
+
 Plugin 'pangloss/vim-javascript'
+Plugin 'othree/yajs.vim'
 Plugin 'Shougo/neocomplete.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdtree'
@@ -42,10 +44,13 @@ let g:airline_right_alt_sep = '⮃'
 set nu
 set mouse=a
 set t_Co=256
-set background=dark
-colorscheme badwolf
-let g:colors_name="molokai"
+set colorcolumn=100
+syntax on
+let g:colors_name="solarized"
 set guifont=Monaco:h12
+set background=dark
+colorscheme solarized
+let g:solarized_termcolors=256
 set antialias
 set backspace=2  " Backspace for dummies
 set linespace=0                 " No extra spaces between rows
@@ -137,6 +142,7 @@ autocmd FileType go set sts=0
 autocmd FileType go set expandtab
 autocmd FileType go set smarttab
 autocmd FileType javascript setlocal expandtab sw=2 ts=2 sts=2
+autocmd FileType json setlocal expandtab sw=2 ts=2 sts=2
 autocmd FileType python setlocal expandtab sw=4 ts=4 sts=4
 autocmd FileType c setlocal expandtab sw=2 ts=2 sts=2
 autocmd FileType html setlocal expandtab sw=2 ts=2 sts=2

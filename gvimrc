@@ -33,5 +33,8 @@ elseif has("gui_gtk2")
 endif
 
 set t_Co=256
+syntax on
 set background=dark
-colorscheme badwolf
+let g:gruvbox_contrast_dark='hard'
+colorscheme solarized
+let g:solarized_termcolors=256

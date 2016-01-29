@@ -38,7 +38,6 @@ vim +BundleInstall +qall
 
 Install the font [Inconsolata for Powerline.otf](https://github.com/powerline/fonts/raw/master/Inconsolata/Inconsolata%20for%20Powerline.otf)
 
-
 ## Notes:
 
 Patches and fixes are most welcome. Just make sure that you aren't breaking something. Also, open issues
