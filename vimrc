@@ -1,55 +1,32 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" cleaner way to add bundles
+source ~/bundles.vim
 
-" Add Bundles below
-Plugin 'gmarik/Vundle.vim'
-Plugin 'bling/vim-airline'
-Plugin 'sjl/badwolf'
-Plugin 'mattn/webapi-vim'
-Plugin 'mattn/gist-vim'
-Plugin 'fatih/vim-go'
-
-Plugin 'pangloss/vim-javascript'
-Plugin 'othree/yajs.vim'
-Plugin 'Shougo/neocomplete.vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'scrooloose/nerdtree'
-Plugin 'wakatime/vim-wakatime'
-Plugin 'vinitkumar/vim-misc'
-Plugin 'kien/ctrlp.vim'
-Plugin 'rking/ag.vim'
-Plugin 'mitsuhiko/fruity-vim-colorscheme'
-Plugin 'tpope/vim-git'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-commentary'
-Plugin 'maksimr/vim-jsbeautify'
-Plugin 'exu/pgsql.vim'
-Plugin 'jelera/vim-javascript-syntax'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'Raimondi/delimitMate'
-
-"Plugin 'xolox/vim-colorscheme-switcher'
-"Plugin 'xolox/vim-misc'
-Plugin 'google/vim-colorscheme-primary'
-
+" Airline related settings
 let g:airline_theme             = 'badwolf'
 let g:airline_left_sep = '⮀'
 let g:airline_left_alt_sep = '⮁'
 let g:airline_right_sep = '⮂'
 let g:airline_right_alt_sep = '⮃'
 
-set nu
-set mouse=a
-set t_Co=256
-set colorcolumn=100
 syntax on
-let g:colors_name="solarized"
+
+" Theming
 set guifont=Monaco:h12
 set background=dark
-colorscheme solarized
+colorscheme badwolf
+
+" Core Settings
+set nu "show numbers
+set mouse=a "enable numbers
+set cursorline "enable cursorline
+set t_Co=256
+set colorcolumn=100
+set guifont=Monaco:h12
+set background=dark
+colorscheme badwolf
 let g:solarized_termcolors=256
 set antialias
 set backspace=2  " Backspace for dummies
@@ -62,7 +39,6 @@ set splitright
 set hidden " When a buffer is brought to foreground, remember undo history and marks.
 set history=100 " Increase history from 20 default to 1000
 set laststatus=2 " Always show status line
-set nocompatible " Make vim more useful
 set noerrorbells " Disable error bells.
 set nostartofline
 set ruler " Show the cursor position
@@ -75,7 +51,7 @@ set encoding=utf-8
 set nobackup
 set noswapfile
 set pastetoggle=<F2>
-nnoremap ; :
+
 let mapleader = "\<Space>"
 nmap <silent> <leader>vimrc :e ~/.vimrc<CR>
 map <leader>y "*y
@@ -83,6 +59,7 @@ map <leader>p "*p
 cmap w!! %!sudo tee > /dev/null %
 autocmd BufWritePre * :%s/\s\+$//e
 nmap <F8> :TagbarToggle<CR>
+
 " Add the virtualenv's site-packages to vim path
 if has('python')
 py << EOF
@@ -161,6 +138,10 @@ let g:go_errcheck_bin="/Users/vinitkumar/go/bin/errcheck"
 let g:go_golint_bin="/Users/vinitkumar/go/bin/golint"
 let g:go_fmt_autosave = 1
 let g:github_upstream_issues = 1
+let g:go_disable_autoinstall = 0
+
+
+"NeoComplete related magic
 setlocal omnifunc=go#complete#Complete
 let g:acp_enableAtStartup = 0
 let g:neocomplete#enable_at_startup = 1
@@ -169,7 +150,15 @@ let g:neocomplete#sources#syntax#min_keyword_length = 3
 inoremap <expr><C-g>     neocomplete#undo_completion()
 inoremap <expr><C-l>     neocomplete#complete_common_string()
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
 
+function! s:my_cr_function()
+     return neocomplete#close_popup() . "\<CR>"
+endfunction
 
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 let g:ctrlp_match_window_bottom = 0		" show the match window at the top of the screen
@@ -177,21 +166,15 @@ let g:ctrlp_by_filename = 1
 let g:ctrlp_max_height = 10				" maxiumum height of match window
 let g:ctrlp_switch_buffer = 'et'		" jump to a file if it's open already
 
-function! s:my_cr_function()
-     return neocomplete#close_popup() . "\<CR>"
-endfunction
-
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplete#close_popup()
-inoremap <expr><C-e>  neocomplete#cancel_popup()
 
 "Nerdtree
 nmap <C-u> :NERDTreeToggle<CR>
 nmap <C-c> :NERDTreeCWD<CR>
 let NERDTreeIgnore = ['\.pyc$']
 
+let g:syntastic_mode_map = { 'mode': 'passive' }
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+let g:syntastic_javascript_checkers = ['eslint']
 
 highlight ExtraWhitespace ctermbg=darkgreen guibg=lightgreen
 
