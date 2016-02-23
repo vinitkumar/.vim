@@ -170,12 +170,13 @@ let g:ctrlp_switch_buffer = 'et'		" jump to a file if it's open already
 "Nerdtree
 nmap <C-u> :NERDTreeToggle<CR>
 nmap <C-c> :NERDTreeCWD<CR>
+nmap <C-s> :SyntasticCheck<CR>
 let NERDTreeIgnore = ['\.pyc$']
 
 let g:syntastic_mode_map = { 'mode': 'passive' }
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 let g:syntastic_javascript_checkers = ['eslint']
-
+let g:syntastic_javascript_eslint_args = "--no-eslintrc --config ~/.eslintrc.js"
 highlight ExtraWhitespace ctermbg=darkgreen guibg=lightgreen
 
 set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
