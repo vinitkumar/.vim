@@ -13,6 +13,15 @@ let g:airline_right_alt_sep = '⮃'
 
 syntax on
 
+if exists("+cursorline")
+    augroup CursorLine
+        autocmd!
+        autocmd InsertEnter * set cursorline
+        autocmd InsertLeave * set nocursorline
+    augroup end
+endif
+
+
 " Theming
 set guifont=Monaco:h12
 set background=dark
