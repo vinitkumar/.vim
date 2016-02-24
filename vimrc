@@ -45,6 +45,8 @@ set list
 set listchars=tab:›\ ,eol:¬,trail:⋅ "Set the characters for the invisibles
 set splitbelow
 set splitright
+set undolevels=1000                    " Never can be too careful when it comes to undoing
+"
 set hidden " When a buffer is brought to foreground, remember undo history and marks.
 set history=100 " Increase history from 20 default to 1000
 set laststatus=2 " Always show status line
