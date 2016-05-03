@@ -3,6 +3,14 @@ filetype off                  " required
 
 " cleaner way to add bundles
 source ~/bundles.vim
+set clipboard=unnamed
+
+" " Remove the delay when escaping from insert-mode
+set timeoutlen=1000 ttimeoutlen=0
+" " Enable mouse support
+set mouse=a
+set ttyfast
+set ttymouse=xterm2
 
 " Airline related settings
 let g:airline_theme             = 'badwolf'
@@ -23,9 +31,8 @@ endif
 
 
 " Theming
-set guifont=Monaco:h12
+set guifont=Monaco:h11
 set background=dark
-colorscheme badwolf
 
 " Core Settings
 set nu "show numbers
@@ -133,7 +140,11 @@ autocmd FileType javascript setlocal expandtab sw=2 ts=2 sts=2
 autocmd FileType json setlocal expandtab sw=2 ts=2 sts=2
 autocmd FileType python setlocal expandtab sw=4 ts=4 sts=4
 autocmd FileType c setlocal expandtab sw=2 ts=2 sts=2
+autocmd FileType php setlocal expandtab sw=2 ts=2 sts=2
+autocmd BufNewFile,BufReadPost *.jade set filetype=pug
+autocmd FileType jade setlocal expandtab sw=2 ts=2 sts=2
 autocmd FileType html setlocal expandtab sw=2 ts=2 sts=2
+autocmd FileType jade setlocal expandtab sw=2 ts=2 sts=2
 autocmd FileType less setlocal expandtab sw=2 ts=2 sts=2
 autocmd FileType htmldjango setlocal expandtab sw=2 ts=2 sts=2
 autocmd FileType css setlocal expandtab sw=2 ts=2 sts=2
@@ -147,6 +158,7 @@ au FileType go nmap gd <Plug>(go-def-tab)
 " Vim-Go related Settings
 let g:go_errcheck_bin="/Users/vinitkumar/go/bin/errcheck"
 let g:go_golint_bin="/Users/vinitkumar/go/bin/golint"
+let g:go_fmt_command = "goimports"
 let g:go_fmt_autosave = 1
 let g:github_upstream_issues = 1
 let g:go_disable_autoinstall = 0
@@ -171,12 +183,42 @@ function! s:my_cr_function()
      return neocomplete#close_popup() . "\<CR>"
 endfunction
 
+
+let g:ctrlp_working_path_mode = 'ra'	" search for nearest ancestor like .git, .hg, and the directory of the current file
+let g:ctrlp_match_window_bottom = 0		" show the match window at the top of the screen
+let g:ctrlp_by_filename = 1
+let g:ctrlp_max_height = 10				" maxiumum height of match window
+let g:ctrlp_switch_buffer = 'et'		" jump to a file if it's open already
+let g:ctrlp_use_caching = 1				" enable caching
+let g:ctrlp_clear_cache_on_exit=0  		" speed up by not removing clearing cache evertime
+let g:ctrlp_mruf_max = 250 				" number of recently opened files
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn|build)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+  \ }
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 let g:ctrlp_match_window_bottom = 0		" show the match window at the top of the screen
 let g:ctrlp_by_filename = 1
 let g:ctrlp_max_height = 10				" maxiumum height of match window
 let g:ctrlp_switch_buffer = 'et'		" jump to a file if it's open already
 
+"Indent
+" Indent lines with cmd+[ and cmd+]
+nmap <D-]> >>
+nmap <D-[> <<
+vmap <D-[> <gv
+vmap <D-]> >gv
+
+"More bindings
+
+" Open goto symbol on current buffer
+nmap <D-r> :MyCtrlPTag<cr>
+imap <D-r> <esc>:MyCtrlPTag<cr>
+
+" Open goto symbol on all buffers
+nmap <D-R> :CtrlPBufTagAll<cr>
+imap <D-R> <esc>:CtrlPBufTagAll<cr>
 
 "Nerdtree
 nmap <C-u> :NERDTreeToggle<CR>
@@ -189,6 +231,35 @@ let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_args = "--no-eslintrc --config ~/.eslintrc.js"
 highlight ExtraWhitespace ctermbg=darkgreen guibg=lightgreen
+
+" Return indent (all whitespace at start of a line), converted from
+" tabs to spaces if what = 1, or from spaces to tabs otherwise.
+" When converting to tabs, result has no redundant spaces.
+function! Indenting(indent, what, cols)
+  let spccol = repeat(' ', a:cols)
+  let result = substitute(a:indent, spccol, '\t', 'g')
+  let result = substitute(result, ' \+\ze\t', '', 'g')
+  if a:what == 1
+    let result = substitute(result, '\t', spccol, 'g')
+  endif
+  return result
+endfunction
+
+" Convert whitespace used for indenting (before first non-whitespace).
+" what = 0 (convert spaces to tabs), or 1 (convert tabs to spaces).
+" cols = string with number of columns per tab, or empty to use 'tabstop'.
+" The cursor position is restored, but the cursor will be in a different
+" column when the number of characters in the indent of the line is changed.
+function! IndentConvert(line1, line2, what, cols)
+  let savepos = getpos('.')
+  let cols = empty(a:cols) ? &tabstop : a:cols
+  execute a:line1 . ',' . a:line2 . 's/^\s\+/\=Indenting(submatch(0), a:what, cols)/e'
+  call histdel('search', -1)
+  call setpos('.', savepos)
+endfunction
+command! -nargs=? -range=% Space2Tab call IndentConvert(<line1>,<line2>,0,<q-args>)
+command! -nargs=? -range=% Tab2Space call IndentConvert(<line1>,<line2>,1,<q-args>)
+command! -nargs=? -range=% RetabIndent call IndentConvert(<line1>,<line2>,&et,<q-args>)
 
 set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
 
