@@ -31,18 +31,15 @@ endif
 
 
 " Theming
-set guifont=Monaco:h11
-set background=dark
-
 " Core Settings
 set nu "show numbers
 set mouse=a "enable numbers
 set cursorline "enable cursorline
 set t_Co=256
 set colorcolumn=100
-set guifont=Monaco:h12
+set guifont=Monaco:h11
 set background=dark
-colorscheme badwolf
+colorscheme hybrid
 let g:solarized_termcolors=256
 set antialias
 set backspace=2  " Backspace for dummies
@@ -183,6 +180,8 @@ function! s:my_cr_function()
      return neocomplete#close_popup() . "\<CR>"
 endfunction
 
+"Vim hybrid related settings
+let g:hybrid_custom_term_colors = 1
 
 let g:ctrlp_working_path_mode = 'ra'	" search for nearest ancestor like .git, .hg, and the directory of the current file
 let g:ctrlp_match_window_bottom = 0		" show the match window at the top of the screen
