@@ -36,6 +36,7 @@ let mapleader="\<SPACE>"
 
 " General {
   set backspace=indent,eol,start      " Allow backspace over everything in insert mode.
+  set guifont=Monaco:h11
   set complete-=i
   set smarttab
 
@@ -262,13 +263,6 @@ let mapleader="\<SPACE>"
   " }
 " }
 
-autocmd! BufWritePost * Neomake
-
-let g:neomake_javascript_jshint_maker = {
-    \ 'args': ['--verbose'],
-    \ 'errorformat': '%A%f: line %l\, col %v\, %m \(%t%*\d\)',
-    \ }
-let g:neomake_javascript_enabled_makers = ['eslint']
 
 "Nerdtree
 nmap <C-u> :NERDTreeToggle<CR>
