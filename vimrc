@@ -264,6 +264,43 @@ let mapleader="\<SPACE>"
 " }
 
 
+
+
+autocmd Filetype gitcommit setlocal spell textwidth=72
+autocmd FileType go set sw=4
+autocmd FileType go set tabstop=4
+autocmd FileType go set sts=0
+autocmd FileType go set expandtab
+autocmd FileType go set smarttab
+autocmd FileType javascript setlocal expandtab sw=2 ts=2 sts=2
+autocmd FileType json setlocal expandtab sw=2 ts=2 sts=2
+autocmd FileType python setlocal expandtab sw=4 ts=4 sts=4
+autocmd FileType c setlocal expandtab sw=2 ts=2 sts=2
+autocmd FileType php setlocal expandtab sw=2 ts=2 sts=2
+autocmd BufNewFile,BufReadPost *.jade set filetype=pug
+autocmd FileType jade setlocal expandtab sw=2 ts=2 sts=2
+autocmd FileType html setlocal expandtab sw=2 ts=2 sts=2
+autocmd FileType jade setlocal expandtab sw=2 ts=2 sts=2
+autocmd FileType less setlocal expandtab sw=2 ts=2 sts=2
+autocmd FileType htmldjango setlocal expandtab sw=2 ts=2 sts=2
+autocmd FileType css setlocal expandtab sw=2 ts=2 sts=2
+au FileType go nmap <Leader>i <Plug>(go-info)
+au FileType go nmap <Leader>gd <Plug>(go-doc)
+au FileType go nmap <Leader>r <Plug>(go-run)
+au FileType go nmap <Leader>b <Plug>(go-build)
+au FileType go nmap <Leader>t <Plug>(go-test)
+au FileType go nmap gd <Plug>(go-def-tab)
+
+
+" Vim-Go related Settings
+let g:go_errcheck_bin="/Users/vinitkumar/go/bin/errcheck"
+let g:go_golint_bin="/Users/vinitkumar/go/bin/golint"
+let g:go_fmt_command = "goimports"
+let g:go_fmt_autosave = 1
+let g:github_upstream_issues = 1
+let g:go_disable_autoinstall = 0
+
+
 "Nerdtree
 nmap <C-u> :NERDTreeToggle<CR>
 nmap <C-c> :NERDTreeCWD<CR>
@@ -278,4 +315,5 @@ nmap <D-]> >>
 nmap <D-[> <<
 vmap <D-[> <gv
 vmap <D-]> >gv
+
 
