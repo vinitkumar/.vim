@@ -19,7 +19,7 @@ cp bundles.vim ~/bundles.vim
 vim +BundleInstall +qall
 ```
 
-![vim-screenshot](https://cldup.com/Mn3RzywYbL.png)
+![vim-screenshot](https://cldup.com/jLL_Y6uO09-3000x3000.png)
 
 In order to install the older version of my dotvim:
 
