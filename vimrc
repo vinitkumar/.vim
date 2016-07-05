@@ -7,19 +7,16 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'bling/vim-airline'
   Plug 'sjl/badwolf'
   Plug 'fatih/vim-go'
+  Plug 'mileszs/ack.vim'
   Plug 'pangloss/vim-javascript'
+  Plug 'rizzatti/dash.vim'
   Plug 'scrooloose/nerdtree'
-  Plug 'vinitkumar/vim-misc'
-  Plug 'rking/ag.vim'
   Plug 'mitsuhiko/fruity-vim-colorscheme'
   Plug 'tpope/vim-git'
   Plug 'tpope/vim-fugitive'
-  Plug 'tpope/vim-commentary'
-  Plug 'maksimr/vim-jsbeautify'
-  Plug 'jelera/vim-javascript-syntax'
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'Raimondi/delimitMate'
-" }
+  Plug 'davidosomething/vim-jsdoc'
 
 call plug#end()
 
@@ -30,16 +27,19 @@ if has('syntax') && !exists('g:syntax_on')
   syntax enable
 endif
 
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
 " Map the leader key to ,
 let mapleader="\<SPACE>"
+let g:syntastic_python_checkers=['python', 'pylint']
 
 " General {
   set backspace=indent,eol,start      " Allow backspace over everything in insert mode.
   set guifont=Monaco:h11
+  set noswapfile
   set complete-=i
   set smarttab
-
+  set ttyfast
   set noautoindent        " I indent my code myself.
   set nocindent           " I indent my code myself.
   "set smartindent        " Or I let the smartindent take care of it.
@@ -75,13 +75,15 @@ let mapleader="\<SPACE>"
   set expandtab           " Insert spaces when TAB is pressed.
   set tabstop=2           " Render TABs using this many spaces.
   set shiftwidth=2        " Indentation amount for < and > commands.
-
+  "duplicate line cmd-d
+  map <D-d> yyp
   set noerrorbells        " No beeps.
   set modeline            " Enable modeline.
   set esckeys             " Cursor keys in insert mode.
   set linespace=0         " Set line-spacing to minimum.
   set nojoinspaces        " Prevents inserting two spaces after punctuation on a join (J)
-
+  au! BufWritePost .vimrc so %
+  au! BufWritePost .gvimrc so %
   set list
   set listchars=tab:›\ ,eol:¬,trail:⋅ "Set the characters for the invisibles
   " More natural splits
@@ -291,6 +293,11 @@ au FileType go nmap <Leader>b <Plug>(go-build)
 au FileType go nmap <Leader>t <Plug>(go-test)
 au FileType go nmap gd <Plug>(go-def-tab)
 
+" Ack.vim
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
 
 " Vim-Go related Settings
 let g:go_errcheck_bin="/Users/vinitkumar/go/bin/errcheck"
@@ -302,11 +309,19 @@ let g:go_disable_autoinstall = 0
 
 
 "Nerdtree
-nmap <C-u> :NERDTreeToggle<CR>
+let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
+let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
+let g:NERDTreeShowBookmarks=1
+let g:nerdtree_tabs_focus_on_files=1
+let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+let g:NERDTreeWinSize = 50
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+map <C-u> :NERDTreeToggle<CR>
 nmap <C-c> :NERDTreeCWD<CR>
-nmap <C-s> :SyntasticCheck<CR>
-let NERDTreeIgnore = ['\.pyc$']
 " vim:set ft=vim sw=2 ts=2:
+
+noremap <Leader>h :<C-u>split<CR>
+noremap <Leader>v :<C-u>vsplit<CR>
 
 
 "Indent

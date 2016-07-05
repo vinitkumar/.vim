@@ -19,6 +19,7 @@ endif
 
 if has("gui_macvim")
   set guioptions=aAce
+  let macvim_hig_shift_movement = 1
   set fuoptions=maxvert,maxhorz
   set noballooneval
   set columns=300
@@ -29,12 +30,12 @@ if has("gui_macvim")
   macmenu File.New\ Tab key=<nop>
 elseif has("gui_gtk2")
   set guioptions-=T
-  silent! colorscheme slate
 endif
+set transparency=7
 
 set t_Co=256
 syntax on
 set background=dark
 let g:gruvbox_contrast_dark='hard'
-colorscheme solarized
+colorscheme molokai
 let g:solarized_termcolors=256
