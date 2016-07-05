@@ -11,12 +11,13 @@ In order to install the latest version:
 
 ```sh
 git clone git@github.com:vinitkumar/.vim.git
-git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 cd .vim
 cp vimrc ~/.vimrc
 cp gvimrc ~/.gvimrc
 cp bundles.vim ~/bundles.vim
-vim +BundleInstall +qall
+vim +PlugInstall +qall
 ```
 
 ![vim-screenshot](https://cldup.com/jLL_Y6uO09-3000x3000.png)
