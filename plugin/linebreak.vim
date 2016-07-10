@@ -1,7 +1,4 @@
 set colorcolumn=80
-au BufNewFile *.py :0r ~/.python_header.txt
-au BufNewFile *.go :0r ~/.go_header.txt
-au BufNewFile *.js :0r ~/.js_header.txt
 
 " HTML (tab width 2 chr, no wrapping)
 autocmd FileType html set sw=2
