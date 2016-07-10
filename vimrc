@@ -14,11 +14,17 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'mitsuhiko/fruity-vim-colorscheme'
   Plug 'tpope/vim-git'
   Plug 'tpope/vim-fugitive'
+  Plug 'jreybert/vimagit'
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'Raimondi/delimitMate'
   Plug 'davidosomething/vim-jsdoc'
-
+  Plug 'majutsushi/tagbar'
+  Plug 'craigemery/vim-autotag'
+  Plug 'davidhalter/jedi-vim'
+  Plug 'mhinz/vim-startify'
 call plug#end()
+
+
 
 if has('autocmd')
   filetype plugin indent on
@@ -39,9 +45,13 @@ let g:syntastic_python_checkers=['python', 'pylint']
   set noswapfile
   set complete-=i
   set smarttab
+  set secure
+  set exrc
   set ttyfast
   set noautoindent        " I indent my code myself.
   set nocindent           " I indent my code myself.
+  set omnifunc=syntaxcomplete#Complete
+
   "set smartindent        " Or I let the smartindent take care of it.
 
   set nrformats-=octal
@@ -85,7 +95,7 @@ let g:syntastic_python_checkers=['python', 'pylint']
   au! BufWritePost .vimrc so %
   au! BufWritePost .gvimrc so %
   set list
-  set listchars=tab:›\ ,eol:¬,trail:⋅ "Set the characters for the invisibles
+  set listchars=tab:›\ ,eol:¬,trail:⋅,space:⋅
   " More natural splits
   set splitbelow          " Horizontal split below current.
   set splitright          " Vertical split to right of current.
@@ -121,8 +131,9 @@ let g:syntastic_python_checkers=['python', 'pylint']
     setglobal tags-=./tags tags^=./tags;
   endif
 
+  set secure
+  set exrc
   set autoread            " If file updates, load automatically.
-  set autochdir           " Switch to current file's parent directory.
 
   " Remove special characters for filename
   set isfname-=:
@@ -315,6 +326,7 @@ let g:NERDTreeShowBookmarks=1
 let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 let g:NERDTreeWinSize = 50
+let g:NERDTreeWinPos = "right"
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 map <C-u> :NERDTreeToggle<CR>
 nmap <C-c> :NERDTreeCWD<CR>
