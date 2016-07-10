@@ -1,9 +1,8 @@
 ## Dotvim
 
-These are my dotvim files that I use in my daily development. I have for long used a modified version of
-spf13 with heavy customizations on top of it. But with time, it felt a bit sluggish and heavy. So decided
-to start my .vimrc from scratch. The following config is a direct result of this. It feels very fast and it
-is fun to write code in my Vim again. Hope you enjoy it and if you do, you can tip me here at https://gratipay.com/vinitkme/. Thanks! :)
+My Vim config files for Python, JavaScript and Go development. I now use awesome vim-plug
+to manage the plugins. It's a constant work in progress so expect lot of activity. But I will
+try to keep it as stable as possible.
 
 ## Installation:
 
