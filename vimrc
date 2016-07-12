@@ -1,4 +1,4 @@
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin('~/.vim/plugged')
 
 " Plugs {
   " ctrl-p is a fuzzy file finder.
@@ -9,21 +9,14 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'fatih/vim-go'
   Plug 'mileszs/ack.vim'
   Plug 'pangloss/vim-javascript'
-  Plug 'rizzatti/dash.vim'
   Plug 'scrooloose/nerdtree'
-  Plug 'mitsuhiko/fruity-vim-colorscheme'
   Plug 'tpope/vim-git'
   Plug 'tpope/vim-fugitive'
-  Plug 'jreybert/vimagit'
-  Plug 'nathanaelkane/vim-indent-guides'
-  Plug 'Raimondi/delimitMate'
   Plug 'davidosomething/vim-jsdoc'
   Plug 'majutsushi/tagbar'
   Plug 'craigemery/vim-autotag'
-  Plug 'davidhalter/jedi-vim'
   Plug 'mhinz/vim-startify'
 call plug#end()
-
 
 
 if has('autocmd')
@@ -37,13 +30,11 @@ let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
 " Map the leader key to ,
 let mapleader="\<SPACE>"
-let g:syntastic_python_checkers=['python', 'pylint']
 
 " General {
   set backspace=indent,eol,start      " Allow backspace over everything in insert mode.
-  set guifont=Monaco:h11
+  set guifont=Monaco:h12
   set noswapfile
-  set complete-=i
   set smarttab
   set secure
   set exrc
@@ -68,10 +59,6 @@ let g:syntastic_python_checkers=['python', 'pylint']
   set gdefault            " Use 'g' flag by default with :s/foo/bar/.
   set magic               " Use 'magic' patterns (extended regular expressions).
 
-  " Use <C-L> to clear the highlighting of :set hlsearch.
-  if maparg('<C-L>', 'n') ==# ''
-    nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
-  endif
 " }
 
 " Formatting {
@@ -92,20 +79,14 @@ let g:syntastic_python_checkers=['python', 'pylint']
   set esckeys             " Cursor keys in insert mode.
   set linespace=0         " Set line-spacing to minimum.
   set nojoinspaces        " Prevents inserting two spaces after punctuation on a join (J)
-  au! BufWritePost .vimrc so %
-  au! BufWritePost .gvimrc so %
   set list
   set listchars=tab:›\ ,eol:¬,trail:⋅,space:⋅
-  " More natural splits
   set splitbelow          " Horizontal split below current.
   set splitright          " Vertical split to right of current.
+  set autoread            " If file updates, load automatically.
+  au! BufWritePost .vimrc so %
+  au! BufWritePost .gvimrc so %
 
-  if !&scrolloff
-    set scrolloff=3       " Show next 3 lines while scrolling.
-  endif
-  if !&sidescrolloff
-    set sidescrolloff=5   " Show next 5 columns while side-scrolling.
-  endif
   set display+=lastline
   set nostartofline       " Do not jump to first character with page commands.
 
@@ -118,7 +99,6 @@ let g:syntastic_python_checkers=['python', 'pylint']
   if &listchars ==# 'eol:$'
     set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
   endif
-  set list                " Show problematic characters.
 
   " Also highlight all tabs and trailing whitespace characters.
   highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
@@ -131,9 +111,6 @@ let g:syntastic_python_checkers=['python', 'pylint']
     setglobal tags-=./tags tags^=./tags;
   endif
 
-  set secure
-  set exrc
-  set autoread            " If file updates, load automatically.
 
   " Remove special characters for filename
   set isfname-=:
@@ -228,7 +205,7 @@ let g:syntastic_python_checkers=['python', 'pylint']
 
   " Sets a status line. If in a Git repository, shows the current branch.
   " Also shows the current file name, line and column number.
-  if has('statusline')
+ if has('statusline')
       set laststatus=2
 
       " Broken down into easily includeable segments
@@ -251,6 +228,7 @@ let g:syntastic_python_checkers=['python', 'pylint']
   nmap <Leader>P "+P
   vmap <Leader>p "+p
   vmap <Leader>P "+P
+  nmap <F8> :TagbarToggle<CR>
 " }
 
 " Plug Settings {
