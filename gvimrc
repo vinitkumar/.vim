@@ -23,7 +23,6 @@ if has("gui_macvim")
   set fuoptions=maxvert,maxhorz
   set noballooneval
   set columns=300
-
   " Automatically resize splits
   " when resizing MacVim window
   autocmd VimResized * wincmd =
@@ -31,11 +30,12 @@ if has("gui_macvim")
 elseif has("gui_gtk2")
   set guioptions-=T
 endif
-set transparency=7
+set transparency=0
 
 set t_Co=256
 syntax on
 set background=dark
 let g:gruvbox_contrast_dark='hard'
-colorscheme molokai
+colorscheme Editplus
 let g:solarized_termcolors=256
+let g:neocomplete#enable_at_startup = 1
