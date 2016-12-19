@@ -28,6 +28,7 @@ if has("gui_macvim")
   autocmd VimResized * wincmd =
   macmenu File.New\ Tab key=<nop>
 elseif has("gui_gtk2")
+
   set guioptions-=T
 endif
 set transparency=0
@@ -35,7 +36,7 @@ set transparency=0
 set t_Co=256
 syntax on
 set background=dark
-let g:gruvbox_contrast_dark='hard'
-colorscheme Editplus
+colorscheme hybrid
+set guifont=Inconsolata:h14
 let g:solarized_termcolors=256
 let g:neocomplete#enable_at_startup = 1

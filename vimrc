@@ -10,11 +10,14 @@ call plug#begin('~/.vim/plugged')
   Plug 'mattn/webapi-vim'
   Plug 'scrooloose/syntastic'
   Plug 'mattn/gist-vim'
+  Plug 'trevordmiller/nova-vim'
   Plug 'scrooloose/nerdtree'
   Plug 'digitaltoad/vim-pug'
   Plug 'tpope/vim-git'
+  Plug 'wakatime/vim-wakatime'
   Plug 'Shougo/neocomplete.vim'
   Plug 'tpope/vim-fugitive'
+  Plug 'mileszs/ack.vim'
   Plug 'tweekmonster/django-plus.vim'
   Plug 'davidosomething/vim-jsdoc'
   Plug 'majutsushi/tagbar'
@@ -36,10 +39,10 @@ let mapleader="\<SPACE>"
 
 " General {
   set backspace=indent,eol,start      " Allow backspace over everything in insert mode.
-  set guifont=Monaco:h12
   set noswapfile
   set smarttab
   set secure
+  set termguicolors
   set exrc
   set ttyfast
   set noautoindent        " I indent my code myself.
@@ -53,7 +56,6 @@ let mapleader="\<SPACE>"
   set ttimeout
   set ttimeoutlen=100
 " }
-
 " Search {
   set hlsearch            " Highlight search results.
   set ignorecase          " Make searching case insensitive
@@ -367,17 +369,6 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-" Close popup by <Space>.
-"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
-
-" AutoComplPop like behavior.
-"let g:neocomplete#enable_auto_select = 1
-
-" Shell like behavior(not recommended).
-"set completeopt+=longest
-"let g:neocomplete#enable_auto_select = 1
-"let g:neocomplete#disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
 
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -390,11 +381,8 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 if !exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns = {}
 endif
-"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
-" For perlomni.vim setting.
-" https://github.com/c9s/perlomni.vim
-let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+" Make vim faster in iterm/Terminal.app
+set synmaxcol=128
+syntax sync minlines=256
 
