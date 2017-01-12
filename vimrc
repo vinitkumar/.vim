@@ -10,18 +10,15 @@ call plug#begin('~/.vim/plugged')
   Plug 'mattn/webapi-vim'
   Plug 'scrooloose/syntastic'
   Plug 'mattn/gist-vim'
-  Plug 'trevordmiller/nova-vim'
   Plug 'scrooloose/nerdtree'
   Plug 'digitaltoad/vim-pug'
   Plug 'tpope/vim-git'
   Plug 'wakatime/vim-wakatime'
   Plug 'Shougo/neocomplete.vim'
+  Plug 'hdima/python-syntax'
+  Plug 'zanglg/nova.vim'
   Plug 'tpope/vim-fugitive'
-  Plug 'mileszs/ack.vim'
   Plug 'tweekmonster/django-plus.vim'
-  Plug 'davidosomething/vim-jsdoc'
-  Plug 'majutsushi/tagbar'
-  Plug 'craigemery/vim-autotag'
 call plug#end()
 
 
@@ -41,6 +38,7 @@ let mapleader="\<SPACE>"
   set backspace=indent,eol,start      " Allow backspace over everything in insert mode.
   set noswapfile
   set smarttab
+  set lazyredraw
   set secure
   set termguicolors
   set exrc

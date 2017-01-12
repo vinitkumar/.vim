@@ -22,7 +22,6 @@ if has("gui_macvim")
   let macvim_hig_shift_movement = 1
   set fuoptions=maxvert,maxhorz
   set noballooneval
-  set columns=300
   " Automatically resize splits
   " when resizing MacVim window
   autocmd VimResized * wincmd =
@@ -35,8 +34,10 @@ set transparency=0
 
 set t_Co=256
 syntax on
-set background=dark
-colorscheme hybrid
+set background=light
+set transparency=4
+set termguicolors
+colorscheme badwolf
 set guifont=Inconsolata:h14
 let g:solarized_termcolors=256
 let g:neocomplete#enable_at_startup = 1
