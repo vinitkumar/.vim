@@ -6,7 +6,7 @@ try to keep it as stable as possible.
 
 ## Installation:
 
-In order to install the latest version:
+This project used plug for plugin management so we will first need to install plug and then update all the plugins. In order to install the latest version:
 
 ```sh
 git clone git@github.com:vinitkumar/.vim.git
@@ -15,7 +15,6 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 cd .vim
 cp vimrc ~/.vimrc
 cp gvimrc ~/.gvimrc
-cp bundles.vim ~/bundles.vim
 vim +PlugInstall +qall
 ```
 
