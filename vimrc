@@ -8,17 +8,23 @@ call plug#begin('~/.vim/plugged')
   Plug 'fatih/vim-go'
   Plug 'mileszs/ack.vim'
   Plug 'mattn/webapi-vim'
-  Plug 'scrooloose/syntastic'
+  "Plug 'scrooloose/syntastic'
+  Plug 'w0rp/ale'
+  Plug 'rust-lang/rust.vim'
   Plug 'mattn/gist-vim'
   Plug 'scrooloose/nerdtree'
   Plug 'digitaltoad/vim-pug'
   Plug 'tpope/vim-git'
+  Plug 'colepeters/spacemacs-theme.vim'
   Plug 'wakatime/vim-wakatime'
+  Plug 'liuchengxu/space-vim-dark'
   Plug 'Shougo/neocomplete.vim'
   Plug 'hdima/python-syntax'
   Plug 'zanglg/nova.vim'
   Plug 'tpope/vim-fugitive'
+  "Plug 'python-mode/python-mode'
   Plug 'tweekmonster/django-plus.vim'
+  Plug 'gmarik/ingretu'
 call plug#end()
 
 
@@ -383,4 +389,13 @@ endif
 " Make vim faster in iterm/Terminal.app
 set synmaxcol=128
 syntax sync minlines=256
+let g:syntastic_python_checkers = ['mypy']
 
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'python': ['mypy'],
+\}
+
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 0
+let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']

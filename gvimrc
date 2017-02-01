@@ -34,10 +34,10 @@ set transparency=0
 
 set t_Co=256
 syntax on
-set background=light
+set background=dark
 set transparency=4
 set termguicolors
-colorscheme badwolf
+colorscheme spacemacs-theme
 set guifont=Inconsolata:h14
 let g:solarized_termcolors=256
 let g:neocomplete#enable_at_startup = 1
