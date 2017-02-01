@@ -18,7 +18,7 @@ cp gvimrc ~/.gvimrc
 vim +PlugInstall +qall
 ```
 
-![vim-screenshot](https://cldup.com/858Ow0Plhv.png)
+![vim-screenshot](https://cldup.com/Rm0T_9SQit.png)
 
 In order to install the older version of my dotvim:
 
