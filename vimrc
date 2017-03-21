@@ -12,8 +12,11 @@ call plug#begin('~/.vim/plugged')
   Plug 'w0rp/ale'
   Plug 'rust-lang/rust.vim'
   Plug 'mattn/gist-vim'
+  Plug 'kabbamine/yowish.vim'
   Plug 'scrooloose/nerdtree'
   Plug 'digitaltoad/vim-pug'
+  Plug 'majutsushi/tagbar'
+  Plug 'mileszs/ack.vim'
   Plug 'tpope/vim-git'
   Plug 'colepeters/spacemacs-theme.vim'
   Plug 'wakatime/vim-wakatime'
@@ -46,7 +49,6 @@ let mapleader="\<SPACE>"
   set smarttab
   set lazyredraw
   set secure
-  set termguicolors
   set exrc
   set ttyfast
   set noautoindent        " I indent my code myself.
@@ -72,6 +74,7 @@ let mapleader="\<SPACE>"
 
 " Formatting {
   set showcmd             " Show (partial) command in status line.
+  set colorcolumn=100
   set showmatch           " Show matching brackets.
   set showmode            " Show current mode.
   set ruler               " Show the line and column numbers of the cursor.
@@ -389,7 +392,8 @@ endif
 " Make vim faster in iterm/Terminal.app
 set synmaxcol=128
 syntax sync minlines=256
-let g:syntastic_python_checkers = ['mypy']
+let g:syntastic_python_checkers = ['pylint']
+let g:ale_python_flake8_args="--ignore=E501"
 
 let g:ale_linters = {
 \   'javascript': ['eslint'],
