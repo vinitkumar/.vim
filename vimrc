@@ -45,6 +45,7 @@ let mapleader="\<SPACE>"
 
 " General {
   set backspace=indent,eol,start      " Allow backspace over everything in insert mode.
+  set guifont=Operator\ Mono\ Medium:h14
   set noswapfile
   set smarttab
   set lazyredraw
@@ -397,9 +398,13 @@ let g:ale_python_flake8_args="--ignore=E501"
 
 let g:ale_linters = {
 \   'javascript': ['eslint'],
-\   'python': ['mypy'],
+\   'python': ['pylint'],
 \}
+
+let g:ale_python_pylint_args="--load-plugins pylint_django"
 
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 0
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+highlight Comment gui=italic
+highlight Comment cterm=italic

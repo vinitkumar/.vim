@@ -34,8 +34,10 @@ set transparency=0
 
 set t_Co=256
 syntax on
+set macligatures
+set guifont=Operator\ Mono\ Medium:h14
 set background=dark
 colorscheme yowish
-set guifont=Operator\ Mono\ Medium:h14
-let g:solarized_termcolors=256
 let g:neocomplete#enable_at_startup = 1
+highlight Comment gui=italic
+highlight Comment cterm=italic
