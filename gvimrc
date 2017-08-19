@@ -35,9 +35,9 @@ set transparency=0
 set t_Co=256
 syntax on
 set macligatures
-set guifont=Operator\ Mono\ Medium:h14
+set guifont=Operator\ Mono\ for\ Powerline:h15
 set background=dark
-colorscheme yowish
+colorscheme pychimp
 let g:neocomplete#enable_at_startup = 1
 highlight Comment gui=italic
 highlight Comment cterm=italic

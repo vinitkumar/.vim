@@ -1,33 +1,28 @@
 call plug#begin('~/.vim/plugged')
 
 " Plugs {
-  " ctrl-p is a fuzzy file finder.
-  Plug 'kien/ctrlp.vim'
-  " airline is a better status line and a tab-bar for nvim.
   Plug 'bling/vim-airline'
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
   Plug 'fatih/vim-go'
   Plug 'mileszs/ack.vim'
   Plug 'mattn/webapi-vim'
-  "Plug 'scrooloose/syntastic'
   Plug 'w0rp/ale'
   Plug 'rust-lang/rust.vim'
   Plug 'mattn/gist-vim'
+  Plug 'dracula/vim'
+  Plug 'leafgarland/typescript-vim'
   Plug 'kabbamine/yowish.vim'
   Plug 'scrooloose/nerdtree'
   Plug 'digitaltoad/vim-pug'
   Plug 'majutsushi/tagbar'
   Plug 'mileszs/ack.vim'
   Plug 'tpope/vim-git'
-  Plug 'colepeters/spacemacs-theme.vim'
   Plug 'wakatime/vim-wakatime'
-  Plug 'liuchengxu/space-vim-dark'
   Plug 'Shougo/neocomplete.vim'
   Plug 'hdima/python-syntax'
-  Plug 'zanglg/nova.vim'
   Plug 'tpope/vim-fugitive'
-  "Plug 'python-mode/python-mode'
   Plug 'tweekmonster/django-plus.vim'
-  Plug 'gmarik/ingretu'
 call plug#end()
 
 
@@ -38,14 +33,14 @@ if has('syntax') && !exists('g:syntax_on')
   syntax enable
 endif
 
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+"let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
 " Map the leader key to ,
 let mapleader="\<SPACE>"
 
 " General {
   set backspace=indent,eol,start      " Allow backspace over everything in insert mode.
-  set guifont=Operator\ Mono\ Medium:h14
+  set background=dark
   set noswapfile
   set smarttab
   set lazyredraw
@@ -73,6 +68,19 @@ let mapleader="\<SPACE>"
 
 " }
 
+  if has("gui_running")
+    colorscheme fruity
+    if has("mac")
+      set linespace=3
+      set guifont=Operator\ Mono\ Book\ for\ Powerline:h13
+      if has("gui_macvim")
+        set fuoptions=maxvert,maxhorz
+      endif
+    else
+      set guifont=Operator\ Mono\ Book\ for\ Powerline:h13
+    endif
+  endif
+
 " Formatting {
   set showcmd             " Show (partial) command in status line.
   set colorcolumn=100
@@ -93,7 +101,7 @@ let mapleader="\<SPACE>"
   set linespace=0         " Set line-spacing to minimum.
   set nojoinspaces        " Prevents inserting two spaces after punctuation on a join (J)
   set list
-  set listchars=tab:›\ ,eol:¬,trail:⋅,space:⋅
+  set listchars=tab:›\ ,eol:¬,trail:⋅
   set splitbelow          " Horizontal split below current.
   set splitright          " Vertical split to right of current.
   set autoread            " If file updates, load automatically.
@@ -257,14 +265,6 @@ let mapleader="\<SPACE>"
     let g:airline_right_sep = ' '
     let g:airline_right_alt_sep = '|'
   " }
-  " CtrlP {
-    " Open file menu
-    nnoremap <Leader>o :CtrlP<CR>
-    " Open buffer menu
-    nnoremap <Leader>b :CtrlPBuffer<CR>
-    " Open most recently used files
-    nnoremap <Leader>f :CtrlPMRUFiles<CR>
-  " }
 " }
 
 
@@ -399,6 +399,7 @@ let g:ale_python_flake8_args="--ignore=E501"
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'python': ['pylint'],
+\   'typescript': ['tslint'],
 \}
 
 let g:ale_python_pylint_args="--load-plugins pylint_django"
@@ -408,3 +409,4 @@ let g:ale_lint_on_text_changed = 0
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 highlight Comment gui=italic
 highlight Comment cterm=italic
+let g:gist_get_multiplefile = 1
