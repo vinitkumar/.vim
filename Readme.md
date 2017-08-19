@@ -1,6 +1,6 @@
 ## Dotvim
 
-These are my vim config files that I used daily while writing code in these languages:
+These are my vim config files that I use daily while writing code in these languages:
 
 - Python/Django
 - Go
@@ -8,12 +8,9 @@ These are my vim config files that I used daily while writing code in these lang
 - C
 - JavaScript, HTML, CSS
 
-The package manager used for Vim is plug which I highly recommend.
-
-
 ## Installation:
 
-This project used plug for plugin management so we will first need to install plug and then update all the plugins. In order to install the latest version:
+This project uses plug for plugin management so we will first need to install plug and then update all the plugins. In order to install the latest version:
 
 ```sh
 git clone git@github.com:vinitkumar/.vim.git
