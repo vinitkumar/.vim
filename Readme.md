@@ -22,7 +22,7 @@ cp gvimrc ~/.gvimrc
 vim +PlugInstall +qall
 ```
 
-![vim-screenshot](https://cldup.com/B-Ab7riQKm.png)
+![vim-screenshot](https://cldup.com/1-ZXzXpUiS-3000x3000.png)
 
 ## Fonts
 
