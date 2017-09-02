@@ -3,7 +3,7 @@
 These are my config files for writing code in Python, Go, Rust, C and HTML/JS/CSS.
 The config aims to be simple and fast for writing code.
 
-![vim-screenshot](https://cldup.com/B-Ab7riQKm.png)
+![vim-screenshot](https://cldup.com/1-ZXzXpUiS-3000x3000.png)
 
 ### How to Install?
 
@@ -23,9 +23,6 @@ vim +PlugInstall +qall
 I use Operator Mono font for writing my code, you can use any font that you prefer.
 For e.g: In order to change font to something other, change this in your .vimrc:
 
-
 ```
 set guifont=Menlo:h13
 ```
-
-
