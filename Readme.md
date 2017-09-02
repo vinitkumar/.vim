@@ -1,16 +1,14 @@
-## Dotvim
+## .Vim
 
-These are my vim config files that I use daily while writing code in these languages:
+These are my config files for writing code in Python, Go, Rust, C and HTML/JS/CSS.
+The config aims to be simple and fast for writing code.
 
-- Python/Django
-- Go
-- Rust
-- C
-- JavaScript, HTML, CSS
+![vim-screenshot](https://cldup.com/B-Ab7riQKm.png)
 
-## Installation:
+### How to Install?
 
-This project uses plug for plugin management so we will first need to install plug and then update all the plugins. In order to install the latest version:
+This project uses plug for plugin management so we will first need to install plug
+and then update all the plugins. In order to install the latest version:
 
 ```sh
 git clone git@github.com:vinitkumar/.vim.git
@@ -22,9 +20,12 @@ cp gvimrc ~/.gvimrc
 vim +PlugInstall +qall
 ```
 
-![vim-screenshot](https://cldup.com/B-Ab7riQKm.png)
-
-## Fonts
-
 I use Operator Mono font for writing my code, you can use any font that you prefer.
+For e.g: In order to change font to something other, change this in your .vimrc:
+
+
+```
+set guifont=Menlo:h13
+```
+
 
