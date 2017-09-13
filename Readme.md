@@ -26,3 +26,5 @@ For e.g: In order to change font to something other, change this in your .vimrc:
 ```
 set guifont=Menlo:h13
 ```
+
+<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/uyhQ2YHmpDTZbNRraFXJEvTa/vinitkumar/.vim'>  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/uyhQ2YHmpDTZbNRraFXJEvTa/vinitkumar/.vim.svg' /></a>
