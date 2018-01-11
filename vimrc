@@ -2,27 +2,14 @@ call plug#begin('~/.vim/plugged')
 
 " Plugs {
   Plug 'bling/vim-airline'
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'junegunn/fzf.vim'
-  Plug 'fatih/vim-go'
-  Plug 'mileszs/ack.vim'
-  Plug 'mattn/webapi-vim'
+  Plug 'ctrlpvim/ctrlp.vim'
   Plug 'w0rp/ale'
-  Plug 'rust-lang/rust.vim'
-  Plug 'mattn/gist-vim'
-  Plug 'dracula/vim'
-  Plug 'leafgarland/typescript-vim'
-  Plug 'kabbamine/yowish.vim'
   Plug 'scrooloose/nerdtree'
-  Plug 'digitaltoad/vim-pug'
-  Plug 'majutsushi/tagbar'
+  Plug 'pangloss/vim-javascript'
+  Plug 'mxw/vim-jsx'
+  Plug 'mattn/emmet-vim'
   Plug 'mileszs/ack.vim'
-  Plug 'tpope/vim-git'
   Plug 'wakatime/vim-wakatime'
-  Plug 'Shougo/neocomplete.vim'
-  Plug 'hdima/python-syntax'
-  Plug 'tpope/vim-fugitive'
-  Plug 'tweekmonster/django-plus.vim'
 call plug#end()
 
 
@@ -33,7 +20,7 @@ if has('syntax') && !exists('g:syntax_on')
   syntax enable
 endif
 
-"let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
 " Map the leader key to ,
 let mapleader="\<SPACE>"
@@ -50,15 +37,9 @@ let mapleader="\<SPACE>"
   set noautoindent        " I indent my code myself.
   set nocindent           " I indent my code myself.
   set omnifunc=syntaxcomplete#Complete
-
-  "set smartindent        " Or I let the smartindent take care of it.
-
   set nrformats-=octal
-
   set ttimeout
   set ttimeoutlen=100
-" }
-" Search {
   set hlsearch            " Highlight search results.
   set ignorecase          " Make searching case insensitive
   set smartcase           " ... unless the query has capital letters.
@@ -66,22 +47,6 @@ let mapleader="\<SPACE>"
   set gdefault            " Use 'g' flag by default with :s/foo/bar/.
   set magic               " Use 'magic' patterns (extended regular expressions).
 
-" }
-
-  if has("gui_running")
-    colorscheme fruity
-    if has("mac")
-      set linespace=3
-      set guifont=Operator\ Mono\ Book\ for\ Powerline:h13
-      if has("gui_macvim")
-        set fuoptions=maxvert,maxhorz
-      endif
-    else
-      set guifont=Operator\ Mono\ Book\ for\ Powerline:h13
-    endif
-  endif
-
-" Formatting {
   set showcmd             " Show (partial) command in status line.
   set colorcolumn=100
   set showmatch           " Show matching brackets.
@@ -93,7 +58,6 @@ let mapleader="\<SPACE>"
   set expandtab           " Insert spaces when TAB is pressed.
   set tabstop=2           " Render TABs using this many spaces.
   set shiftwidth=2        " Indentation amount for < and > commands.
-  "duplicate line cmd-d
   map <D-d> yyp
   set noerrorbells        " No beeps.
   set modeline            " Enable modeline.
@@ -101,10 +65,11 @@ let mapleader="\<SPACE>"
   set linespace=0         " Set line-spacing to minimum.
   set nojoinspaces        " Prevents inserting two spaces after punctuation on a join (J)
   set list
-  set listchars=tab:›\ ,eol:¬,trail:⋅
+  "set listchars=tab:›\ ,eol:¬,trail:⋅
   set splitbelow          " Horizontal split below current.
   set splitright          " Vertical split to right of current.
   set autoread            " If file updates, load automatically.
+  " Reload vim whenever the config files changes
   au! BufWritePost .vimrc so %
   au! BufWritePost .gvimrc so %
 
@@ -276,7 +241,7 @@ autocmd FileType go set tabstop=4
 autocmd FileType go set sts=0
 autocmd FileType go set expandtab
 autocmd FileType go set smarttab
-autocmd FileType javascript setlocal expandtab sw=2 ts=2 sts=2
+autocmd FileType javascript setlocal expandtab sw=4 ts=4 sts=4
 autocmd FileType json setlocal expandtab sw=2 ts=2 sts=2
 autocmd FileType python setlocal expandtab sw=4 ts=4 sts=4
 autocmd FileType c setlocal expandtab sw=2 ts=2 sts=2
@@ -336,33 +301,6 @@ nmap <D-[> <<
 vmap <D-[> <gv
 vmap <D-]> >gv
 
-" Neocomplete related settings
-let g:acp_enableAtStartup = 0
-let g:neocomplete#enable_at_startup = 1
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-
-" Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
-
-" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
 
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
@@ -374,9 +312,6 @@ function! s:my_cr_function()
 endfunction
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -385,10 +320,6 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
 
 " Make vim faster in iterm/Terminal.app
 set synmaxcol=128
@@ -409,4 +340,5 @@ let g:ale_lint_on_text_changed = 0
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 highlight Comment gui=italic
 highlight Comment cterm=italic
-let g:gist_get_multiplefile = 1
+let g:jsx_ext_required = 0
+
