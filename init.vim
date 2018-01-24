@@ -111,38 +111,19 @@ nnoremap <leader>gt :call OpenInGitTower()<CR>
 call plug#begin()
 
 " UI {{{3
-Plug 'trevordmiller/nova-vim'
 Plug 'vim-airline/vim-airline'            " Handy info
-Plug 'retorillo/airline-tablemode.vim'
-Plug 'edkolev/tmuxline.vim'               " Make the Tmux bar match Vim
-Plug 'ryanoasis/vim-webdevicons'
-Plug 'junegunn/goyo.vim'
+Plug 'herrbischoff/cobalt2.vim'
+
 
 " Project Navigation {{{3
-Plug 'junegunn/fzf',                      { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'mhinz/vim-grepper'
 Plug 'scrooloose/nerdtree'
-Plug 'vim-scripts/ctags.vim'              " ctags related stuff
 Plug 'majutsushi/tagbar'
 
 " File Navigation {{{3
-Plug 'vim-scripts/matchit.zip'            " More powerful % matching
-Plug 'Lokaltog/vim-easymotion'            " Move like the wind!
-Plug 'jeffkreeftmeijer/vim-numbertoggle'  " Smarter line numbers
-Plug 'wellle/targets.vim'
-Plug 'kshenoy/vim-signature'
-Plug 'haya14busa/incsearch.vim'           " Better search highlighting
 
 " Editing {{{3
 Plug 'tpope/vim-surround'                 " Change word surroundings
 Plug 'tpope/vim-commentary'               " Comments stuff
-Plug 'tpope/vim-repeat'
-Plug 'dhruvasagar/vim-table-mode',        { 'on': 'TableModeEnable' }
-Plug 'kana/vim-textobj-user'
-Plug 'sgur/vim-textobj-parameter'
-Plug 'jasonlong/vim-textobj-css'
-Plug 'Konfekt/FastFold'
 Plug 'editorconfig/editorconfig-vim'
 
 " Git
@@ -152,12 +133,7 @@ Plug 'junegunn/gv.vim',                   { 'on': 'GV' }
 Plug 'jez/vim-github-hub'
 
 " Task Running
-Plug 'tpope/vim-dispatch'                 " Run tasks asychronously in Tmux
 Plug 'w0rp/ale'                           " Linter
-Plug 'wincent/terminus'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'Olical/vim-enmasse'                 " Edit all files in a Quickfix list
-Plug 'janko-m/vim-test'
 
 " Autocomplete {{{3
 Plug 'Shougo/deoplete.nvim',              { 'do': ':UpdateRemotePlugins' }
@@ -174,13 +150,6 @@ Plug '~/projects/vim-plugins/vim-ember-cli'
 Plug 'AndrewRadev/ember_tools.vim'
 Plug 'neovim/node-host',                  { 'do': 'npm install' }
 
-" TypeScript {{{4
-Plug 'HerringtonDarkholme/yats.vim'
-Plug 'mhartington/nvim-typescript',       { 'do': ':UpdateRemotePlugins' }
-
-" Elm {{{4
-Plug 'ElmCast/elm-vim'
-
 " HTML {{{4
 Plug 'othree/html5.vim',                  { 'for': 'html' }
 Plug 'mustache/vim-mustache-handlebars'
@@ -192,21 +161,10 @@ Plug 'hail2u/vim-css3-syntax',            { 'for': 'css' }
 " Sass {{{4
 Plug 'cakebaker/scss-syntax.vim'
 
-" Ruby {{{4
-Plug 'vim-ruby/vim-ruby',                 { 'for': 'ruby' }
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-bundler'
-Plug 'tpope/vim-endwise'
-
 " Python {{{4
 Plug 'klen/python-mode',                  { 'for': 'python' }
 Plug 'davidhalter/jedi-vim',              { 'for': 'python' }
 Plug 'alfredodeza/pytest.vim',            { 'for': 'python' }
-
-" Rust {{{4
-Plug 'wellbredgrapefruit/tomdoc.vim',     { 'for': 'ruby' }
-Plug 'wting/rust.vim'
-Plug 'cespare/vim-toml'
 
 " Go {{{4
 Plug 'fatih/vim-go'
@@ -218,15 +176,29 @@ Plug 'reedes/vim-pencil'                  " Markdown, Writing
 Plug 'godlygeek/tabular',                 { 'for': 'markdown' } " Needed for vim-markdown
 Plug 'plasticboy/vim-markdown',           { 'for': 'markdown' }
 
-" Elixir {{{4
-Plug 'elixir-editors/vim-elixir'
-Plug 'slashmili/alchemist.vim'
 
 call plug#end()
 " Load plugin configurations {{{2
 " For some reason, a few plugins seem to have config options that cannot be
 " placed in the `plugins` directory. Those settings can be found here instead.
+" NERDTREE
 
+"Nerdtree
+let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
+let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
+let g:NERDTreeShowBookmarks=1
+let g:nerdtree_tabs_focus_on_files=1
+let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+let g:NERDTreeWinSize = 30
+let g:NERDTreeWinPos = "right"
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+map <C-u> :NERDTreeToggle<CR>
+nmap <C-c> :NERDTreeCWD<CR>
+" vim:set ft=vim sw=2 ts=2:
+
+au! BufWritePost .config/nvim/init.vim so %
+
+noremap <Leader>h :<C-u>split<CR>
 " vim-airline {{{3
 let g:airline_powerline_fonts = 1 " Enable the patched Powerline fonts
 
@@ -293,7 +265,7 @@ syntax enable
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set termguicolors
 set background=dark
-colorscheme nova
+colorscheme cobalt2
 
 " Setup Terminal Colors For Neovim {{{
 if has('nvim')
