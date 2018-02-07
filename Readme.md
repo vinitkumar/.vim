@@ -3,7 +3,7 @@
 These are my config files for writing code in Python, Go, Rust, C and HTML/JS/CSS.
 The config aims to be simple and fast for writing code.
 
-![vim-screenshot](https://cldup.com/1-ZXzXpUiS-3000x3000.png)
+![vim-screenshot](https://cldup.com/CjxT3ETRcf-3000x3000.png)
 
 ### How to Install?
 
