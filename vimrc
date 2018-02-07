@@ -1,14 +1,23 @@
+set encoding=utf-8
+
 call plug#begin('~/.vim/plugged')
 
 " Plugs {
   Plug 'bling/vim-airline'
   Plug 'ctrlpvim/ctrlp.vim'
+  Plug 'Valloric/YouCompleteMe'
   Plug 'w0rp/ale'
+  Plug 'flazz/vim-colorschemes'
+  Plug 'fatih/vim-go'
+  Plug 'keith/swift.vim'
   Plug 'scrooloose/nerdtree'
   Plug 'pangloss/vim-javascript'
   Plug 'mxw/vim-jsx'
+  Plug 'cocopon/iceberg.vim'
   Plug 'mattn/emmet-vim'
+  Plug 'leafgarland/typescript-vim'
   Plug 'mileszs/ack.vim'
+  Plug 'NLKNguyen/papercolor-theme'
   Plug 'wakatime/vim-wakatime'
 call plug#end()
 
@@ -243,7 +252,7 @@ autocmd FileType go set expandtab
 autocmd FileType go set smarttab
 autocmd FileType javascript setlocal expandtab sw=4 ts=4 sts=4
 autocmd FileType json setlocal expandtab sw=2 ts=2 sts=2
-autocmd FileType python setlocal expandtab sw=4 ts=4 sts=4
+autocmd FileType p/ython setlocal expandtab sw=4 ts=4 sts=4
 autocmd FileType c setlocal expandtab sw=2 ts=2 sts=2
 autocmd FileType php setlocal expandtab sw=2 ts=2 sts=2
 autocmd BufNewFile,BufReadPost *.jade set filetype=pug
@@ -284,7 +293,7 @@ let g:NERDTreeShowBookmarks=1
 let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 let g:NERDTreeWinSize = 30
-let g:NERDTreeWinPos = "right"
+let g:NERDTreeWinPos = "left"
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 map <C-u> :NERDTreeToggle<CR>
 nmap <C-c> :NERDTreeCWD<CR>
@@ -329,7 +338,8 @@ let g:ale_python_flake8_args="--ignore=E501"
 
 let g:ale_linters = {
 \   'javascript': ['eslint'],
-\   'python': ['pylint'],
+\   'swift': ['swiftlint'],
+\   'python': ['mypy'],
 \   'typescript': ['tslint'],
 \}
 
@@ -341,4 +351,6 @@ let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 highlight Comment gui=italic
 highlight Comment cterm=italic
 let g:jsx_ext_required = 0
-
+let g:typescript_compiler_binary = 'tsc'
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow

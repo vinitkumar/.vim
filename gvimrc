@@ -34,10 +34,10 @@ set transparency=0
 
 set t_Co=256
 syntax on
-colorscheme Tomorrow
+set background=dark
+colorscheme iceberg
 set macligatures
-set guifont=Fira\ Code:h13
-set background=light
+set guifont=Operator\ Mono\ Light:h14
 let g:neocomplete#enable_at_startup = 1
 highlight Comment gui=italic
 highlight Comment cterm=italic
