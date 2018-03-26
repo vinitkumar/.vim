@@ -1,9 +1,8 @@
 ## .Vim
 
-These are my config files for writing code in Python, Go, Rust, C and HTML/JS/CSS.
-The config aims to be simple and fast for writing code.
+These are the vim config files I use while writing code in Python, JS(Node & React), Go etc. It aims to be functional and fast at the same time.
 
-![vim-screenshot](https://cldup.com/CjxT3ETRcf-3000x3000.png)
+![vim-screenshot](https://cldup.com/HmKE4n5bfr-3000x3000.png)
 
 ### How to Install?
 
