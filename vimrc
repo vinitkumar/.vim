@@ -8,6 +8,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'Valloric/YouCompleteMe'
   Plug 'w0rp/ale'
   Plug 'flazz/vim-colorschemes'
+  Plug 'editorconfig/editorconfig-vim'
   Plug 'fatih/vim-go'
   Plug 'keith/swift.vim'
   Plug 'scrooloose/nerdtree'
@@ -18,7 +19,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'leafgarland/typescript-vim'
   Plug 'mileszs/ack.vim'
   Plug 'NLKNguyen/papercolor-theme'
+  Plug 'rust-lang/rust.vim'
   Plug 'wakatime/vim-wakatime'
+  Plug 'crusoexia/vim-monokai'
 call plug#end()
 
 
@@ -250,7 +253,7 @@ autocmd FileType go set tabstop=4
 autocmd FileType go set sts=0
 autocmd FileType go set expandtab
 autocmd FileType go set smarttab
-autocmd FileType javascript setlocal expandtab sw=4 ts=4 sts=4
+autocmd FileType javascript setlocal expandtab sw=2 ts=2 sts=2
 autocmd FileType json setlocal expandtab sw=2 ts=2 sts=2
 autocmd FileType p/ython setlocal expandtab sw=4 ts=4 sts=4
 autocmd FileType c setlocal expandtab sw=2 ts=2 sts=2

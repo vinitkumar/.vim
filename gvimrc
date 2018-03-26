@@ -2,7 +2,6 @@
 if has("gui_macvim")
   " Disable print shortcut for 'goto anything...'
     macmenu File.Print key=<nop>
-
   " Disable new tab shortcut for 'goto file...'
   macmenu File.New\ Tab key=<nop>
 
@@ -18,7 +17,7 @@ if has("gui_macvim")
 endif
 
 if has("gui_macvim")
-  set guioptions=aAce
+  set guioptions=0
   let macvim_hig_shift_movement = 1
   set fuoptions=maxvert,maxhorz
   set noballooneval
@@ -35,9 +34,9 @@ set transparency=0
 set t_Co=256
 syntax on
 set background=dark
-colorscheme iceberg
 set macligatures
-set guifont=Operator\ Mono\ Light:h14
+colorscheme fruity
+set guifont=Operator\ Mono\ Book:h15
 let g:neocomplete#enable_at_startup = 1
 highlight Comment gui=italic
 highlight Comment cterm=italic
