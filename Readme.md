@@ -2,7 +2,7 @@
 
 These are the vim config files I use while writing code in Python, JS(Node & React), Go etc. It aims to be functional and fast at the same time.
 
-![vim-screenshot](https://cldup.com/HmKE4n5bfr-3000x3000.png)
+![vim-screenshot](https://cldup.com/cLvBbwUtD7-2000x2000.png)
 
 ### How to Install?
 
