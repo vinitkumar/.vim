@@ -29,13 +29,12 @@ elseif has("gui_gtk2")
 
   set guioptions-=T
 endif
-set transparency=0
-
+set transparency=5
 set t_Co=256
 syntax on
 set background=dark
 set macligatures
-colorscheme fruity
+colorscheme molokai
 set guifont=Operator\ Mono\ Book:h15
 let g:neocomplete#enable_at_startup = 1
 highlight Comment gui=italic
