@@ -12,11 +12,14 @@ call plug#begin('~/.vim/plugged')
   Plug 'fatih/vim-go'
   Plug 'keith/swift.vim'
   Plug 'scrooloose/nerdtree'
+  Plug 'tpope/vim-fugitive'
+  Plug 'challenger-deep-theme/vim'
   Plug 'pangloss/vim-javascript'
   Plug 'mxw/vim-jsx'
   Plug 'cocopon/iceberg.vim'
   Plug 'mattn/emmet-vim'
   Plug 'leafgarland/typescript-vim'
+  Plug 'mgor/vim-markdown-grip'
   Plug 'mileszs/ack.vim'
   Plug 'NLKNguyen/papercolor-theme'
   Plug 'rust-lang/rust.vim'
@@ -24,6 +27,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'crusoexia/vim-monokai'
 call plug#end()
 
+" set colorscheme
+colorscheme molokai
 
 if has('autocmd')
   filetype plugin indent on

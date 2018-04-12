@@ -1,4 +1,4 @@
-"http://superuser.com/questions/319591/how-can-i-prevent-macvim-from-showing-os-x-find-replace-dialog-when-pressing-co
+"http://superuse.com/questions/319591/how-can-i-prevent-macvim-from-showing-os-x-find-replace-dialog-when-pressing-co
 if has("gui_macvim")
   " Disable print shortcut for 'goto anything...'
     macmenu File.Print key=<nop>
@@ -29,13 +29,13 @@ elseif has("gui_gtk2")
 
   set guioptions-=T
 endif
-set transparency=5
+set transparency=0
 set t_Co=256
 syntax on
-set background=dark
+set background=light
+set guifont=Monaco:h15
 set macligatures
-colorscheme molokai
-set guifont=Operator\ Mono\ Book:h15
+colorscheme solarized
 let g:neocomplete#enable_at_startup = 1
 highlight Comment gui=italic
 highlight Comment cterm=italic
