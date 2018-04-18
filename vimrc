@@ -12,11 +12,14 @@ call plug#begin('~/.vim/plugged')
   Plug 'fatih/vim-go'
   Plug 'keith/swift.vim'
   Plug 'scrooloose/nerdtree'
+  Plug 'soft-aesthetic/soft-era-vim'
   Plug 'tpope/vim-fugitive'
   Plug 'challenger-deep-theme/vim'
   Plug 'pangloss/vim-javascript'
   Plug 'mxw/vim-jsx'
+  Plug 'arcticicestudio/nord-vim'
   Plug 'cocopon/iceberg.vim'
+  Plug 'dNitro/vim-pug-complete', { 'for': ['jade', 'pug'] }
   Plug 'mattn/emmet-vim'
   Plug 'leafgarland/typescript-vim'
   Plug 'mgor/vim-markdown-grip'
@@ -25,10 +28,12 @@ call plug#begin('~/.vim/plugged')
   Plug 'rust-lang/rust.vim'
   Plug 'wakatime/vim-wakatime'
   Plug 'crusoexia/vim-monokai'
+  Plug '/usr/local/opt/fzf'
+  Plug 'junegunn/fzf.vim'
 call plug#end()
 
 " set colorscheme
-colorscheme molokai
+colorscheme nord
 
 if has('autocmd')
   filetype plugin indent on
@@ -38,7 +43,7 @@ if has('syntax') && !exists('g:syntax_on')
 endif
 
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
-
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 " Map the leader key to ,
 let mapleader="\<SPACE>"
 
@@ -318,6 +323,7 @@ nmap <D-[> <<
 vmap <D-[> <gv
 vmap <D-]> >gv
 
+set rtp+=/usr/local/opt/fzf
 
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
@@ -339,9 +345,6 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 
 " Make vim faster in iterm/Terminal.app
-set synmaxcol=128
-syntax sync minlines=256
-let g:syntastic_python_checkers = ['pylint']
 let g:ale_python_flake8_args="--ignore=E501"
 
 let g:ale_linters = {
