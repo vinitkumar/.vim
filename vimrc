@@ -29,7 +29,10 @@ call plug#begin('~/.vim/plugged')
   Plug 'wakatime/vim-wakatime'
   Plug 'crusoexia/vim-monokai'
   Plug '/usr/local/opt/fzf'
+  Plug 'mattn/webapi-vim'
+  Plug 'mattn/gist-vim'
   Plug 'junegunn/fzf.vim'
+  Plug 'dracula/vim', { 'as': 'dracula' }
 call plug#end()
 
 " set colorscheme
