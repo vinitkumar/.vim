@@ -3,40 +3,28 @@ set encoding=utf-8
 call plug#begin('~/.vim/plugged')
 
 " Plugs {
-  Plug 'bling/vim-airline'
+  "Plug 'bling/vim-airline'
+  Plug 'itchyny/lightline.vim'
+  Plug 'itchyny/landscape.vim'
   Plug 'ctrlpvim/ctrlp.vim'
   Plug 'Valloric/YouCompleteMe'
   Plug 'w0rp/ale'
-  Plug 'flazz/vim-colorschemes'
   Plug 'editorconfig/editorconfig-vim'
   Plug 'fatih/vim-go'
   Plug 'keith/swift.vim'
-  Plug 'scrooloose/nerdtree'
-  Plug 'soft-aesthetic/soft-era-vim'
   Plug 'tpope/vim-fugitive'
-  Plug 'challenger-deep-theme/vim'
   Plug 'pangloss/vim-javascript'
   Plug 'mxw/vim-jsx'
-  Plug 'arcticicestudio/nord-vim'
-  Plug 'cocopon/iceberg.vim'
   Plug 'dNitro/vim-pug-complete', { 'for': ['jade', 'pug'] }
-  Plug 'mattn/emmet-vim'
-  Plug 'leafgarland/typescript-vim'
-  Plug 'mgor/vim-markdown-grip'
-  Plug 'mileszs/ack.vim'
-  Plug 'NLKNguyen/papercolor-theme'
   Plug 'rust-lang/rust.vim'
   Plug 'wakatime/vim-wakatime'
-  Plug 'crusoexia/vim-monokai'
   Plug '/usr/local/opt/fzf'
   Plug 'mattn/webapi-vim'
   Plug 'mattn/gist-vim'
   Plug 'junegunn/fzf.vim'
-  Plug 'dracula/vim', { 'as': 'dracula' }
 call plug#end()
 
 " set colorscheme
-colorscheme nord
 
 if has('autocmd')
   filetype plugin indent on
@@ -242,23 +230,10 @@ let mapleader="\<SPACE>"
   nmap <F8> :TagbarToggle<CR>
 " }
 
-" Plug Settings {
-  " Airline {
-    let g:airline#extensions#tabline#enabled = 2
-    let g:airline#extensions#tabline#fnamemod = ':t'
-    let g:airline#extensions#tabline#left_sep = ' '
-    let g:airline#extensions#tabline#left_alt_sep = '|'
-    let g:airline#extensions#tabline#right_sep = ' '
-    let g:airline#extensions#tabline#right_alt_sep = '|'
-    let g:airline_left_sep = ' '
-    let g:airline_left_alt_sep = '|'
-    let g:airline_right_sep = ' '
-    let g:airline_right_alt_sep = '|'
-  " }
-" }
 
-
-
+let g:lightline = {
+      \ 'colorscheme': 'landscape',
+      \ }
 
 autocmd Filetype gitcommit setlocal spell textwidth=72
 autocmd FileType go set sw=4

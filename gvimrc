@@ -34,9 +34,9 @@ set transparency=0
 set t_Co=256
 syntax on
 set background=dark
-set guifont=Monaco:h14
+colorscheme landscape
+set guifont=SF\ Mono:h16
 set macligatures
-colorscheme onedark
 let g:neocomplete#enable_at_startup = 1
 highlight Comment gui=italic
 highlight Comment cterm=italic
