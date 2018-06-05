@@ -36,7 +36,7 @@ endif
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 " Map the leader key to ,
-let mapleader="\<SPACE>"
+let mapleader=""
 
 " General {
   set backspace=indent,eol,start      " Allow backspace over everything in insert mode.
@@ -227,7 +227,6 @@ let mapleader="\<SPACE>"
   nmap <Leader>P "+P
   vmap <Leader>p "+p
   vmap <Leader>P "+P
-  nmap <F8> :TagbarToggle<CR>
 " }
 
 
@@ -262,10 +261,6 @@ au FileType go nmap gd <Plug>(go-def-tab)
 augroup filetype
  au! BufRead,BufNewFile *.proto setfiletype proto
 augroup end
-" Ack.vim
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
-endif
 
 
 " Vim-Go related Settings
@@ -277,18 +272,7 @@ let g:github_upstream_issues = 1
 let g:go_disable_autoinstall = 0
 
 
-"Nerdtree
-let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
-let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
-let g:NERDTreeShowBookmarks=1
-let g:nerdtree_tabs_focus_on_files=1
-let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-let g:NERDTreeWinSize = 30
-let g:NERDTreeWinPos = "left"
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
-map <C-u> :NERDTreeToggle<CR>
-nmap <C-c> :NERDTreeCWD<CR>
-" vim:set ft=vim sw=2 ts=2:
 
 noremap <Leader>h :<C-u>split<CR>
 noremap <Leader>v :<C-u>vsplit<CR>
