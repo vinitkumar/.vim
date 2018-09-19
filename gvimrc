@@ -30,12 +30,9 @@ elseif has("gui_gtk2")
 
   set guioptions-=T
 endif
-set transparency=0
 set t_Co=256
 syntax on
-set background=dark
-colorscheme landscape
-set guifont=SF\ Mono:h16
+set guifont=Dank\ Mono:h15
 set macligatures
 let g:neocomplete#enable_at_startup = 1
 highlight Comment gui=italic
