@@ -21,7 +21,6 @@ if has("gui_macvim")
   let macvim_hig_shift_movement = 1
   set fuoptions=maxvert,maxhorz
   set noballooneval
-  set nonumber
   " Automatically resize splits
   " when resizing MacVim window
   autocmd VimResized * wincmd =
@@ -32,8 +31,11 @@ elseif has("gui_gtk2")
 endif
 set t_Co=256
 syntax on
-set guifont=Dank\ Mono:h15
+set background=dark
+colorscheme solarized
+set guifont=Operator\ Mono:h15
 set macligatures
+set linespace=4
 let g:neocomplete#enable_at_startup = 1
 highlight Comment gui=italic
 highlight Comment cterm=italic
