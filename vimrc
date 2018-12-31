@@ -1,42 +1,37 @@
-
-
+set encoding=utf-8
 call plug#begin('~/.vim/plugged')
 
 " Plugs {
   "Plug 'bling/vim-airline'
   Plug 'itchyny/lightline.vim'
   Plug 'itchyny/landscape.vim'
-  "Plug 'ctrlpvim/ctrlp.vim'
   Plug 'w0rp/ale'
+  Plug 'wincent/terminus'
   Plug 'rizzatti/dash.vim'
   Plug 'editorconfig/editorconfig-vim'
   Plug 'fatih/vim-go'
-  Plug 'keith/swift.vim'
   Plug 'tpope/vim-fugitive'
   Plug 'pangloss/vim-javascript'
   Plug 'mxw/vim-jsx'
   Plug 'Valloric/YouCompleteMe'
-  Plug 'dNitro/vim-pug-complete', { 'for': ['jade', 'pug'] }
   Plug 'rust-lang/rust.vim'
   Plug 'wakatime/vim-wakatime'
   Plug '/usr/local/opt/fzf'
   Plug 'mattn/webapi-vim'
   Plug 'vimwiki/vimwiki'
   Plug 'mattn/gist-vim'
-  Plug 'romainl/Apprentice'
   Plug 'tpope/vim-commentary'
   Plug 'junegunn/fzf.vim'
-  Plug 'cormacrelf/vim-colors-github'
   Plug 'prettier/vim-prettier'
   Plug 'ararslan/license-to-vim'
-  Plug 'joshdick/onedark.vim'
   Plug 'machakann/vim-highlightedyank'
   Plug 'sheerun/vim-polyglot'
+  Plug 'rafi/awesome-vim-colorschemes'
 call plug#end()
 
 " set colorscheme
 
-set guifont=Inconsolata\ for\ Powerline:h14
+"set guifont=Inconsolata\ for\ Powerline:h14
 if has('autocmd')
   filetype plugin indent on
 endif
@@ -47,12 +42,13 @@ endif
 "let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 "let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 " Map the leader key to ,
-let mapleader=""
+let mapleader=","
 map <C-p> :Files<CR>
 nmap <leader>; :Buffers<CR>
 
 
 " General {
+  set t_Co=256
   set backspace=indent,eol,start      " Allow backspace over everything in insert mode.
   set background=dark
   set noswapfile
@@ -60,13 +56,14 @@ nmap <leader>; :Buffers<CR>
   set lazyredraw
   set secure
   set exrc
+  set cursorline
   set ttyfast
   set noautoindent        " I indent my code myself.
   set nocindent           " I indent my code myself.
   set omnifunc=syntaxcomplete#Complete
   set nrformats-=octal
-  set ttimeout
-  set ttimeoutlen=100
+  set timeout
+  set timeoutlen=100
   set hlsearch            " Highlight search results.
   set ignorecase          " Make searching case insensitive
   set smartcase           " ... unless the query has capital letters.
@@ -91,8 +88,6 @@ nmap <leader>; :Buffers<CR>
   set esckeys             " Cursor keys in insert mode.
   set linespace=0         " Set line-spacing to minimum.
   set nojoinspaces        " Prevents inserting two spaces after punctuation on a join (J)
-  set list
-  "set listchars=tab:›\ ,eol:¬,trail:⋅
   set splitbelow          " Horizontal split below current.
   set splitright          " Vertical split to right of current.
   set autoread            " If file updates, load automatically.
@@ -105,12 +100,6 @@ nmap <leader>; :Buffers<CR>
 
   if &encoding ==# 'latin1' && has('gui_running')
     set encoding=utf-8
-  endif
-
-  " Tell Vim which characters to show for expanded TABs,
-  " trailing whitespace, and end-of-lines. VERY useful!
-  if &listchars ==# 'eol:$'
-    set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
   endif
 
   " Also highlight all tabs and trailing whitespace characters.
@@ -154,12 +143,7 @@ nmap <leader>; :Buffers<CR>
   endif
   set sessionoptions-=options
 
-  " Allow color schemes to do bright colors without forcing bold.
-  if &t_Co == 8 && $TERM !~# '^linux'
-    set t_Co=16
-  endif
-
-  autocmd BufNewFile,BufRead *.py set tabstop=4 softtabstop=4 shiftwidth=4 textwidth=79 expandtab autoindent fileformat=unix
+  autocmd BufNewFile,BufRead *.py set tabstop=4 softtabstop=4 shiftwidth=4 expandtab fileformat=unix
 
 
   " Remove trailing spaces before saving text files
@@ -244,7 +228,7 @@ nmap <leader>; :Buffers<CR>
 " }
 
 let g:lightline = {
-      \ 'colorsheme': 'github',
+      \ 'colorsheme': 'landscape',
       \ 'component_function': {
       \   'filename': 'LightLineFilename'
       \ }
@@ -262,7 +246,7 @@ autocmd FileType go set expandtab
 autocmd FileType go set smarttab
 autocmd FileType javascript setlocal expandtab sw=2 ts=2 sts=2
 autocmd FileType json setlocal expandtab sw=2 ts=2 sts=2
-autocmd FileType p/ython setlocal expandtab sw=4 ts=4 sts=4
+"autocmd FileType p/ython setlocal expandtab sw=4 ts=4 sts=4
 autocmd FileType c setlocal expandtab sw=2 ts=2 sts=2
 autocmd FileType php setlocal expandtab sw=2 ts=2 sts=2
 autocmd BufNewFile,BufReadPost *.jade set filetype=pug
@@ -293,6 +277,8 @@ let g:go_disable_autoinstall = 0
 
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+set wildignore+=*/node_modules/*     " Don't search inside Node.js modules
+set wildignore+=*/bower_components/* " Don't search inside bower modules
 
 noremap <Leader>h :<C-u>split<CR>
 noremap <Leader>v :<C-u>vsplit<CR>
@@ -309,14 +295,6 @@ set rtp+=/usr/local/opt/fzf
 
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? "\<C-y>" : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -343,6 +321,7 @@ let g:ale_lint_on_text_changed = 0
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 highlight Comment gui=italic
 highlight Comment cterm=italic
+highlight htmlArg gui=italic cterm=italic
 let g:jsx_ext_required = 0
 let g:typescript_compiler_binary = 'tsc'
 autocmd QuickFixCmdPost [^l]* nested cwindow

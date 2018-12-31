@@ -1,4 +1,4 @@
-"http://superuse.com/questions/319591/how-can-i-prevent-macvim-from-showing-os-x-find-replace-dialog-when-pressing-co
+"#http://superuse.com/questions/319591/how-can-i-prevent-macvim-from-showing-os-x-find-replace-dialog-when-pressing-co
 if has("gui_macvim")
   " Disable print shortcut for 'goto anything...'
     macmenu File.Print key=<nop>
@@ -25,15 +25,20 @@ if has("gui_macvim")
   " when resizing MacVim window
   autocmd VimResized * wincmd =
   macmenu File.New\ Tab key=<nop>
+  macmenu &File.New\ Window key=<nop>
+  macmenu &File.New\ Tab key=<nop>
+  macmenu &File.New\ Tab key=<D-n>
+  macmenu &File.New\ Window key=<D-N>
+  macmenu &Tools.List\ Errors key=<nop>
 elseif has("gui_gtk2")
 
   set guioptions-=T
 endif
 set t_Co=256
 syntax on
-set background=dark
-colorscheme solarized
-set guifont=Operator\ Mono:h15
+set background=light
+set guifont=PragmataPro:h14
+colorscheme base16-solarized
 set macligatures
 set linespace=4
 let g:neocomplete#enable_at_startup = 1
