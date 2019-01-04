@@ -1,7 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_cnt =7
 let g:netrw_dirhist_1='/Users/vinitkumar/projects/python/socialschools-cms-docker/src/cmsplugin_carousel'
 let g:netrw_dirhist_2='/Users/vinitkumar/projects/python/socialschools-cms-docker'
 let g:netrw_dirhist_3='/Users/vinitkumar/projects/consulting/lattuserver/lattuserver'
 let g:netrw_dirhist_4='/Users/vinitkumar/projects/consulting/whisper-electron'
 let g:netrw_dirhist_5='/Users/vinitkumar/projects/consulting/whisper-electron/src'
+let g:netrw_dirhist_6='/Users/vinitkumar/projects/python/socialschools-cms-docker'
+let g:netrw_dirhist_7='/Users/vinitkumar/projects/python'
