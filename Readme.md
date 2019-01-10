@@ -1,8 +1,11 @@
 ## .Vim
 
-These are the vim config files I use while writing code in Python, JS(Node & React), Go etc. It aims to be functional and fast at the same time.
+These are the vim files I use for writing code in Python, JS(Node & React), Go etc.
+It aims to be functional and fast at the same time.
 
-![vim-screenshot](https://cldup.com/cLvBbwUtD7-2000x2000.png)
+![vim-screenshot](https://cldup.com/P7MWJqvunC-3000x3000.png)
+
+For terminal emulator, I use Alacritty in combination with Vim. IMHO, it has the faster UX on Mac.
 
 ### How to Install?
 
@@ -19,8 +22,7 @@ cp gvimrc ~/.gvimrc
 vim +PlugInstall +qall
 ```
 
-I use Operator Mono font for writing my code, you can use any font that you prefer.
-For e.g: In order to change font to something other, change this in your .vimrc:
+In order to change font to something other, change this in your .vimrc:
 
 ```
 set guifont=Menlo:h13
