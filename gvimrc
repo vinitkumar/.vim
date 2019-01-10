@@ -36,9 +36,9 @@ elseif has("gui_gtk2")
 endif
 set t_Co=256
 syntax on
-set background=light
-set guifont=PragmataPro:h14
-colorscheme base16-solarized
+set background=dark
+set guifont=Monaco:h13
+colorscheme grb256
 set macligatures
 set linespace=4
 let g:neocomplete#enable_at_startup = 1

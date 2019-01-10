@@ -1,5 +1,4 @@
-
-
+set encoding=utf-8
 call plug#begin('~/.vim/plugged')
 
 " Plugs {
