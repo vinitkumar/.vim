@@ -110,9 +110,9 @@ nmap <leader>; :Buffers<CR>
 
   " Tell Vim which characters to show for expanded TABs,
   " trailing whitespace, and end-of-lines. VERY useful!
-  if &listchars ==# 'eol:$'
-    set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
-  endif
+
+   set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+
 
   " Also highlight all tabs and trailing whitespace characters.
   highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
@@ -160,7 +160,7 @@ nmap <leader>; :Buffers<CR>
     set t_Co=16
   endif
 
-  autocmd BufNewFile,BufRead *.py set tabstop=4 softtabstop=4 shiftwidth=4 textwidth=79 expandtab autoindent fileformat=unix
+  autocmd BufNewFile,BufRead *.py set tabstop=4 softtabstop=4 shiftwidth=4 expandtab fileformat=unix
 
 
   " Remove trailing spaces before saving text files
@@ -263,7 +263,7 @@ autocmd FileType go set expandtab
 autocmd FileType go set smarttab
 autocmd FileType javascript setlocal expandtab sw=2 ts=2 sts=2
 autocmd FileType json setlocal expandtab sw=2 ts=2 sts=2
-autocmd FileType p/ython setlocal expandtab sw=4 ts=4 sts=4
+autocmd FileType python setlocal expandtab sw=4 ts=4 sts=4
 autocmd FileType c setlocal expandtab sw=2 ts=2 sts=2
 autocmd FileType php setlocal expandtab sw=2 ts=2 sts=2
 autocmd BufNewFile,BufReadPost *.jade set filetype=pug
@@ -338,9 +338,11 @@ let g:ale_linters = {
 \}
 
 let g:ale_python_pylint_args="--load-plugins pylint_django"
-
+let g:ale_set_signs = 0
+let g:ale_lint_delay = 0
+let g:ale_lint_on_insert_leave = 1
 let g:ale_lint_on_save = 1
-let g:ale_lint_on_text_changed = 0
+let g:ale_lint_on_text_changed = 'normal'
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 highlight Comment gui=italic
 highlight Comment cterm=italic
