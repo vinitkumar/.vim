@@ -1,4 +1,8 @@
 set encoding=utf-8
+set nocompatible
+set backspace=indent,eol,start      " Allow backspace over everything in insert mode.
+set mousemodel=popup
+
 call plug#begin('~/.vim/plugged')
 
 " Plugs {
@@ -40,9 +44,15 @@ colorscheme grb256
 if has('autocmd')
   filetype plugin indent on
 endif
-if has('syntax') && !exists('g:syntax_on')
-  syntax enable
-endif
+" if has('syntax') && !exists('g:syntax_on')
+"   syntax enable
+" endif
+
+" This could have performance implications, be aware
+autocmd BufEnter * :syntax sync fromstart
+
+" Remember cursor position
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
 "let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 "let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
@@ -53,7 +63,6 @@ nmap <leader>; :Buffers<CR>
 
 
 " General {
-  set backspace=indent,eol,start      " Allow backspace over everything in insert mode.
   set background=dark
   set noswapfile
   set smarttab
@@ -89,7 +98,7 @@ nmap <leader>; :Buffers<CR>
   set noerrorbells        " No beeps.
   set modeline            " Enable modeline.
   set esckeys             " Cursor keys in insert mode.
-  set linespace=0         " Set line-spacing to minimum.
+  set linespace=3         " Set line-spacing to minimum.
   set nojoinspaces        " Prevents inserting two spaces after punctuation on a join (J)
   set list
   "set listchars=tab:›\ ,eol:¬,trail:⋅
@@ -159,7 +168,11 @@ nmap <leader>; :Buffers<CR>
     set t_Co=16
   endif
 
-  autocmd BufNewFile,BufRead *.py set tabstop=4 softtabstop=4 shiftwidth=4 expandtab fileformat=unix
+  autocmd BufNewFile,BufRead *.py set tabstop=4 softtabstop=4 shiftwidth=4 expandtab fileformat=unix comments=:#\:,:#
+  let python_highlight_all=1
+  let python_highlight_exceptions=0
+  let python_highlight_builtins=0
+  let python_slow_sync=1
 
 
   " Remove trailing spaces before saving text files
@@ -292,7 +305,8 @@ let g:github_upstream_issues = 1
 let g:go_disable_autoinstall = 0
 
 
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+set wildignore+=*.dll,*.o,*.pyc,*.bak,*.exe,*.jpg,*.jpeg,*.png,*.gif,*$py.class,*.class,*/*.dSYM/*,*.dylib
+set wildmode=list:full
 
 noremap <Leader>h :<C-u>split<CR>
 noremap <Leader>v :<C-u>vsplit<CR>

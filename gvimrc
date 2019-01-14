@@ -1,13 +1,15 @@
 "#http://superuse.com/questions/319591/how-can-i-prevent-macvim-from-showing-os-x-find-replace-dialog-when-pressing-co
 if has("gui_macvim")
+  let no_buffers_menu=1
+  set mousemodel=popup
   " Disable print shortcut for 'goto anything...'
-    macmenu File.Print key=<nop>
+  macmenu File.Print key=<nop>
   " Disable new tab shortcut for 'goto file...'
-  macmenu File.New\ Tab key=<nop>
+  "macmenu File.New\ Tab key=<nop>
 
   " Move  with cmd+alt
-  macm Window.Select\ Previous\ Tab  key=<D-M-LEFT>
-  macm Window.Select\ Next\ Tab	   key=<D-M-RIGHT>
+  "macm Window.Select\ Previous\ Tab  key=<D-M-LEFT>
+  "macm Window.Select\ Next\ Tab	   key=<D-M-RIGHT>
 
   " create a new menu item with title "New File" and bind it to cmd+n
   " new files will be created on a new tab
@@ -37,8 +39,9 @@ endif
 set t_Co=256
 syntax on
 set background=dark
-set guifont=Monaco:h13
-colorscheme grb256
+set guifont=Operator\ Mono\ Book:h15
+"colorscheme grb256
+colorscheme fruity
 set macligatures
 set linespace=4
 let g:neocomplete#enable_at_startup = 1
