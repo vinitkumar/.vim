@@ -59,7 +59,7 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 " Map the leader key to ,
 let mapleader=""
 map <C-p> :Files<CR>
-nmap <leader>; :Buffers<CR>
+nmap <C-b> :Buffers<CR>
 
 
 " General {
