@@ -22,17 +22,19 @@ call plug#end()
   set smarttab
   set lazyredraw
   set secure
+  set cursorline
+  set showtabline=2
+  set switchbuf=useopen
+  set cmdheight=1
   set exrc
   set ttyfast
   set noautoindent        " I indent my code myself.
   set nocindent           " I indent my code myself.
   set omnifunc=syntaxcomplete#Complete
   set nrformats-=octal
-  set ttimeout
-  set ttimeoutlen=100
+  :set timeout timeoutlen=1000 ttimeoutlen=100
   set hlsearch            " Highlight search results.
-  set ignorecase          " Make searching case insensitive
-  set smartcase           " ... unless the query has capital letters.
+  set ignorecase smartcase          " Make searching case insensitive
   set incsearch           " Incremental search.
   set gdefault            " Use 'g' flag by default with :s/foo/bar/.
   set magic               " Use 'magic' patterns (extended regular expressions).
@@ -179,12 +181,18 @@ autocmd FileType html setlocal expandtab sw=2 ts=2 sts=2
 autocmd FileType less setlocal expandtab sw=2 ts=2 sts=2
 autocmd FileType htmldjango setlocal expandtab sw=2 ts=2 sts=2
 autocmd FileType css setlocal expandtab sw=2 ts=2 sts=2
+autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
+autocmd BufRead *.markdown  set ai formatoptions=tcroqn2 comments=n:&gt;
+
+" Don't syntax highlight markdown because it's often wrong
+autocmd! FileType mkd setlocal syn=off
+autocmd! BufNewFile,BufRead *.md setlocal ft=
 
 
 set wildmenu
 set wildchar=<TAB>
 set wildignore+=*.dll,*.o,*.pyc,*.bak,*.exe,*.jpg,*.jpeg,*.png,*.gif,*$py.class,*.class,*/*.dSYM/*,*.dylib
-set wildmode=list:full
+set wildmode=longest:list
 
 noremap <Leader>h :<C-u>split<CR>
 noremap <Leader>v :<C-u>vsplit<CR>
