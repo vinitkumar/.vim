@@ -1,8 +1,8 @@
 set encoding=utf-8
 
-call plug#begin('~/.vim/plugged')
-
 " Plugs {
+call plug#begin('~/.vim/plugged')
+  Plug 'vim-airline/vim-airline'
   Plug 'w0rp/ale'
   Plug 'tpope/vim-fugitive'
   Plug 'Valloric/YouCompleteMe'
@@ -68,7 +68,7 @@ call plug#end()
 
 
 "UI
-colorscheme desert
+colorscheme grb256
 set background=dark
 
 filetype plugin indent on
@@ -240,5 +240,7 @@ let g:fzf_colors =
   \ 'header':  ['fg', 'Comment'] }
 
 
+hi Comment gui=italic cterm=italic
+hi htmlArg gui=italic cterm=italic
 
 au! BufWritePost .vimrc so %
