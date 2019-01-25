@@ -29,7 +29,7 @@ related to their specific tasks.
 
 > ~/.vimrc
 
-```
+```vim
 " previously my .vimrc file had a lot of config without much
 " organization. So with this refactor they are better organized
 
@@ -54,7 +54,7 @@ au! BufWritePost .vimrc so %
 
 > ~/.gvimrc
 
-```
+```vim
 
 " Some macvim specific general settings to hide some menu and whatnot
 source ~/.vim/parts/gvim_general.vim
