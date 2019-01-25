@@ -1,49 +1,7 @@
-"#http://superuse.com/questions/319591/how-can-i-prevent-macvim-from-showing-os-x-find-replace-dialog-when-pressing-co
-if has("gui_macvim")
-  let no_buffers_menu=1
-  set mousemodel=popup
-  " Disable print shortcut for 'goto anything...'
-  macmenu File.Print key=<nop>
-  " Disable new tab shortcut for 'goto file...'
-  "macmenu File.New\ Tab key=<nop>
+" Some macvim specific general settings to hide some menu and whatnot
+source ~/.vim/parts/gvim_general.vim
+" The colorscheme and font related settings
+source ~/.vim/parts/gvimui.vim
 
-  " Move  with cmd+alt
-  "macm Window.Select\ Previous\ Tab  key=<D-M-LEFT>
-  "macm Window.Select\ Next\ Tab	   key=<D-M-RIGHT>
-
-  " create a new menu item with title "New File" and bind it to cmd+n
-  " new files will be created on a new tab
-  an 10.190 File.New\ File <nop>
-  macmenu File.New\ File action=addNewTab: key=<D-n>
-
-endif
-
-if has("gui_macvim")
-  set guioptions=0
-  let macvim_hig_shift_movement = 1
-  set fuoptions=maxvert,maxhorz
-  set noballooneval
-  " Automatically resize splits
-  " when resizing MacVim window
-  autocmd VimResized * wincmd =
-  macmenu File.New\ Tab key=<nop>
-  macmenu &File.New\ Window key=<nop>
-  macmenu &File.New\ Tab key=<nop>
-  macmenu &File.New\ Tab key=<D-n>
-  macmenu &File.New\ Window key=<D-N>
-  macmenu &Tools.List\ Errors key=<nop>
-elseif has("gui_gtk2")
-
-  set guioptions-=T
-endif
-set t_Co=256
-syntax on
-set background=dark
-set guifont=Operator\ Mono\ Book:h15
-"colorscheme grb256
-colorscheme fruity
-set macligatures
-set linespace=4
-let g:neocomplete#enable_at_startup = 1
-highlight Comment gui=italic
-highlight Comment cterm=italic
+" Autoreload Macvim whenever one of the settings is changed
+au! BufWritePost .gvimrc so %
