@@ -27,7 +27,7 @@ vim +PlugInstall +qall
 For clarity and better organization, the `.vimrc` and `.gvimrc` are split into config
 related to their specific tasks.
 
-> .vimrc
+> ~/.vimrc
 
 ```
 " previously my .vimrc file had a lot of config without much
