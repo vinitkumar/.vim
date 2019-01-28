@@ -10,17 +10,20 @@ For terminal emulator, I use Alacritty in combination with Vim. IMHO, it has the
 ### How to Install?
 
 This project uses plug for plugin management so we will first need to install plug
-and then update all the plugins. In order to install the latest version:
+and then update all the plugins. In order to install the latest version, just run this `curl` or `wget`
+script and it will setup the vim for you.
+
+curl:
 
 ```sh
-git clone git@github.com:vinitkumar/.vim.git
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-cd .vim
-cp vimrc ~/.vimrc
-cp gvimrc ~/.gvimrc
-vim +PlugInstall +qall
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/vinitkumar/.vim/master/install.sh)"
 ```
+
+wget:
+
+```
+sh -c "$(wget https://raw.githubusercontent.com/vinitkumar/.vim/master/install.sh)"
+``
 
 ### How the config is organized
 
