@@ -1,4 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_cnt =4
 let g:netrw_dirhist_1='/Users/vinitkumar/projects/python/json2xml/json2xml.egg-info'
 let g:netrw_dirhist_2='/Users/vinitkumar/.bash_it'
+let g:netrw_dirhist_3='/Users/vinitkumar/projects/assignment/credit_chip'
+let g:netrw_dirhist_4='/Users/vinitkumar/projects/python/socialschools-cms-docker'

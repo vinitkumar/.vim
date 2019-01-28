@@ -1,5 +1,6 @@
 " General {
 filetype plugin indent on
+set termencoding=utf-8
 set encoding=utf-8
 set nocompatible
 set backspace=indent,eol,start      " Allow backspace over everything in insert mode.
@@ -19,13 +20,16 @@ set noautoindent        " I indent my code myself.
 set nocindent           " I indent my code myself.
 set omnifunc=syntaxcomplete#Complete
 set nrformats-=octal
-:set timeout timeoutlen=1000 ttimeoutlen=100
+:set timeout timeoutlen=1000 ttimeoutlen=50
 set hlsearch            " Highlight search results.
 set ignorecase smartcase          " Make searching case insensitive
 set incsearch           " Incremental search.
 set gdefault            " Use 'g' flag by default with :s/foo/bar/.
 set magic               " Use 'magic' patterns (extended regular expressions).
-
+set hidden              " hide buffers instead of closing them this
+                        "    means that the current buffer can be put
+                        "    to background without being written; and
+                        "    that marks and undo history are preserved
 set showcmd             " Show (partial) command in status line.
 set colorcolumn=100
 set showmatch           " Show matching brackets.
@@ -58,5 +62,8 @@ set wildmenu
 set wildchar=<TAB>
 set wildignore+=*.dll,*.o,*.pyc,*.bak,*.exe,*.jpg,*.jpeg,*.png,*.gif,*$py.class,*.class,*/*.dSYM/*,*.dylib
 set wildmode=longest:list
+set pastetoggle=<F2>
 
-
+if (has("termguicolors"))
+   set termguicolors
+endif

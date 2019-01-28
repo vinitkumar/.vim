@@ -1,7 +1,6 @@
 autocmd Filetype gitcommit setlocal spell textwidth=72
 autocmd FileType javascript setlocal expandtab sw=2 ts=2 sts=2
 autocmd FileType json setlocal expandtab sw=2 ts=2 sts=2
-autocmd BufNewFile,BufRead *.py set tabstop=4 softtabstop=4 shiftwidth=4 expandtab fileformat=unix comments=:#\:,:#
 autocmd FileType c setlocal expandtab sw=2 ts=2 sts=2
 autocmd FileType php setlocal expandtab sw=2 ts=2 sts=2
 autocmd BufNewFile,BufReadPost *.jade set filetype=pug
@@ -19,4 +18,10 @@ autocmd! BufNewFile,BufRead *.md setlocal ft=
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
 
+" Auto save when focus is lost, so that not code is lost
+au FocusLost * :wa
 
+" Python related config
+" Run black when on saving a python file
+autocmd BufWritePre *.py execute ':Black'
+autocmd BufNewFile,BufRead *.py set tabstop=4 softtabstop=4 shiftwidth=4 expandtab fileformat=unix comments=:#\:,:#

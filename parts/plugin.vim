@@ -10,6 +10,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'junegunn/fzf.vim'
   Plug 'machakann/vim-highlightedyank'
   Plug 'rust-lang/rust.vim'
+  Plug 'ambv/black'
 call plug#end()
 
 
