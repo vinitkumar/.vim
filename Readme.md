@@ -23,7 +23,7 @@ wget:
 
 ```
 sh -c "$(wget https://raw.githubusercontent.com/vinitkumar/.vim/master/install.sh)"
-``
+```
 
 ### How the config is organized
 
