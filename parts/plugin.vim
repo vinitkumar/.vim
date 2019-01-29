@@ -10,6 +10,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'junegunn/fzf.vim'
   Plug 'machakann/vim-highlightedyank'
   Plug 'rust-lang/rust.vim'
+  Plug 'prettier/vim-prettier', {
+    \ 'do': 'yarn install',
+    \ 'for': ['javascript', 'typescript', 'css', 'json', 'graphql', 'markdown'] }
   Plug 'ambv/black'
 call plug#end()
 
