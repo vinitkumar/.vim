@@ -17,4 +17,12 @@ source ~/.vim/parts/mappings.vim
 source ~/.vim/parts/misc.vim
 
 " Reload the vim anytime a change is done in the .vimrc file
+au! BufWritePost ~/.vim/parts/plugin.vim  so %
+au! BufWritePost ~/.vim/parts/general.vim  so %
+au! BufWritePost ~/.vim/parts/ui.vim  so %
+au! BufWritePost ~/.vim/parts/autocmd.vim  so %
+au! BufWritePost ~/.vim/parts/pluginconf.vim  so %
+au! BufWritePost ~/.vim/parts/mappings.vim  so %
+au! BufWritePost /.vim/parts/misc.vim  so %
+
 au! BufWritePost .vimrc so %
