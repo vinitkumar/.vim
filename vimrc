@@ -23,6 +23,6 @@ au! BufWritePost ~/.vim/parts/ui.vim  so %
 au! BufWritePost ~/.vim/parts/autocmd.vim  so %
 au! BufWritePost ~/.vim/parts/pluginconf.vim  so %
 au! BufWritePost ~/.vim/parts/mappings.vim  so %
-au! BufWritePost /.vim/parts/misc.vim  so %
+au! BufWritePost ~/.vim/parts/misc.vim  so %
 
 au! BufWritePost .vimrc so %
