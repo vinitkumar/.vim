@@ -78,5 +78,5 @@ au! BufWritePost .gvimrc so %
 au! BufWritePost  ~/.vim/parts/gvim_general.vim so %
 ```
 
-And that's it. It is more concise and more maintainable than before. The goal of this setup
+And that's it. It is much more concise and maintainable than before. The goal of this setup
 is to use as little plugin as possible & try and utilize vim's default functionality more and more.
