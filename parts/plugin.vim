@@ -13,7 +13,10 @@ call plug#begin('~/.vim/plugged')
   Plug 'prettier/vim-prettier', {
     \ 'do': 'yarn install',
     \ 'for': ['javascript', 'typescript', 'css', 'json', 'graphql', 'markdown'] }
+  Plug 'junegunn/seoul256.vim'
+  Plug 'jordwalke/VimSplitBalancer'
   Plug 'ambv/black'
+  Plug 'dracula/vim', { 'as': 'dracula' }
 call plug#end()
 
 

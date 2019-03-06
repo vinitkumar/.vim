@@ -67,3 +67,5 @@ set pastetoggle=<F2>
 if (has("termguicolors"))
    set termguicolors
 endif
+
+let g:VimSplitBalancerMaxWidth=200
