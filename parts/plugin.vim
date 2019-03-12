@@ -17,6 +17,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'jordwalke/VimSplitBalancer'
   Plug 'ambv/black'
   Plug 'dracula/vim', { 'as': 'dracula' }
+  Plug 'ludovicchabant/vim-gutentags'
 call plug#end()
 
 
