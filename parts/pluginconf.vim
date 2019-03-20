@@ -63,3 +63,6 @@ let g:jsx_ext_required = 0
 let g:typescript_compiler_binary = 'tsc'
 
 
+let g:tex_flavor='latex'
+let g:vimtex_view_method='skim'
+let g:vimtex_quickfix_mode=0

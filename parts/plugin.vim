@@ -16,8 +16,10 @@ call plug#begin('~/.vim/plugged')
   Plug 'junegunn/seoul256.vim'
   Plug 'jordwalke/VimSplitBalancer'
   Plug 'ambv/black'
+  Plug 'fatih/vim-go'
   Plug 'dracula/vim', { 'as': 'dracula' }
   Plug 'ludovicchabant/vim-gutentags'
+  Plug 'lervag/vimtex'
 call plug#end()
 
 
