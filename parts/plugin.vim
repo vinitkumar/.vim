@@ -20,6 +20,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'dracula/vim', { 'as': 'dracula' }
   Plug 'ludovicchabant/vim-gutentags'
   Plug 'lervag/vimtex'
+  Plug 'fatih/vim-go'
 call plug#end()
 
 
