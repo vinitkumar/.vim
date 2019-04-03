@@ -9,18 +9,16 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-commentary'
   Plug 'junegunn/fzf.vim'
   Plug 'machakann/vim-highlightedyank'
-  Plug 'rust-lang/rust.vim'
+  " Plug 'rust-lang/rust.vim'
   Plug 'prettier/vim-prettier', {
     \ 'do': 'yarn install',
     \ 'for': ['javascript', 'typescript', 'css', 'json', 'graphql', 'markdown'] }
-  Plug 'junegunn/seoul256.vim'
   Plug 'jordwalke/VimSplitBalancer'
-  Plug 'ambv/black'
+  Plug 'ambv/black', { 'for': 'python'}
   Plug 'fatih/vim-go'
   Plug 'dracula/vim', { 'as': 'dracula' }
-  Plug 'ludovicchabant/vim-gutentags'
-  Plug 'lervag/vimtex'
-  Plug 'fatih/vim-go'
+  Plug 'lervag/vimtex', { 'for': 'tex'}
+  Plug 'lifepillar/vim-solarized8'
 call plug#end()
 
 

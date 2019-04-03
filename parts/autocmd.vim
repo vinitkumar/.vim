@@ -13,6 +13,10 @@ autocmd BufRead *.markdown  set ai formatoptions=tcroqn2 comments=n:&gt;
 " Don't syntax highlight markdown because it's often wrong
 autocmd! FileType mkd setlocal syn=off
 autocmd! BufNewFile,BufRead *.md setlocal ft=
+" add yaml stuffs
+au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
 
 " Remember cursor position
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
