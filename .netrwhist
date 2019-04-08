@@ -1,8 +1,11 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_cnt =9
 let g:netrw_dirhist_1='/Users/vinitkumar/projects/latex/resume'
 let g:netrw_dirhist_2='/Users/vinitkumar/projects/python/djangocms-forms'
 let g:netrw_dirhist_3='/Users/vinitkumar/projects/python/socialschools-cms-docker'
 let g:netrw_dirhist_4='/Users/vinitkumar/projects/python'
 let g:netrw_dirhist_5='/Users/vinitkumar/projects/go/slog'
 let g:netrw_dirhist_6='/Users/vinitkumar/projects/python/socialschools-cms-docker'
+let g:netrw_dirhist_7='/Users/vinitkumar/projects/throwaway'
+let g:netrw_dirhist_8='/Users/vinitkumar/projects/learning/go/src/text/template'
+let g:netrw_dirhist_9='/Users/vinitkumar/projects/learning/go/src/text/template/parse'
