@@ -69,3 +69,8 @@ if (has("termguicolors"))
 endif
 
 let g:VimSplitBalancerMaxWidth=200
+"disable arrow keys in vim
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>

@@ -15,7 +15,7 @@ call plug#begin('~/.vim/plugged')
     \ 'for': ['javascript', 'typescript', 'css', 'json', 'graphql', 'markdown'] }
   Plug 'jordwalke/VimSplitBalancer'
   Plug 'ambv/black', { 'for': 'python'}
-  Plug 'fatih/vim-go'
+  Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
   Plug 'dracula/vim', { 'as': 'dracula' }
   Plug 'lervag/vimtex', { 'for': 'tex'}
   Plug 'lifepillar/vim-solarized8'
