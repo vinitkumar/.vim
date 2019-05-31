@@ -36,3 +36,31 @@ endfunction
 
 let g:black_virtualenv = '/Users/vinitkumar/.virtualenvs/black'
 command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+
+function! ProseMode()
+  call goyo#execute(0, [])
+  set spell noci nosi noai nolist noshowmode noshowcmd
+  set complete+=s
+  set bg=dark
+  "if !has('gui_running')
+  "  let g:solarized_termcolors=256
+  "endif
+  colors grb256
+endfunction
+
+command! ProseMode call ProseMode()
+nmap \p :ProseMode<CR>
+
+
+" " Random color schemes!
+" function RandomColorScheme()
+"   let mycolors = split(globpath(&rtp,"**/colors/*.vim"),"\n")
+"   exe 'so ' . mycolors[localtime() % len(mycolors)]
+"   unlet mycolors
+" endfunction
+" :command NewColor call RandomColorScheme()
+
+" call RandomColorScheme()
+" " :colorscheme base16-materia
+
+" nnoremap ,, :C<CR>:colorscheme<CR>

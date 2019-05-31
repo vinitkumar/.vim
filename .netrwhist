@@ -1,4 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
-let g:netrw_dirhist_1='/Users/vinitkumar/.virtualenvs/deserve/lib/python3.8/site-packages/django/db'
-let g:netrw_dirhist_2='/Users/vinitkumar/.virtualenvs/deserve/lib/python3.8/site-packages/django'

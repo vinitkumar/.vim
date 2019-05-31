@@ -19,6 +19,19 @@ call plug#begin('~/.vim/plugged')
   Plug 'dracula/vim', { 'as': 'dracula' }
   Plug 'lervag/vimtex', { 'for': 'tex'}
   Plug 'lifepillar/vim-solarized8'
+  Plug 'leafgarland/typescript-vim'
+  function! BuildComposer(info)
+  if a:info.status != 'unchanged' || a:info.force
+    if has('nvim')
+      !cargo build --release
+    else
+      !cargo build --release --no-default-features --features json-rpc
+    endif
+  endif
+endfunction
+
+  Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
+  Plug 'junegunn/goyo.vim'
 call plug#end()
 
 
