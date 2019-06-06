@@ -33,6 +33,11 @@ let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 1
+let g:ale_linters = {'typescript': ['tsserver']}
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
+let g:ale_lint_delay = 0
+
 "let python_highlight_all=1
 let python_highlight_exceptions=0
 let python_highlight_builtins=0

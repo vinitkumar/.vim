@@ -20,6 +20,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'lervag/vimtex', { 'for': 'tex'}
   Plug 'lifepillar/vim-solarized8'
   Plug 'leafgarland/typescript-vim'
+  Plug 'joshdick/onedark.vim'
   function! BuildComposer(info)
   if a:info.status != 'unchanged' || a:info.force
     if has('nvim')
