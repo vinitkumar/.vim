@@ -6,6 +6,6 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 cd .vim
 cp ~/.vimrc ~/.vimrc.backup
 cp ~/.gvimrc ~/.gvimrc.backup
-cp vimrc ~/.vimrc
-cp gvimrc ~/.gvimrc
+ln -s vimrc ~/.vimrc
+ln -s gvimrc ~/.gvimrc
 vim +PlugInstall +qall
