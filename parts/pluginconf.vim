@@ -71,3 +71,9 @@ let g:typescript_compiler_binary = 'tsc'
 let g:tex_flavor='latex'
 let g:vimtex_view_method='skim'
 let g:vimtex_quickfix_mode=0
+
+
+" reason language specific
+let g:LanguageClient_serverCommands = {
+    \ 'reason': ['/Users/vinitkumar/projects/reason-language-server.exe']
+    \ }
