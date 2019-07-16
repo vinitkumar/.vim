@@ -41,3 +41,5 @@ au FocusLost * :wa
 " Run black when on saving a python file
 "autocmd BufWritePre *.py execute ':Black'
 autocmd BufNewFile,BufRead *.py set tabstop=4 softtabstop=4 shiftwidth=4 expandtab fileformat=unix comments=:#\:,:#
+autocmd FileType vue syntax sync fromstart
+
