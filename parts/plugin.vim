@@ -25,6 +25,7 @@ endfunction
 
   Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
   Plug 'junegunn/goyo.vim'
+  Plug 'reasonml-editor/vim-reason-plus'
 call plug#end()
 
 
