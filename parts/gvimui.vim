@@ -6,4 +6,4 @@ hi htmlArg gui=italic cterm=italic
 syntax enable
 set t_Co=256
 set background=dark
-colorscheme grb256
+colorscheme onedark

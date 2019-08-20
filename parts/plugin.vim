@@ -10,7 +10,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'machakann/vim-highlightedyank'
   " Plug 'rust-lang/rust.vim'
   Plug 'jordwalke/VimSplitBalancer'
-  Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
   Plug 'lervag/vimtex', { 'for': 'tex'}
   Plug 'leafgarland/typescript-vim'
   function! BuildComposer(info)
@@ -26,6 +25,7 @@ endfunction
   Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
   Plug 'junegunn/goyo.vim'
   Plug 'reasonml-editor/vim-reason-plus'
+  Plug 'joshdick/onedark.vim'
 call plug#end()
 
 
