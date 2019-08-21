@@ -10,9 +10,10 @@ call plug#begin('~/.vim/plugged')
   Plug 'machakann/vim-highlightedyank'
   " Plug 'rust-lang/rust.vim'
   Plug 'jordwalke/VimSplitBalancer'
-  Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+  " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
   Plug 'lervag/vimtex', { 'for': 'tex'}
   Plug 'leafgarland/typescript-vim'
+  Plug 'sainnhe/vim-color-forest-night'
   function! BuildComposer(info)
   if a:info.status != 'unchanged' || a:info.force
     if has('nvim')

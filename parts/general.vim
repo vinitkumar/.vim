@@ -35,7 +35,7 @@ set colorcolumn=100
 set showmatch           " Show matching brackets.
 set showmode            " Show current mode.
 set ruler               " Show the line and column numbers of the cursor.
-set nonumber              " Show the line numbers on the left side.
+set relativenumber number
 set formatoptions+=o    " Continue comment marker in new lines.
 set textwidth=0         " Hard-wrap long lines as you type them.
 set expandtab           " Insert spaces when TAB is pressed.
@@ -43,7 +43,7 @@ set tabstop=2           " Render TABs using this many spaces.
 set shiftwidth=2        " Indentation amount for < and > commands.
 map <D-d> yyp
 set noerrorbells        " No beeps.
-set modeline            " Enable modeline.
+set nomodeline modelines=0   " Enable modeline.
 "set esckeys             " Cursor keys in insert mode.
 set linespace=3         " Set line-spacing to minimum.
 set nojoinspaces        " Prevents inserting two spaces after punctuation on a join (J)
@@ -51,6 +51,7 @@ set list
 set listchars=tab:›\ ,eol:¬,trail:⋅
 set splitbelow          " Horizontal split below current.
 set splitright          " Vertical split to right of current.
+set autowrite
 set autoread            " If file updates, load automatically.
 " Reload vim whenever the config files changes
 
@@ -64,9 +65,9 @@ set wildignore+=*.dll,*.o,*.pyc,*.bak,*.exe,*.jpg,*.jpeg,*.png,*.gif,*$py.class,
 set wildmode=longest:list
 set pastetoggle=<F2>
 
-if (has("termguicolors"))
-   set termguicolors
-endif
+" if (has("termguicolors"))
+"    set termguicolors
+" endif
 
 let g:VimSplitBalancerMaxWidth=200
 "disable arrow keys in vim

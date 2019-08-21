@@ -23,7 +23,7 @@ let g:ale_linters = {
 \   'typescript': ['tslint'],
 \}
 
-let g:ale_python_pylint_args="--load-plugins pylint_django"
+"let g:ale_python_pylint_args="--load-plugins pylint_django"
 let g:ale_set_signs = 0
 let g:ale_lint_delay = 0
 let g:ale_lint_on_insert_leave = 1
