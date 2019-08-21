@@ -1,32 +1,33 @@
 " Plugs {
 call plug#begin('~/.vim/plugged')
-  Plug 'vim-airline/vim-airline'
-  Plug 'w0rp/ale'
-  Plug 'tpope/vim-fugitive'
+  "Autocomplete and linting
   Plug 'Valloric/YouCompleteMe'
+  Plug 'w0rp/ale'
+  " Search files
   Plug '/usr/local/opt/fzf'
-  Plug 'tpope/vim-commentary'
   Plug 'junegunn/fzf.vim'
+  " UI
+  Plug 'joshdick/onedark.vim'
   Plug 'machakann/vim-highlightedyank'
-  " Plug 'rust-lang/rust.vim'
+  Plug 'vim-airline/vim-airline'
   Plug 'jordwalke/VimSplitBalancer'
-  " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-  Plug 'lervag/vimtex', { 'for': 'tex'}
-  Plug 'leafgarland/typescript-vim'
-  Plug 'sainnhe/vim-color-forest-night'
+  " Git and Commenting
+  Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-commentary'
   function! BuildComposer(info)
-  if a:info.status != 'unchanged' || a:info.force
-    if has('nvim')
-      !cargo build --release
-    else
-      !cargo build --release --no-default-features --features json-rpc
+    if a:info.status != 'unchanged' || a:info.force
+      if has('nvim')
+        !cargo build --release
+      else
+        !cargo build --release --no-default-features --features json-rpc
+      endif
     endif
-  endif
-endfunction
+  endfunction
 
-  Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
-  Plug 'junegunn/goyo.vim'
-  Plug 'reasonml-editor/vim-reason-plus'
+  " Latex & markdown editing
+  Plug 'lervag/vimtex', { 'for': 'tex'}
+  Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer'), 'for': 'markdown'}
+  Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
 call plug#end()
 
 
