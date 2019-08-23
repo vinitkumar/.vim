@@ -28,6 +28,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'lervag/vimtex', { 'for': 'tex'}
   Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer'), 'for': 'markdown'}
   Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
+  Plug 'psf/black'
 call plug#end()
 
 

@@ -34,7 +34,8 @@ function! StripTrailingWhitespace()
   endif
 endfunction
 
-let g:black_virtualenv = '/Users/advik/.virtualenvs/black'
+let g:black_virtualenv = '/Users/vinitkumar/.virtualenvs/docker'
+let g:black_linelength = 120
 command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
 function! ProseMode()
