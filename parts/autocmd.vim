@@ -41,5 +41,13 @@ au FocusLost * :wa
 " Run black when on saving a python file
 "autocmd BufWritePre *.py execute ':Black'
 autocmd BufNewFile,BufRead *.py set tabstop=4 softtabstop=4 shiftwidth=4 expandtab fileformat=unix comments=:#\:,:#
-autocmd FileType vue syntax sync fromstart
+" Two-space indents in TypeScript
+autocmd! FileType typescript set sw=2 sts=2 expandtab
+" Automatically write after inactivity in TypeScript
+autocmd FileType typescript autocmd CursorHold <buffer> :silent :wa
+
+" Somehow, loading TypeScript .tsx files sometimes invokes the XML file
+" type, which messes up the indentation. Force XML indentation to 2 so at
+" least it doesn't change TypeScript indentation at random.
+autocmd! FileType xml set sw=2 sts=2 expandtab
 
