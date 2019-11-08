@@ -1,8 +1,8 @@
-set guifont=Inconsolata-g\ for\ Powerline:h16
+set guifont=Operator\ Mono\ Book:h15
 set linespace=4
 hi Comment gui=italic cterm=italic
 hi htmlArg gui=italic cterm=italic
-syntax enable
-set t_Co=256
+syntax off
 set background=dark
-colorscheme onedark
+set transparency=10
+colorscheme base16-gruvbox-dark-hard
