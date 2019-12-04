@@ -10,7 +10,7 @@ set t_Co=256
 set smarttab
 set lazyredraw
 set secure
-set cursorline
+" set cursorline
 set showtabline=2
 set switchbuf=useopen
 set cmdheight=1
@@ -32,6 +32,7 @@ set hidden              " hide buffers instead of closing them this
                         "    that marks and undo history are preserved
 set showcmd             " Show (partial) command in status line.
 set colorcolumn=100
+set scrolloff=3
 set showmatch           " Show matching brackets.
 set showmode            " Show current mode.
 set ruler               " Show the line and column numbers of the cursor.
@@ -59,6 +60,7 @@ set display+=lastline
 set nostartofline       " Do not jump to first character with page commands.
 
 
+:set completeopt=menu,preview
 set wildmenu
 set wildchar=<TAB>
 set wildignore+=*.dll,*.o,*.pyc,*.bak,*.exe,*.jpg,*.jpeg,*.png,*.gif,*$py.class,*.class,*/*.dSYM/*,*.dylib

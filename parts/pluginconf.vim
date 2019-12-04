@@ -44,9 +44,6 @@ let python_highlight_builtins=0
 let python_slow_sync=1
 
 
-" Do rust fmt on save
-let g:rustfmt_autosave = 1
-
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],

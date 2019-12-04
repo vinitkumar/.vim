@@ -1,8 +1,9 @@
-set guifont=Operator\ Mono\ Book:h15
-set linespace=4
+set guifont=Inconsolata-g\ for\ Powerline:h14
+set guifont=Noto\ Sans\ Mono:h14
+set guifont=PragmataPro:h14
 hi Comment gui=italic cterm=italic
 hi htmlArg gui=italic cterm=italic
-syntax off
+syntax on
 set background=dark
-set transparency=10
-colorscheme base16-gruvbox-dark-hard
+colorscheme molokai
+set linespace=0
