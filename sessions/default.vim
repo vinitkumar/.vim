@@ -3,8 +3,6 @@ if &cp | set nocp | endif
 let s:cpo_save=&cpo
 set cpo&vim
 inoremap <silent> <Plug>CocRefresh =coc#_complete()
-inoremap <silent> <expr> <C-Space> coc#refresh()
-inoremap <expr> <S-Tab> pumvisible() ? "\" : "\"
 inoremap <silent> <Plug>(fzf-maps-i) :call fzf#vim#maps('i', 0)
 inoremap <expr> <Plug>(fzf-complete-buffer-line) fzf#vim#complete#buffer_line()
 inoremap <expr> <Plug>(fzf-complete-line) fzf#vim#complete#line()
@@ -15,6 +13,8 @@ inoremap <expr> <Plug>(fzf-complete-word) fzf#vim#complete#word()
 inoremap <silent> <Plug>(ale_complete) :ALEComplete
 inoremap <C-A> <Home>
 inoremap <C-E> <End>
+inoremap <silent> <expr> <C-Space> coc#refresh()
+inoremap <expr> <S-Tab> pumvisible() ? "\" : "\"
 map! <D-v> *
 nmap  :Buffers
 nnoremap  G
@@ -27,13 +27,6 @@ nnoremap <silent>  o :CocList outline
 nnoremap <silent>  c :CocList commands
 nnoremap <silent>  e :CocList extensions
 nnoremap <silent>  a :CocList diagnostics
-nmap ,qf <Plug>(coc-fix-current)
-nmap ,ac <Plug>(coc-codeaction)
-nmap ,a <Plug>(coc-codeaction-selected)
-vmap ,a <Plug>(coc-codeaction-selected)
-nmap ,f <Plug>(coc-format-selected)
-vmap ,f <Plug>(coc-format-selected)
-nmap ,rn <Plug>(coc-rename)
 noremap ,v :vsplit
 noremap ,h :split
 nnoremap ,m :if &go=~#'m'|set go-=m|else|set go+=m|endif
@@ -47,11 +40,14 @@ nnoremap ,w :w
 nnoremap ; :
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap \p :ProseMode
+nmap \qf <Plug>(coc-fix-current)
+nmap \ac <Plug>(coc-codeaction)
+nmap \a <Plug>(coc-codeaction-selected)
+vmap \a <Plug>(coc-codeaction-selected)
+nmap \f <Plug>(coc-format-selected)
+vmap \f <Plug>(coc-format-selected)
+nmap \rn <Plug>(coc-rename)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)
-nmap <silent> gr <Plug>(coc-references)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gd <Plug>(coc-definition)
 vmap gx <Plug>NetrwBrowseXVis
 nmap gx <Plug>NetrwBrowseX
 nmap gcu <Plug>Commentary<Plug>Commentary
@@ -59,6 +55,10 @@ nmap gcc <Plug>CommentaryLine
 omap gc <Plug>Commentary
 nmap gc <Plug>Commentary
 xmap gc <Plug>Commentary
+nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gd <Plug>(coc-definition)
 nnoremap j gj
 nnoremap k gk
 xnoremap <silent> <Plug>(coc-git-chunk-outer) :call coc#rpc#request('doKeymap', ['git-chunk-outer'])
@@ -69,6 +69,10 @@ nnoremap <silent> <Plug>(coc-git-commit) :call coc#rpc#notify('doKeymap', ['git-
 nnoremap <silent> <Plug>(coc-git-chunkinfo) :call coc#rpc#notify('doKeymap', ['git-chunkinfo'])
 nnoremap <silent> <Plug>(coc-git-prevchunk) :call coc#rpc#notify('doKeymap', ['git-prevchunk'])
 nnoremap <silent> <Plug>(coc-git-nextchunk) :call coc#rpc#notify('doKeymap', ['git-nextchunk'])
+vnoremap <silent> <Plug>NetrwBrowseXVis :call netrw#BrowseXVis()
+nnoremap <silent> <Plug>NetrwBrowseX :call netrw#BrowseX(netrw#GX(),netrw#CheckIfRemote(netrw#GX()))
+noremap <SNR>29_DashGlobalSearch :Dash!
+noremap <SNR>29_DashSearch :Dash
 onoremap <silent> <Plug>(coc-funcobj-a) :call coc#rpc#request('selectFunction', [v:false, ''])
 onoremap <silent> <Plug>(coc-funcobj-i) :call coc#rpc#request('selectFunction', [v:true, ''])
 vnoremap <silent> <Plug>(coc-funcobj-a) :call coc#rpc#request('selectFunction', [v:false, visualmode()])
@@ -101,13 +105,6 @@ nnoremap <Plug>(coc-codelens-action) :call       CocActionAsync('codeLensActio
 nnoremap <Plug>(coc-range-select) :call       CocAction('rangeSelect',     '', v:true)
 vnoremap <Plug>(coc-range-select-backward) :call       CocAction('rangeSelect',     visualmode(), v:false)
 vnoremap <Plug>(coc-range-select) :call       CocAction('rangeSelect',     visualmode(), v:true)
-nnoremap <Plug>(-fzf-:) :
-nnoremap <Plug>(-fzf-/) /
-nnoremap <Plug>(-fzf-vim-do) :execute g:__fzf_command
-vnoremap <silent> <Plug>NetrwBrowseXVis :call netrw#BrowseXVis()
-nnoremap <silent> <Plug>NetrwBrowseX :call netrw#BrowseX(netrw#GX(),netrw#CheckIfRemote(netrw#GX()))
-noremap <SNR>24_DashGlobalSearch :Dash!
-noremap <SNR>24_DashSearch :Dash
 nmap <silent> <Plug>CommentaryUndo :echoerr "Change your <Plug>CommentaryUndo map to <Plug>Commentary<Plug>Commentary"
 onoremap <silent> <Plug>(fzf-maps-o) :call fzf#vim#maps('o', 0)
 xnoremap <silent> <Plug>(fzf-maps-x) :call fzf#vim#maps('x', 0)
@@ -193,10 +190,9 @@ set modelines=0
 set mousemodel=popup
 set nrformats=bin,hex
 set omnifunc=syntaxcomplete#Complete
-set operatorfunc=<SNR>23_go
 set pastetoggle=<F2>
 set ruler
-set runtimepath=~/.vim,~/.vim/plugged/ale,/usr/local/opt/fzf,~/.vim/plugged/fzf.vim,~/.vim/plugged/vim-highlightedyank,~/.vim/plugged/vim-commentary,~/.vim/plugged/vim-colors-github,~/.vim/plugged/coc.nvim,~/.vim/plugged/dash.vim,~/.vim/plugged/vim-clap,~/.vim/pack/plugins/start/zig.vim,/usr/local/share/vim/vimfiles,/usr/local/share/vim/vim82,/usr/local/share/vim/vimfiles/after,~/.vim/after
+set runtimepath=~/.vim,~/.vim/pack/plugins/start/zig.vim,~/.vim/plugged/ale,/usr/local/opt/fzf,~/.vim/plugged/fzf.vim,~/.vim/plugged/vim-highlightedyank,~/.vim/plugged/vim-commentary,~/.vim/plugged/vim-colors-github,~/.vim/plugged/coc.nvim,~/.vim/plugged/dash.vim,~/.vim/plugged/vim-clap,/usr/local/share/vim/vimfiles,/usr/local/share/vim/vim82,/usr/local/share/vim/vimfiles/after,~/.vim/after
 set scrolloff=3
 set secure
 set shiftwidth=2
@@ -227,14 +223,13 @@ let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
 silent tabonly
-cd ~/projects/python/socialschools-cms-docker
+cd ~/.vim
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
 argglobal
 %argdel
-edit ~/.vim/parts/pluginconf.vim
 set splitbelow splitright
 wincmd t
 set winminheight=0
@@ -242,18 +237,7 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 argglobal
-vnoremap <buffer> <silent> [" :exe "normal! gv"|call search('\%(^\s*".*\n\)\%(^\s*"\)\@!', "bW")
-nnoremap <buffer> <silent> [" :call search('\%(^\s*".*\n\)\%(^\s*"\)\@!', "bW")
-vnoremap <buffer> <silent> [] m':exe "normal! gv"|call search('^\s*endf\%[unction]\>', "bW")
-nnoremap <buffer> <silent> [] m':call search('^\s*endf\%[unction]\>', "bW")
-vnoremap <buffer> <silent> [[ m':exe "normal! gv"|call search('^\s*fu\%[nction]\>', "bW")
-nnoremap <buffer> <silent> [[ m':call search('^\s*fu\%[nction]\>', "bW")
-vnoremap <buffer> <silent> ]" :exe "normal! gv"|call search('^\(\s*".*\n\)\@<!\(\s*"\)', "W")
-nnoremap <buffer> <silent> ]" :call search('^\(\s*".*\n\)\@<!\(\s*"\)', "W")
-vnoremap <buffer> <silent> ][ m':exe "normal! gv"|call search('^\s*endf\%[unction]\>', "W")
-nnoremap <buffer> <silent> ][ m':call search('^\s*endf\%[unction]\>', "W")
-vnoremap <buffer> <silent> ]] m':exe "normal! gv"|call search('^\s*fu\%[nction]\>', "W")
-nnoremap <buffer> <silent> ]] m':call search('^\s*fu\%[nction]\>', "W")
+enew
 setlocal keymap=
 setlocal noarabic
 setlocal noautoindent
@@ -271,8 +255,8 @@ setlocal cinoptions=
 setlocal cinwords=if,else,while,do,for,switch
 set colorcolumn=100
 setlocal colorcolumn=100
-setlocal comments=sO:\"\ -,mO:\"\ \ ,eO:\"\",:\"
-setlocal commentstring=\"%s
+setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
+setlocal commentstring=/*%s*/
 setlocal complete=.,w,b,u,t,i
 setlocal concealcursor=
 setlocal conceallevel=0
@@ -289,8 +273,8 @@ setlocal nodiff
 setlocal equalprg=
 setlocal errorformat=
 setlocal expandtab
-if &filetype != 'vim'
-setlocal filetype=vim
+if &filetype != ''
+setlocal filetype=
 endif
 setlocal fixendofline
 setlocal foldcolumn=0
@@ -304,7 +288,7 @@ setlocal foldminlines=1
 setlocal foldnestmax=20
 setlocal foldtext=foldtext()
 setlocal formatexpr=
-setlocal formatoptions=croql
+setlocal formatoptions=tcqo
 setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
 setlocal formatprg=
 setlocal grepprg=
@@ -312,11 +296,11 @@ setlocal iminsert=0
 setlocal imsearch=-1
 setlocal include=
 setlocal includeexpr=
-setlocal indentexpr=GetVimIndent()
-setlocal indentkeys=0{,0},0),0],:,0#,!^F,o,O,e,=end,=else,=cat,=fina,=END,0\\,0=\"\\\ 
+setlocal indentexpr=
+setlocal indentkeys=0{,0},0),0],:,0#,!^F,o,O,e
 setlocal noinfercase
-setlocal iskeyword=@,48-57,_,192-255,#
-setlocal keywordprg=:help
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=
 setlocal nolinebreak
 setlocal nolisp
 setlocal lispwords=
@@ -347,7 +331,8 @@ setlocal shiftwidth=2
 setlocal noshortname
 setlocal showbreak=
 setlocal sidescrolloff=-1
-setlocal signcolumn=auto
+set signcolumn=yes
+setlocal signcolumn=yes
 setlocal nosmartindent
 setlocal softtabstop=0
 setlocal nospell
@@ -358,8 +343,8 @@ setlocal statusline=
 setlocal suffixesadd=
 setlocal noswapfile
 setlocal synmaxcol=3000
-if &syntax != 'vim'
-setlocal syntax=vim
+if &syntax != ''
+setlocal syntax=
 endif
 setlocal tabstop=2
 setlocal tagcase=
@@ -368,7 +353,7 @@ setlocal tags=
 setlocal termwinkey=
 setlocal termwinscroll=10000
 setlocal termwinsize=
-setlocal textwidth=78
+setlocal textwidth=0
 setlocal thesaurus=
 setlocal noundofile
 setlocal undolevels=-123456
@@ -379,17 +364,7 @@ setlocal nowinfixheight
 setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
-silent! normal! zE
-let s:l = 16 - ((15 * winheight(0) + 23) / 47)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-16
-normal! 03|
 tabnext 1
-badd +11 ~/.vim/parts/plugin.vim
-badd +0 ~/.vim/parts/pluginconf.vim
-badd +29 ~/.vimrc
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0
   silent exe 'bwipe ' . s:wipebuf
 endif
@@ -401,6 +376,7 @@ if file_readable(s:sx)
   exe "source " . fnameescape(s:sx)
 endif
 let &so = s:so_save | let &siso = s:siso_save
+nohlsearch
 doautoall SessionLoadPost
 unlet SessionLoad
 " vim: set ft=vim :
