@@ -10,6 +10,7 @@ source ~/.vim/parts/ui.vim
 " All autocmds are here.
 source ~/.vim/parts/autocmd.vim
 " Plugin specific tunings are here
+" source ~/.config/nvim/coc_conf.vim
 source ~/.vim/parts/pluginconf.vim
 " All the mappings are done here
 source ~/.vim/parts/mappings.vim
