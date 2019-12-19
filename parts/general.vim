@@ -5,6 +5,7 @@ set encoding=utf-8
 set nocompatible
 set backspace=indent,eol,start      " Allow backspace over everything in insert mode.
 set mousemodel=popup
+set foldmethod=marker
 set noswapfile
 set t_Co=256
 set smarttab
@@ -33,6 +34,8 @@ set hidden              " hide buffers instead of closing them this
 set showcmd             " Show (partial) command in status line.
 set colorcolumn=100
 set scrolloff=3
+set scrolljump=-15
+set formatoptions=qrnj1
 set showmatch           " Show matching brackets.
 set showmode            " Show current mode.
 set ruler               " Show the line and column numbers of the cursor.

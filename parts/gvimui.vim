@@ -3,5 +3,6 @@ hi Comment gui=italic cterm=italic
 hi htmlArg gui=italic cterm=italic
 syntax on
 set background=dark
-colorscheme elflord
+" colorscheme elflord
+colorscheme space-vim-dark
 set linespace=0

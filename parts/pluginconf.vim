@@ -23,6 +23,9 @@ let g:ale_linters = {
 \   'typescript': ['tslint'],
 \}
 
+
+let g:ale_fixers = { 'python': ['black']}
+
 "let g:ale_python_pylint_args="--load-plugins pylint_django"
 let g:ale_set_signs = 0
 let g:ale_lint_delay = 0
@@ -33,9 +36,7 @@ let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 1
-let g:ale_linters = {'typescript': ['tsserver']}
 let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_insert_leave = 1
 let g:ale_lint_delay = 0
 
 "let python_highlight_all=1
@@ -43,10 +44,11 @@ let python_highlight_exceptions=0
 let python_highlight_builtins=0
 let python_slow_sync=1
 
+set rtp+=/usr/local/opt/fzf
 
-" Customize fzf colors to match your color scheme
+" " Customize fzf colors to match your color scheme
 let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
+  \ { 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
   \ 'hl':      ['fg', 'Comment'],
   \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
@@ -60,12 +62,4 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
-
-let g:jsx_ext_required = 0
-let g:typescript_compiler_binary = 'tsc'
-
-
-let g:tex_flavor='latex'
-let g:vimtex_view_method='skim'
-let g:vimtex_quickfix_mode=0
 

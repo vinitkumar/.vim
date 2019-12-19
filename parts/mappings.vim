@@ -2,6 +2,8 @@
 let mapleader=","
 map <C-p> :Files<CR>
 nmap <C-b> :Buffers<CR>
+nmap <C-c> :Commits<CR>
+nmap <C-t> :Colors<CR>
 
 " Keybindings {
   " Save file
@@ -24,7 +26,6 @@ nnoremap k gk
   " Make HOME and END behave like shell
 inoremap <C-E> <End>
 inoremap <C-A> <Home>
-" }
 
 "Toggle menubar
 nnoremap <leader>m :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
