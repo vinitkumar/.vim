@@ -6,10 +6,10 @@ set nobackup
 set nowritebackup
 
 " Better display for messages
-set cmdheight=2
+set cmdheight=5
 
 " Smaller updatetime for CursorHold & CursorHoldI
-set updatetime=100
+set updatetime=300
 
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
