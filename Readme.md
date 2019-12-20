@@ -3,7 +3,7 @@
 These are the vim files I use for writing code in Python, JS(Node & React), Go etc.
 It aims to be functional and fast at the same time.
 
-![vim-screenshot](https://cldup.com/POl0j5WzkD-3000x3000.png)
+![vim-screenshot](./macvim.png)
 
 For terminal emulator, I use Alacritty in combination with Vim & tmux. IMHO, it has the fastest Developer Experience on Mac.
 
