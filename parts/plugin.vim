@@ -7,6 +7,11 @@ call plug#begin('~/.vim/plugged')
   Plug 'machakann/vim-highlightedyank'
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-abolish'
+  Plug 'vim-scripts/MPage'
+  Plug 'janko/vim-test'
+  Plug 'tpope/vim-eunuch'
+  Plug 'fatih/vim-go'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 

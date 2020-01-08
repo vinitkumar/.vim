@@ -63,3 +63,7 @@ let g:fzf_colors =
   \ 'header':  ['fg', 'Comment'] }
 
 
+" for neovim
+let test#neovim#term_position = "topleft"
+" or for Vim8
+let test#vim#term_position = "belowright"
