@@ -39,7 +39,6 @@ set formatoptions=qrnj1
 set showmatch           " Show matching brackets.
 set showmode            " Show current mode.
 set ruler               " Show the line and column numbers of the cursor.
-set relativenumber number
 set formatoptions+=o    " Continue comment marker in new lines.
 set textwidth=0         " Hard-wrap long lines as you type them.
 set expandtab           " Insert spaces when TAB is pressed.
@@ -81,3 +80,11 @@ noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
 set noeb vb t_vb=
+" performance related fix
+set synmaxcol=120
+set nocursorline
+
+let g:matchparen_timeout = 20
+let g:matchparen_insert_timeout = 20
+:setlocal spell spelllang=en_us
+set ttymouse=sgr

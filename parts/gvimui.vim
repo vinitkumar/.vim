@@ -1,8 +1,9 @@
-set guifont=Inconsolata-dz\ for\ Powerline:h15
+set guifont=Inconsolata-g:h14
 hi Comment gui=italic cterm=italic
 hi htmlArg gui=italic cterm=italic
 syntax on
+set termguicolors
+" for dark version
 set background=dark
-" colorscheme elflord
-colorscheme vimBoxColorsDuringLoad
+colorscheme grb24bit
 set linespace=0

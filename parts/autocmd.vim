@@ -51,3 +51,5 @@ autocmd FileType typescript autocmd CursorHold <buffer> :silent :wa
 " least it doesn't change TypeScript indentation at random.
 autocmd! FileType xml set sw=2 sts=2 expandtab
 
+autocmd BufRead,BufNewFile *.md setlocal spell
+autocmd FileType gitcommit setlocal spell

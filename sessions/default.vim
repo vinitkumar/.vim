@@ -49,7 +49,6 @@ nnoremap <silent> <Plug>(coc-git-commit) :call coc#rpc#notify('doKeymap', ['gi
 nnoremap <silent> <Plug>(coc-git-chunkinfo) :call coc#rpc#notify('doKeymap', ['git-chunkinfo'])
 nnoremap <silent> <Plug>(coc-git-prevchunk) :call coc#rpc#notify('doKeymap', ['git-prevchunk'])
 nnoremap <silent> <Plug>(coc-git-nextchunk) :call coc#rpc#notify('doKeymap', ['git-nextchunk'])
-nnoremap <SNR>73_: :=v:count ? v:count : ''
 vnoremap <silent> <Plug>NetrwBrowseXVis :call netrw#BrowseXVis()
 nnoremap <silent> <Plug>NetrwBrowseX :call netrw#BrowseX(netrw#GX(),netrw#CheckIfRemote(netrw#GX()))
 onoremap <silent> <Plug>(coc-funcobj-a) :call coc#rpc#request('selectFunction', [v:false, ''])
@@ -84,12 +83,23 @@ nnoremap <Plug>(coc-codelens-action) :call       CocActionAsync('codeLensActio
 nnoremap <Plug>(coc-range-select) :call       CocAction('rangeSelect',     '', v:true)
 vnoremap <Plug>(coc-range-select-backward) :call       CocAction('rangeSelect',     visualmode(), v:false)
 vnoremap <Plug>(coc-range-select) :call       CocAction('rangeSelect',     visualmode(), v:true)
-nmap <silent> <Plug>RestoreWinPosn :call RestoreWinPosn()
-nmap <silent> <Plug>SaveWinPosn :call SaveWinPosn()
-nmap <silent> <Plug>CommentaryUndo :echoerr "Change your <Plug>CommentaryUndo map to <Plug>Commentary<Plug>Commentary"
+nnoremap <silent> <Plug>(grammarous-move-to-previous-error) :call grammarous#move_to_previous_error(getpos('.')[1 : 2], b:grammarous_result)
+nnoremap <silent> <Plug>(grammarous-move-to-next-error) :call grammarous#move_to_next_error(getpos('.')[1 : 2], b:grammarous_result)
+nnoremap <silent> <Plug>(grammarous-disable-category) :call grammarous#disable_category_at(getpos('.')[1 : 2], b:grammarous_result)
+nnoremap <silent> <Plug>(grammarous-disable-rule) :call grammarous#disable_rule_at(getpos('.')[1 : 2], b:grammarous_result)
+nnoremap <silent> <Plug>(grammarous-remove-error) :call grammarous#remove_error_at(getpos('.')[1 : 2], b:grammarous_result)
+nnoremap <silent> <Plug>(grammarous-close-info-window) :call grammarous#info_win#close()
+nnoremap <silent> <Plug>(grammarous-fixall) :call grammarous#fixall(b:grammarous_result)
+nnoremap <silent> <Plug>(grammarous-fixit) :call grammarous#fixit(grammarous#get_error_at(getpos('.')[1 : 2], b:grammarous_result))
+nnoremap <silent> <Plug>(grammarous-reset) :call grammarous#reset()
+nnoremap <silent> <Plug>(grammarous-open-info-window) :call grammarous#create_update_info_window_of(b:grammarous_result)
+nnoremap <silent> <Plug>(grammarous-move-to-info-window) :call grammarous#create_and_jump_to_info_window_of(b:grammarous_result)
 onoremap <silent> <Plug>(fzf-maps-o) :call fzf#vim#maps('o', 0)
 xnoremap <silent> <Plug>(fzf-maps-x) :call fzf#vim#maps('x', 0)
 nnoremap <silent> <Plug>(fzf-maps-n) :call fzf#vim#maps('n', 0)
+nmap <silent> <Plug>RestoreWinPosn :call RestoreWinPosn()
+nmap <silent> <Plug>SaveWinPosn :call SaveWinPosn()
+nmap <silent> <Plug>CommentaryUndo :echoerr "Change your <Plug>CommentaryUndo map to <Plug>Commentary<Plug>Commentary"
 nnoremap <BS> gg
 nmap <C-T> :Colors
 nmap <C-C> :Commits
@@ -136,7 +146,7 @@ set nrformats=bin,hex
 set omnifunc=syntaxcomplete#Complete
 set pastetoggle=<F2>
 set ruler
-set runtimepath=~/.vim,~/.vim/plugged/vim-airline,/usr/local/opt/fzf,~/.vim/plugged/fzf.vim,~/.vim/plugged/vim-highlightedyank,~/.vim/plugged/vim-commentary,~/.vim/plugged/vim-fugitive,~/.vim/plugged/vim-abolish,~/.vim/plugged/MPage,~/.vim/plugged/vim-test,~/.vim/plugged/vim-eunuch,~/.vim/plugged/vim-go,~/.vim/plugged/coc.nvim,~/.vim/pack/plugins/start/zig.vim,/usr/local/share/vim/vimfiles,/usr/local/share/vim/vim82,/usr/local/share/vim/vimfiles/after,~/.vim/after
+set runtimepath=~/.vim,~/.vim/pack/plugins/start/zig.vim,~/.vim/plugged/vim-airline,~/.vim/plugged/vim-highlightedyank,~/.vim/plugged/vim-commentary,~/.vim/plugged/vim-fugitive,~/.vim/plugged/vim-abolish,~/.vim/plugged/MPage,~/.vim/plugged/vim-test,~/.vim/plugged/vim-eunuch,/usr/local/opt/fzf,~/.vim/plugged/fzf.vim,~/.vim/plugged/vim-grammarous,~/.vim/plugged/vim-go,~/.vim/plugged/coc.nvim,/usr/local/share/vim/vimfiles,/usr/local/share/vim/vim82,/usr/local/share/vim/vimfiles/after,~/.vim/after
 set scrolljump=-15
 set scrolloff=3
 set secure
@@ -152,6 +162,7 @@ set nostartofline
 set statusline=%<%F\ %w%h%m%r\ [%{&ff}/%Y]\ [%{getcwd()}]%=%-14.(%l,%c%V%)\ %p%%
 set noswapfile
 set switchbuf=useopen
+set synmaxcol=120
 set tabpagemax=50
 set tabstop=2
 set termencoding=utf-8
@@ -165,7 +176,7 @@ let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
 silent tabonly
-cd ~/projects/python/socialschools-cms-docker
+cd ~/
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
@@ -255,8 +266,7 @@ setlocal matchpairs=(:),{:},[:]
 setlocal nomodeline
 setlocal modifiable
 setlocal nrformats=bin,hex
-set number
-setlocal number
+setlocal nonumber
 setlocal numberwidth=4
 setlocal omnifunc=syntaxcomplete#Complete
 setlocal path=
@@ -264,8 +274,7 @@ setlocal nopreserveindent
 setlocal nopreviewwindow
 setlocal quoteescape=\\
 setlocal noreadonly
-set relativenumber
-setlocal relativenumber
+setlocal norelativenumber
 setlocal norightleft
 setlocal rightleftcmd=search
 setlocal noscrollbind
@@ -277,14 +286,14 @@ setlocal sidescrolloff=-1
 setlocal signcolumn=auto
 setlocal nosmartindent
 setlocal softtabstop=0
-setlocal nospell
+setlocal spell
 setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
 setlocal spellfile=
-setlocal spelllang=en
+setlocal spelllang=en_us
 setlocal statusline=%!airline#statusline(1)
 setlocal suffixesadd=
 setlocal noswapfile
-setlocal synmaxcol=3000
+setlocal synmaxcol=120
 if &syntax != ''
 setlocal syntax=
 endif
