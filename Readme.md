@@ -1,7 +1,6 @@
 ## .Vim
 
-These are the vim files I use for writing code in Python, JS(Node & React), Go etc.
-It aims to be functional and fast at the same time.
+My vim configuration for writing Python, JavaScript, Go and Rust.
 
 ![vim-screenshot](./macvim.png)
 
