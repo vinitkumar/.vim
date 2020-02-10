@@ -88,3 +88,8 @@ let g:matchparen_timeout = 20
 let g:matchparen_insert_timeout = 20
 :setlocal spell spelllang=en_us
 set ttymouse=sgr
+hi SpellBad cterm=underline ctermfg=9
+hi SpellLocal cterm=underline ctermfg=9
+hi SpellRare cterm=underline ctermfg=9
+hi SpellCap cterm=underline
+set re=1

@@ -1,6 +1,7 @@
 " Plugs {
 call plug#begin('~/.vim/plugged')
   " Plug 'dense-analysis/ale'
+  Plug 'gruvbox-community/gruvbox'
   Plug 'vim-airline/vim-airline'
   Plug 'machakann/vim-highlightedyank'
   Plug 'tpope/vim-commentary'

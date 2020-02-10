@@ -145,8 +145,9 @@ set mousemodel=popup
 set nrformats=bin,hex
 set omnifunc=syntaxcomplete#Complete
 set pastetoggle=<F2>
+set regexpengine=1
 set ruler
-set runtimepath=~/.vim,~/.vim/pack/plugins/start/zig.vim,~/.vim/plugged/vim-airline,~/.vim/plugged/vim-highlightedyank,~/.vim/plugged/vim-commentary,~/.vim/plugged/vim-fugitive,~/.vim/plugged/vim-abolish,~/.vim/plugged/MPage,~/.vim/plugged/vim-test,~/.vim/plugged/vim-eunuch,/usr/local/opt/fzf,~/.vim/plugged/fzf.vim,~/.vim/plugged/vim-grammarous,~/.vim/plugged/vim-go,~/.vim/plugged/coc.nvim,/usr/local/share/vim/vimfiles,/usr/local/share/vim/vim82,/usr/local/share/vim/vimfiles/after,~/.vim/after
+set runtimepath=~/.vim,~/.vim/pack/plugins/start/zig.vim,~/.vim/plugged/gruvbox,~/.vim/plugged/vim-airline,~/.vim/plugged/vim-highlightedyank,~/.vim/plugged/vim-commentary,~/.vim/plugged/vim-fugitive,~/.vim/plugged/vim-abolish,~/.vim/plugged/MPage,~/.vim/plugged/vim-test,~/.vim/plugged/vim-eunuch,/usr/local/opt/fzf,~/.vim/plugged/fzf.vim,~/.vim/plugged/vim-grammarous,~/.vim/plugged/vim-go,~/.vim/plugged/coc.nvim,/usr/local/share/vim/vimfiles,/usr/local/share/vim/vim82,/usr/local/share/vim/vimfiles/after,~/.vim/after
 set scrolljump=-15
 set scrolloff=3
 set secure
@@ -176,13 +177,15 @@ let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
 silent tabonly
-cd ~/
+cd ~/.vim/parts
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
 argglobal
 %argdel
+$argadd ~/.config/alacritty/alacritty.yml
+edit ~/.config/alacritty/alacritty.yml
 set splitbelow splitright
 wincmd t
 set winminheight=0
@@ -190,7 +193,6 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 argglobal
-enew
 setlocal keymap=
 setlocal noarabic
 setlocal noautoindent
@@ -208,8 +210,8 @@ setlocal cinoptions=
 setlocal cinwords=if,else,while,do,for,switch
 set colorcolumn=100
 setlocal colorcolumn=100
-setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
-setlocal commentstring=/*%s*/
+setlocal comments=:#
+setlocal commentstring=#\ %s
 setlocal complete=.,w,b,u,t,i
 setlocal concealcursor=
 setlocal conceallevel=0
@@ -226,8 +228,8 @@ setlocal nodiff
 setlocal equalprg=
 setlocal errorformat=
 setlocal expandtab
-if &filetype != ''
-setlocal filetype=
+if &filetype != 'yaml'
+setlocal filetype=yaml
 endif
 setlocal fixendofline
 setlocal foldcolumn=0
@@ -242,7 +244,7 @@ setlocal foldminlines=1
 setlocal foldnestmax=20
 setlocal foldtext=foldtext()
 setlocal formatexpr=
-setlocal formatoptions=qrnj1o
+setlocal formatoptions=nj1croql
 setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
 setlocal formatprg=
 setlocal grepprg=
@@ -250,8 +252,8 @@ setlocal iminsert=0
 setlocal imsearch=-1
 setlocal include=
 setlocal includeexpr=
-setlocal indentexpr=
-setlocal indentkeys=0{,0},0),0],:,0#,!^F,o,O,e
+setlocal indentexpr=GetYAMLIndent(v:lnum)
+setlocal indentkeys=!^F,o,O,0#,0},0],<:>,0-
 setlocal noinfercase
 setlocal iskeyword=@,48-57,_,192-255
 setlocal keywordprg=
@@ -285,7 +287,7 @@ setlocal showbreak=
 setlocal sidescrolloff=-1
 setlocal signcolumn=auto
 setlocal nosmartindent
-setlocal softtabstop=0
+setlocal softtabstop=2
 setlocal spell
 setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
 setlocal spellfile=
@@ -294,8 +296,8 @@ setlocal statusline=%!airline#statusline(1)
 setlocal suffixesadd=
 setlocal noswapfile
 setlocal synmaxcol=120
-if &syntax != ''
-setlocal syntax=
+if &syntax != 'yaml'
+setlocal syntax=yaml
 endif
 setlocal tabstop=2
 setlocal tagcase=
@@ -315,7 +317,14 @@ setlocal nowinfixheight
 setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
+let s:l = 234 - ((37 * winheight(0) + 26) / 52)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+234
+normal! 023|
 tabnext 1
+badd +0 ~/.config/alacritty/alacritty.yml
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0
   silent exe 'bwipe ' . s:wipebuf
 endif
@@ -327,7 +336,6 @@ if file_readable(s:sx)
   exe "source " . fnameescape(s:sx)
 endif
 let &so = s:so_save | let &siso = s:siso_save
-nohlsearch
 doautoall SessionLoadPost
 unlet SessionLoad
 " vim: set ft=vim :
