@@ -14,7 +14,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'junegunn/fzf.vim', {'branch': 'master'}
   Plug 'rhysd/vim-grammarous'
   Plug 'fatih/vim-go'
+  Plug 'arzg/vim-colors-xcode'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'majutsushi/tagbar'
 call plug#end()
 
 

@@ -1,9 +1,9 @@
-set guifont=Inconsolata-g:h14
+set guifont=SF\ Mono:h14
 hi Comment gui=italic cterm=italic
 hi htmlArg gui=italic cterm=italic
 syntax on
 set termguicolors
 " for dark version
 set background=dark
-colorscheme grb24bit
+colorscheme desert
 set linespace=0

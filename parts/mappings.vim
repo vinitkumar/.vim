@@ -37,3 +37,4 @@ noremap <Leader>v :<C-u>vsplit<CR>
 nnoremap ; :
 
 
+nmap tt :TagbarToggle<CR>

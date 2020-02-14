@@ -53,3 +53,4 @@ autocmd! FileType xml set sw=2 sts=2 expandtab
 
 autocmd BufRead,BufNewFile *.md setlocal spell
 autocmd FileType gitcommit setlocal spell
+:nnoremap <f5> :!ctags -R<CR>

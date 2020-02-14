@@ -41,6 +41,7 @@ nmap gc <Plug>Commentary
 xmap gc <Plug>Commentary
 nnoremap j gj
 nnoremap k gk
+nmap tt :TagbarToggle
 xnoremap <silent> <Plug>(coc-git-chunk-outer) :call coc#rpc#request('doKeymap', ['git-chunk-outer'])
 onoremap <silent> <Plug>(coc-git-chunk-outer) :call coc#rpc#request('doKeymap', ['git-chunk-outer'])
 xnoremap <silent> <Plug>(coc-git-chunk-inner) :call coc#rpc#request('doKeymap', ['git-chunk-inner'])
@@ -49,6 +50,10 @@ nnoremap <silent> <Plug>(coc-git-commit) :call coc#rpc#notify('doKeymap', ['gi
 nnoremap <silent> <Plug>(coc-git-chunkinfo) :call coc#rpc#notify('doKeymap', ['git-chunkinfo'])
 nnoremap <silent> <Plug>(coc-git-prevchunk) :call coc#rpc#notify('doKeymap', ['git-prevchunk'])
 nnoremap <silent> <Plug>(coc-git-nextchunk) :call coc#rpc#notify('doKeymap', ['git-nextchunk'])
+nnoremap <Plug>(-fzf-:) :
+nnoremap <Plug>(-fzf-/) /
+nnoremap <Plug>(-fzf-vim-do) :execute g:__fzf_command
+nnoremap <SNR>78_: :=v:count ? v:count : ''
 vnoremap <silent> <Plug>NetrwBrowseXVis :call netrw#BrowseXVis()
 nnoremap <silent> <Plug>NetrwBrowseX :call netrw#BrowseX(netrw#GX(),netrw#CheckIfRemote(netrw#GX()))
 onoremap <silent> <Plug>(coc-funcobj-a) :call coc#rpc#request('selectFunction', [v:false, ''])
@@ -105,6 +110,7 @@ nmap <C-T> :Colors
 nmap <C-C> :Commits
 nmap <C-B> :Buffers
 map <C-P> :Files
+nnoremap <F5> :!ctags -R
 noremap <Right> <Nop>
 noremap <Left> <Nop>
 noremap <Down> <Nop>
@@ -147,7 +153,7 @@ set omnifunc=syntaxcomplete#Complete
 set pastetoggle=<F2>
 set regexpengine=1
 set ruler
-set runtimepath=~/.vim,~/.vim/pack/plugins/start/zig.vim,~/.vim/plugged/gruvbox,~/.vim/plugged/vim-airline,~/.vim/plugged/vim-highlightedyank,~/.vim/plugged/vim-commentary,~/.vim/plugged/vim-fugitive,~/.vim/plugged/vim-abolish,~/.vim/plugged/MPage,~/.vim/plugged/vim-test,~/.vim/plugged/vim-eunuch,/usr/local/opt/fzf,~/.vim/plugged/fzf.vim,~/.vim/plugged/vim-grammarous,~/.vim/plugged/vim-go,~/.vim/plugged/coc.nvim,/usr/local/share/vim/vimfiles,/usr/local/share/vim/vim82,/usr/local/share/vim/vimfiles/after,~/.vim/after
+set runtimepath=~/.vim,~/.vim/pack/plugins/start/zig.vim,~/.vim/plugged/gruvbox,~/.vim/plugged/vim-airline,~/.vim/plugged/vim-highlightedyank,~/.vim/plugged/vim-commentary,~/.vim/plugged/vim-fugitive,~/.vim/plugged/vim-abolish,~/.vim/plugged/MPage,~/.vim/plugged/vim-test,~/.vim/plugged/vim-eunuch,/usr/local/opt/fzf,~/.vim/plugged/fzf.vim,~/.vim/plugged/vim-grammarous,~/.vim/plugged/vim-go,~/.vim/plugged/vim-colors-xcode,~/.vim/plugged/coc.nvim,~/.vim/plugged/tagbar,/usr/local/share/vim/vimfiles,/usr/local/share/vim/vim82,/usr/local/share/vim/vimfiles/after,~/.vim/after
 set scrolljump=-15
 set scrolloff=3
 set secure
@@ -177,15 +183,14 @@ let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
 silent tabonly
-cd ~/.vim/parts
+cd ~/
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
 argglobal
 %argdel
-$argadd ~/.config/alacritty/alacritty.yml
-edit ~/.config/alacritty/alacritty.yml
+edit .vim/Readme.md
 set splitbelow splitright
 wincmd t
 set winminheight=0
@@ -210,8 +215,8 @@ setlocal cinoptions=
 setlocal cinwords=if,else,while,do,for,switch
 set colorcolumn=100
 setlocal colorcolumn=100
-setlocal comments=:#
-setlocal commentstring=#\ %s
+setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
+setlocal commentstring=/*%s*/
 setlocal complete=.,w,b,u,t,i
 setlocal concealcursor=
 setlocal conceallevel=0
@@ -228,8 +233,8 @@ setlocal nodiff
 setlocal equalprg=
 setlocal errorformat=
 setlocal expandtab
-if &filetype != 'yaml'
-setlocal filetype=yaml
+if &filetype != ''
+setlocal filetype=
 endif
 setlocal fixendofline
 setlocal foldcolumn=0
@@ -244,7 +249,7 @@ setlocal foldminlines=1
 setlocal foldnestmax=20
 setlocal foldtext=foldtext()
 setlocal formatexpr=
-setlocal formatoptions=nj1croql
+setlocal formatoptions=qrnj1o
 setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
 setlocal formatprg=
 setlocal grepprg=
@@ -252,8 +257,8 @@ setlocal iminsert=0
 setlocal imsearch=-1
 setlocal include=
 setlocal includeexpr=
-setlocal indentexpr=GetYAMLIndent(v:lnum)
-setlocal indentkeys=!^F,o,O,0#,0},0],<:>,0-
+setlocal indentexpr=
+setlocal indentkeys=0{,0},0),0],:,0#,!^F,o,O,e
 setlocal noinfercase
 setlocal iskeyword=@,48-57,_,192-255
 setlocal keywordprg=
@@ -287,17 +292,17 @@ setlocal showbreak=
 setlocal sidescrolloff=-1
 setlocal signcolumn=auto
 setlocal nosmartindent
-setlocal softtabstop=2
-setlocal spell
+setlocal softtabstop=0
+setlocal nospell
 setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
 setlocal spellfile=
-setlocal spelllang=en_us
+setlocal spelllang=en
 setlocal statusline=%!airline#statusline(1)
 setlocal suffixesadd=
 setlocal noswapfile
 setlocal synmaxcol=120
-if &syntax != 'yaml'
-setlocal syntax=yaml
+if &syntax != ''
+setlocal syntax=
 endif
 setlocal tabstop=2
 setlocal tagcase=
@@ -317,14 +322,14 @@ setlocal nowinfixheight
 setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
-let s:l = 234 - ((37 * winheight(0) + 26) / 52)
+let s:l = 33 - ((32 * winheight(0) + 28) / 57)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-234
-normal! 023|
+33
+normal! 0
 tabnext 1
-badd +0 ~/.config/alacritty/alacritty.yml
+badd +0 .vim/Readme.md
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0
   silent exe 'bwipe ' . s:wipebuf
 endif
@@ -336,6 +341,7 @@ if file_readable(s:sx)
   exe "source " . fnameescape(s:sx)
 endif
 let &so = s:so_save | let &siso = s:siso_save
+nohlsearch
 doautoall SessionLoadPost
 unlet SessionLoad
 " vim: set ft=vim :
