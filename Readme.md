@@ -1,10 +1,10 @@
 ## .Vim
 
-My vim configuration for writing Python, JavaScript, Go and Rust.
+My vim configuration for writing code and prose.
 
 ![vim-screenshot](./macvim.png)
 
-For terminal emulator, I use Alacritty in combination with Vim & tmux. IMHO, it has the fastest Developer Experience on Mac.
+I use Terminal.app on macOS catalina with SF Mono font.
 
 ### How to Install?
 
