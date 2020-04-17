@@ -40,6 +40,8 @@ set showmode		" show the current mode
 set viminfo=%,'50,\"100,:100,n~/.viminfo	"info to save accross sessions
 set autoindent
 set backspace=2
+set virtualedit=all
+set noswapfile
 normal mz
 
 
@@ -153,3 +155,5 @@ set statusline +=%2*/%L%*               "total lines
 set statusline +=%1*%4v\ %*             "virtual column number
 set statusline +=%2*0x%04B\ %*          "character under cursor
 au! BufWritePost .vimrc so %
+set background=light
+colorscheme base16-gruvbox-dark-hard
