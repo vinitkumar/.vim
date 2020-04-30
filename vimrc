@@ -138,6 +138,25 @@ let loaded_matchparen = 1   " Avoid the loading of match paren plugin
 " Status Line
 set laststatus=2
 
+" Remove trailing spaces before saving text files
+" http://vim.wikia.com/wiki/Remove_trailing_spaces
+autocmd BufWritePre * :call StripTrailingWhitespace()
+function! StripTrailingWhitespace()
+  if !&binary && &filetype != 'diff'
+    normal mz
+    normal Hmy
+    if &filetype == 'mail'
+" Preserve space after e-mail signature separator
+      %s/\(^--\)\@<!\s\+$//e
+    else
+      %s/\s\+$//e
+    endif
+    normal 'yz<Enter>
+    normal `z
+  endif
+endfunction
+
+
 hi User1 ctermfg=green ctermbg=black
 hi User2 ctermfg=yellow ctermbg=black
 hi User3 ctermfg=red ctermbg=black
@@ -156,4 +175,4 @@ set statusline +=%1*%4v\ %*             "virtual column number
 set statusline +=%2*0x%04B\ %*          "character under cursor
 au! BufWritePost .vimrc so %
 set background=light
-colorscheme base16-gruvbox-dark-hard
+" colorscheme base16-gruvbox-dark-hard

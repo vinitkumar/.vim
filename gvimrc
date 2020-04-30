@@ -1,5 +1,5 @@
 " Some macvim specific general settings to hide some menu and whatnot
-set guifont=Inconsolata-g:h15
+set guifont=Inconsolata-g:h18
 hi Comment gui=italic cterm=italic
 hi htmlArg gui=italic cterm=italic
 syntax on
