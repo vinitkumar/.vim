@@ -8,13 +8,12 @@ endif
 
 
 
-" Plugs {
 call plug#begin('~/.vim/plugged')
-  " Plug 'dense-analysis/ale'
   Plug 'tpope/vim-commentary'
   Plug '/usr/local/opt/fzf'
   Plug 'junegunn/fzf.vim', {'branch': 'master'}
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'jremmen/vim-ripgrep'
 call plug#end()
 
 
@@ -37,7 +36,7 @@ set smartcase		" don't ignore the case if the pattern is uppercase
 set ruler		" show cursor position
 set showmode		" show the current mode
 "set showmatch		" show the matching ( for the last )
-set viminfo=%,'50,\"100,:100,n~/.viminfo	"info to save accross sessions
+" set viminfo=%,'50,\"100,:100,n~/.viminfo	"info to save accross sessions
 set autoindent
 set backspace=2
 set virtualedit=all
@@ -57,7 +56,8 @@ au FileType c setlocal expandtab sw=2 ts=2 sts=2
 au FileType php setlocal expandtab sw=2 ts=2 sts=2
 au BufNewFile,BufReadPost *.jade set filetype=pug
 au FileType html setlocal expandtab sw=2 ts=2 sts=2
-au FileType less setlocal expandtab sw=2 ts=2 sts=2
+au FileType scss setlocal expandtab sw=2 ts=2 sts=2
+au FileType sass setlocal expandtab sw=2 ts=2 sts=2
 au FileType htmldjango setlocal expandtab sw=2 ts=2 sts=2
 au FileType css setlocal expandtab sw=2 ts=2 sts=2
 au BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
@@ -80,6 +80,8 @@ map <C-p> :Files<CR>
 nmap <C-b> :Buffers<CR>
 nmap <C-c> :Commits<CR>
 nmap <C-t> :Colors<CR>
+nmap <leader>gd <Plug>(coc-definition)
+nmap <leader>gr <Plug>(coc-references))
 
 " Keybindings {
   " Save file
