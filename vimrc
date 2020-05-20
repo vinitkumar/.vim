@@ -46,8 +46,6 @@ normal mz
 
 " change filetypes for common files
 augroup filetypedetect
-au BufNewFile,BufRead *.tcl     set filetype=tcl softtabstop=4 shiftwidth=4
-au BufNewFile,BufRead *.tk     set filetype=tcl softtabstop=4 shiftwidth=4
 au BufNewFile,BufRead *.md     set filetype=markdown softtabstop=4 shiftwidth=4
 au Filetype gitcommit setlocal spell textwidth=72
 au FileType javascript setlocal expandtab sw=2 ts=2 sts=2
@@ -127,7 +125,6 @@ endif
 " :hi Comment term=bold ctermfg=Cyan ctermfg=#80a0ff
 
 " Macro
-:nmap ;; :w! /tmp/tcltmp100.tcl<CR>:!tclsh /tmp/tcltmp100.tcl<CR>
 
 " Vim 7.0 stuff
 let loaded_matchparen = 1   " Avoid the loading of match paren plugin
