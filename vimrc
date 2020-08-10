@@ -14,6 +14,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'junegunn/fzf.vim', {'branch': 'master'}
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'jremmen/vim-ripgrep'
+  Plug 'vimwiki/vimwiki'
 call plug#end()
 
 
@@ -64,6 +65,8 @@ au BufRead *.markdown  set ai formatoptions=tcroqn2 comments=n:&gt;
 " add yaml stuffs
 au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd bufnewfile,bufread *.tsx set filetype=typescript.tsx
+autocmd bufnewfile,bufread *.jsx set filetype=javascript.tsx
 " Two-space indents in TypeScript
 autocmd! FileType typescript set sw=2 sts=2 expandtab
 " Automatically write after inactivity in TypeScript
@@ -174,4 +177,7 @@ set statusline +=%1*%4v\ %*             "virtual column number
 set statusline +=%2*0x%04B\ %*          "character under cursor
 au! BufWritePost .vimrc so %
 set background=light
-" colorscheme base16-gruvbox-dark-hard
+
+let g:fzf_preview_window = ''
+
+set guifont=Inconsolata-dz:h14
