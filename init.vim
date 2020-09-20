@@ -1,40 +1,147 @@
-  """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Plugins
-
-call plug#begin('~/.vim/plugged')
-  Plug 'dense-analysis/ale'
-  Plug '/usr/local/opt/fzf'
-  Plug 'junegunn/fzf.vim'
-  Plug 'machakann/vim-highlightedyank'
-  Plug 'tpope/vim-commentary'
-  Plug 'tpope/vim-fugitive'
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
-call plug#end()
-
-" Load Plug plugin and define the plugins to be used
-" General settings
-source ~/.vim/parts/general.vim
-" UI settings, deals with theme, font etc
-source ~/.vim/parts/pluginconf.vim
-source ~/.vim/parts/ui.vim
-" All autocmds are here.
-source ~/.vim/parts/autocmd.vim
-" Plugin specific tunings are here
-" All the mappings are done here
-source ~/.vim/parts/mappings.vim
-" some misc plugins/ functions picked/borrowed from the Internets
-source ~/.vim/parts/misc.vim
+syntax sync fromstart
+if has("syntax")
+	syntax sync fromstart
+	syntax on
+        set background=dark
+        highlight SpellBad ctermfg=red ctermbg=black term=Underline
+endif
 
 
-set rtp+=/usr/local/opt/fzf
-au! BufWritePost ~/.vim/parts/general.vim  so %
-au! BufWritePost ~/.vim/parts/ui.vim  so %
-au! BufWritePost ~/.vim/parts/autocmd.vim  so %
-au! BufWritePost ~/.vim/parts/pluginconf.vim  so %
-au! BufWritePost ~/.vim/parts/mappings.vim  so %
-au! BufWritePost ~/.vim/parts/misc.vim  so %
+" Put the current date in insert mode
+imap <C-d> <ESC>:r! date<CR>kJ$a
+vmap <TAB> >gv
 
-au! BufWritePost ~/.config/nvim/init.vim so %
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+set incsearch		" incremental search
+set ignorecase		" ignore the case
+set smartcase		" don't ignore the case if the pattern is uppercase
+set ruler		" show cursor position
+set showmode		" show the current mode
+set autoindent
+set backspace=2
+set virtualedit=all
+set noswapfile
+normal mz
+
+set updatetime=1000
+set scrolloff=10
+
+" change filetypes for common files
+augroup filetypedetect
+au BufNewFile,BufRead *.tcl     set filetype=tcl softtabstop=4 shiftwidth=4
+au BufNewFile,BufRead *.tk     set filetype=tcl softtabstop=4 shiftwidth=4
+au BufNewFile,BufRead *.md     set filetype=markdown softtabstop=4 shiftwidth=4
+au Filetype gitcommit setlocal spell textwidth=72
+au FileType javascript setlocal expandtab sw=2 ts=2 sts=2
+au FileType json setlocal expandtab sw=2 ts=2 sts=2
+au FileType c setlocal expandtab sw=2 ts=2 sts=2
+au FileType php setlocal expandtab sw=2 ts=2 sts=2
+au BufNewFile,BufReadPost *.jade set filetype=pug
+au FileType html setlocal expandtab sw=2 ts=2 sts=2
+au FileType less setlocal expandtab sw=2 ts=2 sts=2
+au FileType htmldjango setlocal expandtab sw=2 ts=2 sts=2
+au FileType css setlocal expandtab sw=2 ts=2 sts=2
+au BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
+au BufRead *.markdown  set ai formatoptions=tcroqn2 comments=n:&gt;
+" Don't syntax highlight markdown because it's often wrong
+" add yaml stuffs
+au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+" Two-space indents in TypeScript
+autocmd! FileType typescript set sw=2 sts=2 expandtab
+" Automatically write after inactivity in TypeScript
+autocmd FileType typescript autocmd CursorHold <buffer> :silent :wa
+augroup END
 
 
-set guifont=Inconsolata-g:h15
+
+" Collection of all the maps
+let mapleader=","
+map <C-p> :Files<CR>
+nmap <C-b> :Buffers<CR>
+nmap <C-c> :Commits<CR>
+nmap <C-t> :Colors<CR>
+
+" Keybindings {
+  " Save file
+  nnoremap <Leader>w :w<CR>
+  "Copy and paste from system clipboard
+  vmap <Leader>y "+y
+  vmap <Leader>d "+d
+  nmap <Leader>p "+p
+  nmap <Leader>P "+P
+  vmap <Leader>p "+p
+  vmap <Leader>P "+P
+" }
+
+  "Enter to go to EOF and backspace to go to start
+nnoremap <CR> G
+nnoremap <BS> gg
+" Stop cursor from jumping over wrapped lines
+nnoremap j gj
+nnoremap k gk
+  " Make HOME and END behave like shell
+inoremap <C-E> <End>
+inoremap <C-A> <Home>
+
+
+noremap <Leader>h :<C-u>split<CR>
+noremap <Leader>v :<C-u>vsplit<CR>
+
+" Map ; to :
+nnoremap ; :
+
+
+" When open a new file remember the cursor position of the last editing
+if has("autocmd")
+        " When editing a file, always jump to the last cursor position
+        autocmd BufReadPost * if line("'\"") | exe "'\"" | endif
+endif
+
+
+set laststatus=2
+
+" Remove trailing spaces before saving text files
+" http://vim.wikia.com/wiki/Remove_trailing_spaces
+autocmd BufWritePre * :call StripTrailingWhitespace()
+function! StripTrailingWhitespace()
+  if !&binary && &filetype != 'diff'
+    normal mz
+    normal Hmy
+    if &filetype == 'mail'
+" Preserve space after e-mail signature separator
+      %s/\(^--\)\@<!\s\+$//e
+    else
+      %s/\s\+$//e
+    endif
+    normal 'yz<Enter>
+    normal `z
+  endif
+endfunction
+
+
+hi User1 ctermfg=green ctermbg=black
+hi User2 ctermfg=yellow ctermbg=black
+hi User3 ctermfg=red ctermbg=black
+hi User4 ctermfg=blue ctermbg=black
+hi User5 ctermfg=white ctermbg=black
+
+set statusline=
+set statusline +=%1*\ %n\ %*            "buffer number
+set statusline +=%5*%{&ff}%*            "file format
+set statusline +=%3*%y%*                "file type
+set statusline +=%4*\ %<%F%*            "full path
+set statusline +=%2*%m%*                "modified flag
+set statusline +=%1*%=%5l%*             "current line
+set statusline +=%2*/%L%*               "total lines
+set statusline +=%1*%4v\ %*             "virtual column number
+set statusline +=%2*0x%04B\ %*          "character under cursor
+au! BufWritePost .config/nvim/init.vim so %
+
+
+if has('nvim') || has('termguicolors')
+  set termguicolors
+endif
+
