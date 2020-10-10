@@ -1,11 +1,10 @@
 syntax sync fromstart
 if has("syntax")
-	syntax sync fromstart
-	syntax on
-        set background=dark
-        highlight SpellBad ctermfg=red ctermbg=black term=Underline
+    syntax sync fromstart
+    syntax on
+    set background=dark
+    highlight SpellBad ctermfg=red ctermbg=black term=Underline
 endif
-
 
 
 call plug#begin('~/.vim/plugged')
@@ -13,10 +12,14 @@ call plug#begin('~/.vim/plugged')
   Plug '/usr/local/opt/fzf'
   Plug 'junegunn/fzf.vim', {'branch': 'master'}
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  Plug 'jremmen/vim-ripgrep'
+  Plug 'tpope/vim-fugitive'
+  " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+  Plug 'govim/govim'
+  Plug 'jonathanfilip/vim-lucius'
   Plug 'vimwiki/vimwiki'
+  Plug 'preservim/tagbar'
+  Plug 'machakann/vim-highlightedyank'
 call plug#end()
-
 
 
 " Put the current date in insert mode
@@ -34,6 +37,8 @@ set incsearch		" incremental search
 set ignorecase		" ignore the case
 set smartcase		" don't ignore the case if the pattern is uppercase
 "set laststatus=2	" show the status bar even with one buffer
+" set number
+" set relativenumber
 set ruler		" show cursor position
 set showmode		" show the current mode
 "set showmatch		" show the matching ( for the last )
@@ -44,6 +49,10 @@ set virtualedit=all
 set noswapfile
 normal mz
 
+set list
+set listchars=tab:›\ ,eol:¬,trail:⋅
+set updatetime=1000
+set scrolloff=10
 
 " change filetypes for common files
 augroup filetypedetect
@@ -176,8 +185,34 @@ set statusline +=%2*/%L%*               "total lines
 set statusline +=%1*%4v\ %*             "virtual column number
 set statusline +=%2*0x%04B\ %*          "character under cursor
 au! BufWritePost .vimrc so %
-set background=light
 
 let g:fzf_preview_window = ''
 
-set guifont=Inconsolata-dz:h14
+:color grb-lucius
+GrbLuciusDarkHighContrast
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" STATUS LINE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+:set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" VIM-ALE CONFIG
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ale_linters = {'javascript': [], 'typescript': ['tsserver', 'eslint'], 'typescript.tsx': ['tsserver', 'eslint']}
+" if !exists('##TextYankPost')
+"   map y <Plug>(highlightedyank)
+" endif
+" highlight HighlightedyankRegion cterm=reverse gui=reverse
+" Triger `autoread` when files changes on disk
+" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
+" https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
+    autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
+            \ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
+
+" Notification after file change
+" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
+autocmd FileChangedShellPost *
+  \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+
+let g:highlightedyank_highlight_duration = 2000
