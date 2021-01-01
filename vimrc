@@ -14,10 +14,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'tpope/vim-fugitive'
   " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-  Plug 'govim/govim'
-  Plug 'jonathanfilip/vim-lucius'
   Plug 'vimwiki/vimwiki'
-  Plug 'preservim/tagbar'
   Plug 'machakann/vim-highlightedyank'
 call plug#end()
 
@@ -29,7 +26,12 @@ vmap <TAB> >gv
 set softtabstop=4
 set shiftwidth=4
 set expandtab
+set switchbuf=useopen
+set showtabline=2
+set cursorline
 
+set clipboard+=unnamedplus
+set scrolloff=10
 " highlight matches with last search pattern
 " set hls
 
@@ -41,6 +43,7 @@ set smartcase		" don't ignore the case if the pattern is uppercase
 " set relativenumber
 set ruler		" show cursor position
 set showmode		" show the current mode
+
 "set showmatch		" show the matching ( for the last )
 " set viminfo=%,'50,\"100,:100,n~/.viminfo	"info to save accross sessions
 set autoindent
@@ -49,8 +52,8 @@ set virtualedit=all
 set noswapfile
 normal mz
 
-set list
-set listchars=tab:›\ ,eol:¬,trail:⋅
+" set list
+" set listchars=tab:›\ ,eol:¬,trail:⋅
 set updatetime=1000
 set scrolloff=10
 
@@ -58,7 +61,7 @@ set scrolloff=10
 augroup filetypedetect
 au BufNewFile,BufRead *.md     set filetype=markdown softtabstop=4 shiftwidth=4
 au Filetype gitcommit setlocal spell textwidth=72
-au FileType javascript setlocal expandtab sw=2 ts=2 sts=2
+au FileType javascript setlocal expandtab sw=4 ts=4 sts=4
 au FileType json setlocal expandtab sw=2 ts=2 sts=2
 au FileType c setlocal expandtab sw=2 ts=2 sts=2
 au BufNewFile,BufReadPost *.jade set filetype=pug
@@ -183,10 +186,11 @@ set statusline +=%1*%4v\ %*             "virtual column number
 set statusline +=%2*0x%04B\ %*          "character under cursor
 au! BufWritePost .vimrc so %
 
-let g:fzf_preview_window = ''
+" let g:fzf_preview_window = ''
+let g:fzf_preview_window = []
 
-:color grb-lucius
-GrbLuciusDarkHighContrast
+" :color grb-lucius
+" GrbLuciusDarkHighContrast
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " STATUS LINE
