@@ -12,9 +12,9 @@ call plug#begin('~/.vim/plugged')
   Plug '/usr/local/opt/fzf'
   Plug 'junegunn/fzf.vim', {'branch': 'master'}
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  Plug 'tpope/vim-fugitive'
+  " Plug 'tpope/vim-fugitive'
   " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-  Plug 'vimwiki/vimwiki'
+  " Plug 'vimwiki/vimwiki'
   Plug 'machakann/vim-highlightedyank'
 call plug#end()
 
@@ -30,7 +30,6 @@ set switchbuf=useopen
 set showtabline=2
 set cursorline
 
-set clipboard+=unnamedplus
 set scrolloff=10
 " highlight matches with last search pattern
 " set hls
@@ -38,9 +37,9 @@ set scrolloff=10
 set incsearch		" incremental search
 set ignorecase		" ignore the case
 set smartcase		" don't ignore the case if the pattern is uppercase
-"set laststatus=2	" show the status bar even with one buffer
-" set number
-" set relativenumber
+set laststatus=2	" show the status bar even with one buffer
+set number
+set relativenumber
 set ruler		" show cursor position
 set showmode		" show the current mode
 
@@ -211,3 +210,4 @@ autocmd FileChangedShellPost *
   \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
 let g:highlightedyank_highlight_duration = 2000
+colorscheme grb-lucius
