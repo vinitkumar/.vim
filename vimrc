@@ -60,7 +60,8 @@ set scrolloff=10
 augroup filetypedetect
 au BufNewFile,BufRead *.md     set filetype=markdown softtabstop=4 shiftwidth=4
 au Filetype gitcommit setlocal spell textwidth=72
-au FileType javascript setlocal expandtab sw=4 ts=4 sts=4
+au FileType javascript setlocal expandtab sw=2 ts=2 sts=2
+au FileType typescript setlocal expandtab sw=2 ts=2 sts=2
 au FileType json setlocal expandtab sw=2 ts=2 sts=2
 au FileType c setlocal expandtab sw=2 ts=2 sts=2
 au BufNewFile,BufReadPost *.jade set filetype=pug
@@ -90,7 +91,7 @@ let mapleader=","
 map <C-p> :Files<CR>
 nmap <C-b> :Buffers<CR>
 nmap <C-c> :Commits<CR>
-nmap <C-t> :Colors<CR>
+nmap <C-t> :tabNext<CR>
 nmap <leader>gd <Plug>(coc-definition)
 nmap <leader>gr <Plug>(coc-references))
 
