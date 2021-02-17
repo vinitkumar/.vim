@@ -12,9 +12,8 @@ call plug#begin('~/.vim/plugged')
   Plug '/usr/local/opt/fzf'
   Plug 'junegunn/fzf.vim', {'branch': 'master'}
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  " Plug 'tpope/vim-fugitive'
-  " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-  " Plug 'vimwiki/vimwiki'
+  Plug 'vimwiki/vimwiki'
+  Plug 'mileszs/ack.vim'
   Plug 'machakann/vim-highlightedyank'
 call plug#end()
 
@@ -51,8 +50,8 @@ set virtualedit=all
 set noswapfile
 normal mz
 
-" set list
-" set listchars=tab:›\ ,eol:¬,trail:⋅
+set list
+set listchars=tab:›\ ,eol:¬,trail:⋅
 set updatetime=1000
 set scrolloff=10
 
@@ -211,4 +210,17 @@ autocmd FileChangedShellPost *
   \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
 let g:highlightedyank_highlight_duration = 2000
-colorscheme grb-lucius
+" colorscheme grb-lucius
+set background=dark
+if has("gui_running")
+    set termguicolors
+    colorscheme one
+endif
+
+set background=dark
+let g:lucius_style  = 'dark'
+let g:lucius_contrast  = 'high'
+let g:lucius_contrast_bg  = 'high'
+let g:lucius_no_term_bg  = 1
+colorscheme lucius
+

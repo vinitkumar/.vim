@@ -1,0 +1,4 @@
+{
+  "list.source.files.excludePatterns": ["**/node_modules/**", "**/node_modules/**/.*", "**/node_modules/**/.*/**"],
+  "coc.source.file.ignorePatterns": ["**/node_modules/**", "**/node_modules/**/.*", "**/node_modules/**/.*/**"]
+}
