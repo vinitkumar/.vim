@@ -14,6 +14,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'vimwiki/vimwiki'
   Plug 'mileszs/ack.vim'
+  Plug 'rizzatti/dash.vim'
   Plug 'machakann/vim-highlightedyank'
 call plug#end()
 
