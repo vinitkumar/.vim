@@ -13,8 +13,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'junegunn/fzf.vim', {'branch': 'master'}
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'mileszs/ack.vim'
-  Plug 'rizzatti/dash.vim'
-  Plug 'machakann/vim-highlightedyank'
 call plug#end()
 
 
@@ -28,8 +26,9 @@ set expandtab
 set switchbuf=useopen
 set showtabline=2
 set cursorline
-
-set scrolloff=10
+set nobackup
+set noswapfile
+set nowritebackup
 " highlight matches with last search pattern
 " set hls
 
@@ -52,7 +51,6 @@ normal mz
 
 set list
 set listchars=tab:›\ ,eol:¬,trail:⋅
-set updatetime=1000
 set scrolloff=10
 
 " change filetypes for common files
@@ -120,6 +118,10 @@ inoremap <C-A> <Home>
 noremap <Leader>h :<C-u>split<CR>
 noremap <Leader>v :<C-u>vsplit<CR>
 
+"tab management, leader-t to generate a new tab and Control-t to switch
+"between them
+noremap <Leader>t :<C-u>tabnew<CR>
+
 " Map ; to :
 nnoremap ; :
 
@@ -185,26 +187,10 @@ set statusline +=%1*%4v\ %*             "virtual column number
 set statusline +=%2*0x%04B\ %*          "character under cursor
 au! BufWritePost .vimrc so %
 
-" let g:fzf_preview_window = ''
 let g:fzf_preview_window = []
-
-" :color grb-lucius
-" GrbLuciusDarkHighContrast
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" STATUS LINE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 :set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" VIM-ALE CONFIG
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
-" https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
-    autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
-            \ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
-
-" Notification after file change
 " https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
 autocmd FileChangedShellPost *
   \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
@@ -212,15 +198,5 @@ autocmd FileChangedShellPost *
 let g:highlightedyank_highlight_duration = 2000
 " colorscheme grb-lucius
 set background=dark
-if has("gui_running")
-    set termguicolors
-    colorscheme one
-endif
-
-set background=dark
-let g:lucius_style  = 'dark'
-let g:lucius_contrast  = 'high'
-let g:lucius_contrast_bg  = 'high'
-let g:lucius_no_term_bg  = 1
-colorscheme lucius
+colorscheme sitruuna
 
