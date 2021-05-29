@@ -61,24 +61,19 @@ au FileType javascript setlocal expandtab sw=2 ts=2 sts=2
 au FileType typescript setlocal expandtab sw=2 ts=2 sts=2
 au FileType json setlocal expandtab sw=2 ts=2 sts=2
 au FileType c setlocal expandtab sw=2 ts=2 sts=2
-au BufNewFile,BufReadPost *.jade set filetype=pug
 au FileType html setlocal expandtab sw=2 ts=2 sts=2
 au FileType scss setlocal expandtab sw=2 ts=2 sts=2
 au FileType sass setlocal expandtab sw=2 ts=2 sts=2
 au FileType htmldjango setlocal expandtab sw=2 ts=2 sts=2
 au FileType css setlocal expandtab sw=2 ts=2 sts=2
+au bufnewfile,bufread *.tsx set filetype=typescript.tsx
 au BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
 au BufRead *.markdown  set ai formatoptions=tcroqn2 comments=n:&gt;
-" Don't syntax highlight markdown because it's often wrong
-" add yaml stuffs
-au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml
-autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-autocmd bufnewfile,bufread *.tsx set filetype=typescript.tsx
-autocmd bufnewfile,bufread *.jsx set filetype=javascript.tsx
-" Two-space indents in TypeScript
-autocmd! FileType typescript set sw=2 sts=2 expandtab
-" Automatically write after inactivity in TypeScript
-autocmd FileType typescript autocmd CursorHold <buffer> :silent :wa
+au BufNewFile,BufReadPost *.jade set filetype=pug
+au BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml
+au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+au bufnewfile,bufread *.jsx set filetype=javascript.tsx
+au FileType typescript autocmd CursorHold <buffer> :silent :wa
 augroup END
 
 
@@ -126,8 +121,6 @@ noremap <Leader>t :<C-u>tabnew<CR>
 nnoremap ; :
 
 
-nmap tt :TagbarToggle<CR>
-
 " When open a new file remember the cursor position of the last editing
 if has("autocmd")
   " When editing a file, always jump to the last cursor position
@@ -138,11 +131,6 @@ endif
 " :hi Comment term=bold ctermfg=Cyan ctermfg=#80a0ff
 
 " Macro
-
-" Vim 7.0 stuff
-let loaded_matchparen = 1   " Avoid the loading of match paren plugin
-:filetype plugin on
-" :source /usr/share/vim/vim72/macros/matchit.vim
 
 " highlight OverLength ctermbg=red ctermfg=white ctermbg=#592929
 " match OverLength /\%81v.*/
@@ -169,6 +157,9 @@ function! StripTrailingWhitespace()
 endfunction
 
 
+
+set laststatus=2
+
 hi User1 ctermfg=green ctermbg=black
 hi User2 ctermfg=yellow ctermbg=black
 hi User3 ctermfg=red ctermbg=black
@@ -187,16 +178,8 @@ set statusline +=%1*%4v\ %*             "virtual column number
 set statusline +=%2*0x%04B\ %*          "character under cursor
 au! BufWritePost .vimrc so %
 
-let g:fzf_preview_window = []
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-:set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
 
-" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
 autocmd FileChangedShellPost *
   \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
-let g:highlightedyank_highlight_duration = 2000
-" colorscheme grb-lucius
-set background=dark
-colorscheme sitruuna
 
