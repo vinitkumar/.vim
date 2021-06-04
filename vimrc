@@ -86,6 +86,7 @@ nmap <C-c> :Commits<CR>
 nmap <C-t> :tabNext<CR>
 nmap <leader>gd <Plug>(coc-definition)
 nmap <leader>gr <Plug>(coc-references))
+nmap <leader>ev :vsplit $MYVIMRC<CR>
 
 " Keybindings {
   " Save file
