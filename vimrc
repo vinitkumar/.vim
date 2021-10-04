@@ -9,10 +9,16 @@ endif
 
 call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-commentary'
+  Plug 'tpope/vim-fugitive'
   Plug '/usr/local/opt/fzf'
   Plug 'junegunn/fzf.vim', {'branch': 'master'}
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'neoclide/coc.nvim', {'branch': 'master'}
+  Plug 'vinitkumar/vim-ripgrep'
   Plug 'mileszs/ack.vim'
+  Plug 'yggdroot/indentline' " visualize indentation levels
+  Plug 'vimwiki/vimwiki'
+  Plug 'rafi/awesome-vim-colorschemes'
+  Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
 call plug#end()
 
 
@@ -56,6 +62,12 @@ set scrolloff=10
 " change filetypes for common files
 augroup filetypedetect
 au BufNewFile,BufRead *.md     set filetype=markdown softtabstop=4 shiftwidth=4
+autocmd BufWinEnter,FileType *.md colorscheme naysayer88
+autocmd BufWinEnter,FileType *.py colorscheme onehalfdark
+autocmd BufWinEnter,FileType *.js colorscheme base16-bright
+autocmd BufWinEnter,FileType *.jsx colorscheme base16-bright
+autocmd BufWinEnter,FileType *.ts colorscheme base16-bright
+autocmd BufWinEnter,FileType *.tsx colorscheme base16-bright
 au Filetype gitcommit setlocal spell textwidth=72
 au FileType javascript setlocal expandtab sw=2 ts=2 sts=2
 au FileType typescript setlocal expandtab sw=2 ts=2 sts=2
@@ -84,9 +96,13 @@ map <C-p> :Files<CR>
 nmap <C-b> :Buffers<CR>
 nmap <C-c> :Commits<CR>
 nmap <C-t> :tabNext<CR>
+nmap <C-e> :CocDiagnostics<CR>
 nmap <leader>gd <Plug>(coc-definition)
 nmap <leader>gr <Plug>(coc-references))
 nmap <leader>ev :vsplit $MYVIMRC<CR>
+
+:nnoremap <leader>dt "=strftime("%c")<CR>P
+:inoremap <leader>dt <C-R>=strftime("%c")<CR>
 
 " Keybindings {
   " Save file
@@ -184,3 +200,8 @@ autocmd FileChangedShellPost *
   \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
 
+colorscheme nord
+set mouse=a
+set background=dark
+set termguicolors
+let base16colorspace=256
