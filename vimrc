@@ -12,6 +12,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-fugitive'
   Plug '/usr/local/opt/fzf'
   Plug 'junegunn/fzf.vim', {'branch': 'master'}
+  Plug 'antoinemadec/coc-fzf'
   Plug 'neoclide/coc.nvim', {'branch': 'master'}
   Plug 'vinitkumar/vim-ripgrep'
   Plug 'mileszs/ack.vim'
@@ -19,6 +20,11 @@ call plug#begin('~/.vim/plugged')
   Plug 'vimwiki/vimwiki'
   Plug 'rafi/awesome-vim-colorschemes'
   Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
+  Plug 'preservim/tagbar'
+  Plug 'dracula/vim', { 'as': 'dracula' }
+  Plug 'rizzatti/dash.vim'
+  Plug 'savq/melange'
+  Plug 'ziglang/zig.vim'
 call plug#end()
 
 
@@ -26,15 +32,21 @@ call plug#end()
 imap <C-d> <ESC>:r! date<CR>kJ$a
 vmap <TAB> >gv
 
+nmap <F8> :TagbarToggle<CR>
+
+
+
 set softtabstop=4
 set shiftwidth=4
 set expandtab
 set switchbuf=useopen
 set showtabline=2
+set switchbuf=useopen
 set cursorline
 set nobackup
 set noswapfile
 set nowritebackup
+set showcmd
 " highlight matches with last search pattern
 " set hls
 
@@ -46,11 +58,14 @@ set number
 set relativenumber
 set ruler		" show cursor position
 set showmode		" show the current mode
+set wildmode=longest,list
+set wildmenu
 
 "set showmatch		" show the matching ( for the last )
 " set viminfo=%,'50,\"100,:100,n~/.viminfo	"info to save accross sessions
 set autoindent
-set backspace=2
+"set backspace=2
+set backspace=indent,eol,start
 set virtualedit=all
 set noswapfile
 normal mz
@@ -59,21 +74,29 @@ set list
 set listchars=tab:›\ ,eol:¬,trail:⋅
 set scrolloff=10
 
+func! Python_init()
+  setlocal shiftwidth=4 tabstop=4 softtabstop=4 "standard PEP8 Tab length
+  setlocal smartindent "use the keywords below to add additional indentation
+  setlocal cinwords=if,elif,else,for,while,try,except,finally,def,class
+  "smartindent is OK but don't move # comments to the first column please:
+  inoremap # X#
+  setlocal formatoptions=cq12 textwidth=79 "wrap lines longer than 79 characters
+  setlocal nowrap "don't wrap source code, it's evil
+  setlocal noignorecase nosmartcase "avoid corrupting source code on search/replace operations
+endfunc
+
+
 " change filetypes for common files
 augroup filetypedetect
 au BufNewFile,BufRead *.md     set filetype=markdown softtabstop=4 shiftwidth=4
 autocmd BufWinEnter,FileType *.md colorscheme naysayer88
-autocmd BufWinEnter,FileType *.py colorscheme onehalfdark
-autocmd BufWinEnter,FileType *.js colorscheme base16-bright
-autocmd BufWinEnter,FileType *.jsx colorscheme base16-bright
-autocmd BufWinEnter,FileType *.ts colorscheme base16-bright
-autocmd BufWinEnter,FileType *.tsx colorscheme base16-bright
 au Filetype gitcommit setlocal spell textwidth=72
 au FileType javascript setlocal expandtab sw=2 ts=2 sts=2
 au FileType typescript setlocal expandtab sw=2 ts=2 sts=2
 au FileType json setlocal expandtab sw=2 ts=2 sts=2
 au FileType c setlocal expandtab sw=2 ts=2 sts=2
 au FileType html setlocal expandtab sw=2 ts=2 sts=2
+au FileType htmldjango setlocal expandtab sw=2 ts=2 sts=2
 au FileType scss setlocal expandtab sw=2 ts=2 sts=2
 au FileType sass setlocal expandtab sw=2 ts=2 sts=2
 au FileType htmldjango setlocal expandtab sw=2 ts=2 sts=2
@@ -86,6 +109,7 @@ au BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml
 au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 au bufnewfile,bufread *.jsx set filetype=javascript.tsx
 au FileType typescript autocmd CursorHold <buffer> :silent :wa
+au FileType python call Python_init()
 augroup END
 
 
@@ -98,6 +122,7 @@ nmap <C-c> :Commits<CR>
 nmap <C-t> :tabNext<CR>
 nmap <C-e> :CocDiagnostics<CR>
 nmap <leader>gd <Plug>(coc-definition)
+nmap <leader>gy <Plug>(coc-type-definition)
 nmap <leader>gr <Plug>(coc-references))
 nmap <leader>ev :vsplit $MYVIMRC<CR>
 
@@ -196,12 +221,40 @@ set statusline +=%2*0x%04B\ %*          "character under cursor
 au! BufWritePost .vimrc so %
 
 
+" Triger `autoread` when files changes on disk
+" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
+" https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
+    autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
+            \ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
+
+" Notification after file change
+" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
 autocmd FileChangedShellPost *
   \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
 
-colorscheme nord
+function! ChangeBackground()
+  if system("defaults read -g AppleInterfaceStyle") =~ '^Dark'
+    set background=dark   " for dark version of theme
+    colorscheme grb-lucius
+  else
+    set background=light  " for light version of theme
+    colorscheme grb-lucius
+  endif
+endfunction
+
+" initialize the colorscheme for the first run
+call ChangeBackground()
+
+
+
+
+
 set mouse=a
-set background=dark
+set background=light
+colorscheme sitruuna
 set termguicolors
 let base16colorspace=256
+
+" fix for kitty in vim
+let &t_ut=''
