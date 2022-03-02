@@ -89,7 +89,7 @@ endfunc
 " change filetypes for common files
 augroup filetypedetect
 au BufNewFile,BufRead *.md     set filetype=markdown softtabstop=4 shiftwidth=4
-autocmd BufWinEnter,FileType *.md colorscheme naysayer88
+autocmd BufWinEnter,FileType *.{md,wiki} colorscheme naysayer88
 au Filetype gitcommit setlocal spell textwidth=72
 au FileType javascript setlocal expandtab sw=2 ts=2 sts=2
 au FileType typescript setlocal expandtab sw=2 ts=2 sts=2
@@ -251,8 +251,8 @@ call ChangeBackground()
 
 
 set mouse=a
-set background=light
-colorscheme sitruuna
+set background=dark
+colorscheme base16-bright
 set termguicolors
 let base16colorspace=256
 
