@@ -9,22 +9,12 @@ endif
 
 call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-commentary'
-  Plug 'tpope/vim-fugitive'
-  Plug '/usr/local/opt/fzf'
-  Plug 'junegunn/fzf.vim', {'branch': 'master'}
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug 'junegunn/fzf.vim'
   Plug 'antoinemadec/coc-fzf'
   Plug 'neoclide/coc.nvim', {'branch': 'master'}
-  Plug 'vinitkumar/vim-ripgrep'
-  Plug 'mileszs/ack.vim'
   Plug 'yggdroot/indentline' " visualize indentation levels
   Plug 'vimwiki/vimwiki'
-  Plug 'rafi/awesome-vim-colorschemes'
-  Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
-  Plug 'preservim/tagbar'
-  Plug 'dracula/vim', { 'as': 'dracula' }
-  Plug 'rizzatti/dash.vim'
-  Plug 'savq/melange'
-  Plug 'ziglang/zig.vim'
 call plug#end()
 
 
@@ -43,6 +33,7 @@ set switchbuf=useopen
 set showtabline=2
 set switchbuf=useopen
 set cursorline
+set cursorcolumn
 set nobackup
 set noswapfile
 set nowritebackup
@@ -89,6 +80,8 @@ endfunc
 " change filetypes for common files
 augroup filetypedetect
 au BufNewFile,BufRead *.md     set filetype=markdown softtabstop=4 shiftwidth=4
+au BufReadPost,BufNewFile *.md,*.txt,COMMIT_EDITMSG set wrap linebreak nolist spell spelllang=en_us complete+=kspell
+au BufReadPost,BufNewFile .html,*.txt,*.md,*.adoc set spell spelllang=en_us
 autocmd BufWinEnter,FileType *.{md,wiki} colorscheme naysayer88
 au Filetype gitcommit setlocal spell textwidth=72
 au FileType javascript setlocal expandtab sw=2 ts=2 sts=2
@@ -151,6 +144,10 @@ nnoremap k gk
 inoremap <C-E> <End>
 inoremap <C-A> <Home>
 
+nnoremap('<C-h>', '<C-w>h')
+nnoremap('<C-j>', '<C-w>j')
+nnoremap('<C-k>', '<C-w>k')
+nnoremap('<C-l>', '<C-w>l')
 
 noremap <Leader>h :<C-u>split<CR>
 noremap <Leader>v :<C-u>vsplit<CR>
@@ -208,17 +205,97 @@ hi User3 ctermfg=red ctermbg=black
 hi User4 ctermfg=blue ctermbg=black
 hi User5 ctermfg=white ctermbg=black
 
-set statusline=
-set statusline +=%1*\ %n\ %*            "buffer number
-set statusline +=%5*%{&ff}%*            "file format
-set statusline +=%3*%y%*                "file type
-set statusline +=%4*\ %<%F%*            "full path
-set statusline +=%2*%m%*                "modified flag
-set statusline +=%1*%=%5l%*             "current line
-set statusline +=%2*/%L%*               "total lines
-set statusline +=%1*%4v\ %*             "virtual column number
-set statusline +=%2*0x%04B\ %*          "character under cursor
-au! BufWritePost .vimrc so %
+
+" Gets Errors and Warnings for buffer plus the Status message from coc.nvim
+function! StatusDiagnosticForBuffer() abort
+  let info = get(b:, 'coc_diagnostic_info', {})
+  if empty(info) | return '' | endif
+  let msgs = []
+  if get(info, 'error', 0)
+    call add(msgs, '✘' . info['error'])
+  endif
+  if get(info, 'warning', 0)
+    call add(msgs, '' . info['warning'])
+  endif
+  return join(msgs, ' ')
+endfunction
+
+" Gets Errors and Warnings for the entire workspace from coc.nvim
+function! StatusDiagnosticForWorkspace() abort
+  let diagnostics = CocAction('diagnosticList')
+  if type(diagnostics) == v:t_list
+    let errors = []
+    let warnings = []
+    for diagnostic in diagnostics
+      if diagnostic['severity'] == 'Error'
+        call add(errors, diagnostic)
+      endif
+      if diagnostic['severity'] == 'Warning'
+        call add(warnings, diagnostic)
+      endif
+    endfor
+    return " ✘ " . string(len(errors)) . "  " . string(len(warnings)) . " "
+  endif
+endfunction
+
+" Just gets the status message from coc.nvim
+function! CocMinimalStatus() abort
+  return get(g:, 'coc_status', '')
+endfunction
+
+" Just gets the errors from the current buffer
+function! CocMinimalErrors() abort
+  let info = get(b:, 'coc_diagnostic_info', {})
+  if empty(info) | return '' | endif
+  let msgs = []
+  if get(info, 'error', 0)
+    call add(msgs, '✘' . info['error'])
+  endif
+  return join(msgs)
+endfunction
+
+" Just gets the warnings from the current buffer
+function! CocMinimalWarnings() abort
+  let info = get(b:, 'coc_diagnostic_info', {})
+  if empty(info) | return '' | endif
+  let msgs = []
+  if get(info, 'warning', 0)
+    call add(msgs, '' . info['warning'])
+  endif
+  return join(msgs)
+endfunction
+
+
+" Because no one likes to be blinded by awful colors
+highlight CocErrorSign guifg=#E06C75
+highlight CocWarningSign guifg=#E5C07B
+highlight StatusLineStatus guifg=#4B5263 guibg=#2C323C
+highlight StatusLineError guifg=#E06C75 guibg=#2C323C
+highlight StatusLineWarning guifg=#E5C07B guibg=#2C323C
+
+set statusline=%n\   " buffer number
+set statusline+=%t\ %M%r%h%w\  " file modified, readonly, help, preview
+set statusline+=%#StatusLineError#%{CocMinimalErrors()}\ " coc-errors
+set statusline+=%#StatusLineWarning#%{CocMinimalWarnings()}\ " coc-warnings
+set statusline+=%#StatusLineStatus#%{CocMinimalStatus()}%#StatusLine#\ " coc status
+set statusline+=%=%Y\  " filetype
+set statusline+=%{&ff}\  " right align line endings
+set statusline+=%l,%v\ " curser position
+set statusline+=%p%%\  " percentage on page
+
+
+
+" set statusline=
+" set statusline +=%1*\ %n\ %*            "buffer number
+" set statusline +=%5*%{&ff}%*            "file format
+" set statusline +=%3*%y%*                "file type
+" set statusline +=%4*\ %<%F%*            "full path
+" set statusline +=%2*%m%*                "modified flag
+" set statusline +=%1*%=%5l%*             "current line
+" set statusline +=%2*/%L%*               "total lines
+" set statusline +=%1*%4v\ %*             "virtual column number
+" set statusline +=%2*0x%04B\ %*          "character under cursor
+" au! BufWritePost .vimrc so %
 
 
 " Triger `autoread` when files changes on disk
@@ -233,27 +310,28 @@ autocmd FileChangedShellPost *
   \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
 
-function! ChangeBackground()
-  if system("defaults read -g AppleInterfaceStyle") =~ '^Dark'
-    set background=dark   " for dark version of theme
-    colorscheme grb-lucius
-  else
-    set background=light  " for light version of theme
-    colorscheme grb-lucius
-  endif
-endfunction
+" function! ChangeBackground()
+"   if system("defaults read -g AppleInterfaceStyle") =~ '^Dark'
+"     set background=dark   " for dark version of theme
+"     colorscheme grb-lucius
+"   else
+"     set background=light  " for light version of theme
+"     colorscheme grb-lucius
+"   endif
+" endfunction
 
-" initialize the colorscheme for the first run
-call ChangeBackground()
-
-
+" " initialize the colorscheme for the first run
+" call ChangeBackground()
 
 
 
+
+
+set t_co=256
 set mouse=a
 set background=dark
-colorscheme base16-bright
 set termguicolors
+colorscheme sitruuna
 let base16colorspace=256
 
 " fix for kitty in vim
