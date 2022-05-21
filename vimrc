@@ -15,6 +15,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'neoclide/coc.nvim', {'branch': 'master'}
   Plug 'yggdroot/indentline' " visualize indentation levels
   Plug 'vimwiki/vimwiki'
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  Plug 'chrisbra/Colorizer'
 call plug#end()
 
 
@@ -310,29 +313,13 @@ autocmd FileChangedShellPost *
   \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
 
-" function! ChangeBackground()
-"   if system("defaults read -g AppleInterfaceStyle") =~ '^Dark'
-"     set background=dark   " for dark version of theme
-"     colorscheme grb-lucius
-"   else
-"     set background=light  " for light version of theme
-"     colorscheme grb-lucius
-"   endif
-" endfunction
-
-" " initialize the colorscheme for the first run
-" call ChangeBackground()
-
-
-
-
 
 set t_co=256
 set mouse=a
-set background=dark
-set termguicolors
 colorscheme sitruuna
-let base16colorspace=256
+set background=dark
+
+let g:airline_theme='night_owl'
 
 " fix for kitty in vim
 let &t_ut=''

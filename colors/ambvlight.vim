@@ -12,8 +12,8 @@ endif
 let colors_name = "ambvlight"
 
 if version >= 700
-  hi CursorLine cterm=NONE ctermbg=253 guibg=#1c1c1c
-  hi CursorColumn ctermbg=253 guibg=#1c1c1c
+  hi CursorLine cterm=NONE ctermbg=253 guibg=#F5F5F5
+  hi CursorColumn ctermbg=253 guibg=#F5F5F5
 endif
 
 " Normal should come first
