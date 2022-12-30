@@ -1,11 +1,19 @@
 call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-commentary'
+  Plug 'tpope/vim-dispatch'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
   Plug 'antoinemadec/coc-fzf'
   Plug 'neoclide/coc.nvim', {'branch': 'master'}
   Plug 'yggdroot/indentline' " visualize indentation levels
   Plug 'vimwiki/vimwiki'
+  Plug 'AndrewRadev/splitjoin.vim'
+  Plug 'sonph/onehalf'
+  Plug 'vim-test/vim-test'
+  Plug 'mileszs/ack.vim'
+  Plug 'tpope/vim-fugitive'
+  Plug 'wakatime/vim-wakatime'
+  Plug 'gruvbox-community/gruvbox'
 call plug#end()
 
 
@@ -89,6 +97,7 @@ nmap <leader>gd <Plug>(coc-definition)
 nmap <leader>gy <Plug>(coc-type-definition)
 nmap <leader>gr <Plug>(coc-references))
 nmap <leader>ev :vsplit $MYVIMRC<CR>
+nmap <leader>d :Dispatch make test<CR>
 
 " Keybindings {
   " Save file
@@ -171,11 +180,8 @@ autocmd FileChangedShellPost *
 set t_co=256
 set mouse=a
 set background=dark
-let g:lucius_style = 'dark'
-let g:lucius_contrast = 'high'
-let g:lucius_contrast_bg = 'high'
-let g:lucius_no_term_bg = 1
-colorscheme sitruuna
+let g:gruvbox_contrast_dark = "hard"
+colorscheme gruvbox
 
 " fix for kitty in vim
 let &t_ut=''
@@ -229,12 +235,7 @@ function! CheckBackspace() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Use <c-space> to trigger completion.
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
+inoremap <silent><expr> <c-@> coc#refresh()
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -300,16 +301,6 @@ omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
-" Remap <C-f> and <C-b> for scroll float windows/popups.
-if has('nvim-0.4.0') || has('patch-8.2.0750')
-  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-endif
-
 " Use CTRL-S for selections ranges.
 " Requires 'textDocument/selectionRange' support of language server.
 nmap <silent> <C-s> <Plug>(coc-range-select)
@@ -346,3 +337,10 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
+
+nmap <silent> <leader>t :TestNearest<CR>
+nmap <silent> <leader>T :TestFile<CR>
+nmap <silent> <leader>a :TestSuite<CR>
+nmap <silent> <leader>l :TestLast<CR>
+nmap <silent> <leader>g :TestVisit<CR>
