@@ -16,7 +16,7 @@ call plug#end()
 vmap <TAB> >gv
 
 
-set softtabstop=4
+set sts=4
 set shiftwidth=4
 set expandtab
 set switchbuf=useopen
@@ -49,21 +49,9 @@ set list
 set listchars=eol:¬,space:·,lead:\ ,trail:·,nbsp:◇,tab:→-,extends:▸,precedes:◂,multispace:···⬝,leadmultispace:\│\ \ \ ,
 set scrolloff=20
 
-func! Python_init()
-  setlocal shiftwidth=4 tabstop=4 softtabstop=4 "standard PEP8 Tab length
-  setlocal smartindent "use the keywords below to add additional indentation
-  setlocal cinwords=if,elif,else,for,while,try,except,finally,def,class
-  "smartindent is OK but don't move # comments to the first column please:
-  inoremap # X#
-  setlocal formatoptions=cq12 textwidth=79 "wrap lines longer than 79 characters
-  setlocal nowrap "don't wrap source code, it's evil
-  setlocal noignorecase nosmartcase "avoid corrupting source code on search/replace operations
-endfunc
-
-
 " change filetypes for common files
 augroup filetypedetect
-autocmd BufNewFile,BufRead *.md     set filetype=markdown softtabstop=4 shiftwidth=4
+autocmd BufNewFile,BufRead *.md set filetype=markdown sts=4 shiftwidth=4
 autocmd BufReadPost,BufNewFile *.md,*.txt,COMMIT_EDITMSG set wrap linebreak nolist spell spelllang=en_us complete+=kspell
 autocmd BufReadPost,BufNewFile .html,*.txt,*.md,*.adoc set spell spelllang=en_us
 autocmd BufWinEnter,FileType *.{md,wiki} colorscheme naysayer88
@@ -78,7 +66,6 @@ autocmd bufnewfile,bufread *.tsx set filetype=typescript.tsx
 autocmd BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType typescript autocmd CursorHold <buffer> :silent :wa
-autocmd FileType python call Python_init()
 augroup END
 
 
@@ -172,12 +159,11 @@ autocmd FileChangedShellPost *
   \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
 
-
 set t_co=256
 set mouse=a
 set background=dark
 let g:gruvbox_contrast_dark = "hard"
-colorscheme gruvbox
+colorscheme gruvbox8_hard
 
 " fix for kitty in vim
 let &t_ut=''
@@ -334,9 +320,3 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
-
-nmap <silent> <leader>t :TestNearest<CR>
-nmap <silent> <leader>T :TestFile<CR>
-nmap <silent> <leader>a :TestSuite<CR>
-nmap <silent> <leader>l :TestLast<CR>
-nmap <silent> <leader>g :TestVisit<CR>
