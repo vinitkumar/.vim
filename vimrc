@@ -7,12 +7,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'neoclide/coc.nvim', {'branch': 'master'}
   Plug 'yggdroot/indentline' " visualize indentation levels
   Plug 'vimwiki/vimwiki'
-  Plug 'AndrewRadev/splitjoin.vim'
-  Plug 'sonph/onehalf'
-  Plug 'vim-test/vim-test'
   Plug 'mileszs/ack.vim'
   Plug 'tpope/vim-fugitive'
-  Plug 'wakatime/vim-wakatime'
   Plug 'gruvbox-community/gruvbox'
 call plug#end()
 
