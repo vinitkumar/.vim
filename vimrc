@@ -27,12 +27,11 @@ set nobackup
 set noswapfile
 set nowritebackup
 set showcmd
-set incsearch           " incremental search
+set incsearch  " incremental search
 set ignorecase          " ignore the case
 set smartcase           " don't ignore the case if the pattern is uppercase
 set laststatus=2        " show the status bar even with one buffer
 set number
-set relativenumber
 set ruler               " show cursor position
 set showmode            " show the current mode
 set wildmode=longest,list
@@ -150,7 +149,7 @@ set laststatus=2
 " Triger `autoread` when files changes on disk
 " https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
 " https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
-    autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
             \ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
 
 " Notification after file change
@@ -162,8 +161,7 @@ autocmd FileChangedShellPost *
 set t_co=256
 set mouse=a
 set background=dark
-let g:gruvbox_contrast_dark = "hard"
-colorscheme gruvbox8_hard
+colorscheme grb-lucius
 
 " fix for kitty in vim
 let &t_ut=''
@@ -320,3 +318,4 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
