@@ -1,0 +1,26 @@
+My Morning Checklist
+====================
+
+Sweep
+-----
+
+[ ] Close Slack / IRC / Messages
+[ ] Enable Do Not Disturb
+[ ] Process personal email inbox (remember 2-minute rule)
+[ ] Process work email inbox (remember 2-minute rule)
+[ ] Process Slack notifications
+[ ] Process Teams notifications
+[ ] Check work calendar, anything pressing?
+
+Process
+-------
+
+[ ] Process Todoist Inbox
+[ ] Review all projects in Review tab
+
+Start
+-----
+
+[ ] Switch to Work Hot perspective
+[ ] If no items in Work Hot, go flag some things
+[ ] Pick one and start working!

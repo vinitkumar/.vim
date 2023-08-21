@@ -42,6 +42,9 @@ set autoindent
 set backspace=indent,eol,start
 set virtualedit=all
 set noswapfile
+set synmaxcol=200
+set lazyredraw
+set guioptions-=a
 normal mz
 
 set list
@@ -70,7 +73,7 @@ augroup END
 
 " Collection of all the maps
 let mapleader=","
-map <C-p> :Files<CR>
+nmap <C-p> :Files<CR>
 nmap <C-b> :Buffers<CR>
 nmap <C-c> :Commits<CR>
 nmap <C-t> :tabNext<CR>
