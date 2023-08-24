@@ -161,6 +161,23 @@ autocmd FileChangedShellPost *
   \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
 
+command -complete=dir -nargs=+
+  \ Grep silent grep <args>
+  \ | redraw!
+  \ | copen
+set grepformat=%f:%l:%c:%m
+set grepformat+=%-GNo\ files\ were\ searched\\,\ which\ means\ ripgrep\ probably\ applied\ a\ filter\ you\ didn't\ expect.\ Try\ running\ again\ with\ --debug.
+set grepformat+=%-GNo\ files\ were\ searched\\,\ which\ means\ ripgrep\ probably\ applied\ a\ filter\ you\ didn't\ expect.
+set grepformat+=%-GRunning\ with\ --debug\ will\ show\ why\ files\ are\ being\ skipped.
+set grepprg=rg
+if has('unix')
+  set grepprg+=\ \</dev/null
+endif
+set grepprg+=\ --color\ never\ --column\ --line-number\ --no-heading\ --ignore\ --no-require-git\ --hidden\ $*
+nmap <unique> <Leader>g :Grep<SPACE>
+
+
+
 set t_co=256
 set mouse=a
 set background=dark
