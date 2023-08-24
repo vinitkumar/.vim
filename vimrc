@@ -16,35 +16,33 @@ call plug#end()
 vmap <TAB> >gv
 
 
-set sts=4
-set shiftwidth=4
-set expandtab
-set switchbuf=useopen
-set showtabline=2
-set switchbuf=useopen
+set backspace=indent,eol,start
 set cursorline
+set expandtab
+set guioptions-=a
+set ignorecase          " ignore the case
+set incsearch  " incremental search
+set laststatus=2        " show the status bar even with one buffer
+set lazyredraw
 set nobackup
 set noswapfile
+set noswapfile
 set nowritebackup
-set showcmd
-set incsearch  " incremental search
-set ignorecase          " ignore the case
-set smartcase           " don't ignore the case if the pattern is uppercase
-set laststatus=2        " show the status bar even with one buffer
 set number
 set ruler               " show cursor position
+set shiftwidth=4
+set showcmd
 set showmode            " show the current mode
-set wildmode=longest,list
-set wildmenu
-set wildoptions=pum
-
-set autoindent
-set backspace=indent,eol,start
-set virtualedit=all
-set noswapfile
+set showtabline=2
+set smartcase           " don't ignore the case if the pattern is uppercase
+set sts=4
+set switchbuf=useopen
+set switchbuf=useopen
 set synmaxcol=200
-set lazyredraw
-set guioptions-=a
+set virtualedit=all
+set wildmenu
+set wildmode=longest,list
+set wildoptions=pum
 normal mz
 
 set list
@@ -77,6 +75,7 @@ nmap <C-p> :Files<CR>
 nmap <C-b> :Buffers<CR>
 nmap <C-c> :Commits<CR>
 nmap <C-t> :tabNext<CR>
+nmap <C-g> :Grep<CR>
 nmap <C-e> :CocDiagnostics<CR>
 nmap <leader>gd <Plug>(coc-definition)
 nmap <leader>gy <Plug>(coc-type-definition)
@@ -161,27 +160,50 @@ autocmd FileChangedShellPost *
   \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
 
-command -complete=dir -nargs=+
-  \ Grep silent grep <args>
-  \ | redraw!
-  \ | copen
-set grepformat=%f:%l:%c:%m
-set grepformat+=%-GNo\ files\ were\ searched\\,\ which\ means\ ripgrep\ probably\ applied\ a\ filter\ you\ didn't\ expect.\ Try\ running\ again\ with\ --debug.
-set grepformat+=%-GNo\ files\ were\ searched\\,\ which\ means\ ripgrep\ probably\ applied\ a\ filter\ you\ didn't\ expect.
-set grepformat+=%-GRunning\ with\ --debug\ will\ show\ why\ files\ are\ being\ skipped.
-set grepprg=rg
-if has('unix')
-  set grepprg+=\ \</dev/null
-endif
-set grepprg+=\ --color\ never\ --column\ --line-number\ --no-heading\ --ignore\ --no-require-git\ --hidden\ $*
-nmap <unique> <Leader>g :Grep<SPACE>
+" Below code is still a bit iffy, will uncomment when it works without issues
+" command -complete=dir -nargs=+
+"   \ Grep silent grep <args>
+"   \ | redraw!
+"   \ | copen
+" set grepformat=%f:%l:%c:%m
+" set grepformat+=%-GNo\ files\ were\ searched\\,\ which\ means\ ripgrep\ probably\ applied\ a\ filter\ you\ didn't\ expect.\ Try\ running\ again\ with\ --debug.
+" set grepformat+=%-GNo\ files\ were\ searched\\,\ which\ means\ ripgrep\ probably\ applied\ a\ filter\ you\ didn't\ expect.
+" set grepformat+=%-GRunning\ with\ --debug\ will\ show\ why\ files\ are\ being\ skipped.
+" set grepprg=rg
+" if has('unix')
+"   set grepprg+=\ \</dev/null
+" endif
+" set grepprg+=\ --color\ never\ --column\ --line-number\ --no-heading\ --ignore\ --no-require-git\ --hidden\ $*
+" nmap <silent> <Leader>g :Grep<SPACE>
 
 
 
 set t_co=256
 set mouse=a
-set background=dark
-colorscheme grb-lucius
+
+
+" ChangeBackground changes the background mode based on macOS's `Appearance`
+" setting. We also refresh the statusline colors to reflect the new mode.
+function! ChangeBackground()
+  if system("defaults read -g AppleInterfaceStyle") =~ '^Dark'
+    set background=dark   " for the dark version of the theme
+  else
+    set background=light  " for the light version of the theme
+  endif
+  colorscheme gruvbox
+
+  try
+    execute "AirlineRefresh"
+  catch
+  endtry
+endfunction
+
+" initialize the colorscheme for the first run
+call ChangeBackground()
+
+" change the color scheme if we receive a SigUSR1
+" autocmd SigUSR1 * call ChangeBackground()
+autocmd FocusGained,BufEnter * call ChangeBackground()
 
 " fix for kitty in vim
 let &t_ut=''
