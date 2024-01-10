@@ -1,13 +1,9 @@
 call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-commentary'
-  Plug 'tpope/vim-dispatch'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
-  Plug 'antoinemadec/coc-fzf'
   Plug 'neoclide/coc.nvim', {'branch': 'master'}
-  Plug 'yggdroot/indentline' " visualize indentation levels
   Plug 'vimwiki/vimwiki'
-  Plug 'mileszs/ack.vim'
   Plug 'tpope/vim-fugitive'
   Plug 'gruvbox-community/gruvbox'
 call plug#end()
@@ -18,6 +14,7 @@ vmap <TAB> >gv
 
 set backspace=indent,eol,start
 set cursorline
+set termguicolors
 set expandtab
 set guioptions-=a
 set ignorecase          " ignore the case
@@ -82,6 +79,8 @@ nmap <leader>gy <Plug>(coc-type-definition)
 nmap <leader>gr <Plug>(coc-references))
 nmap <leader>ev :vsplit $MYVIMRC<CR>
 nmap <leader>d :Dispatch make test<CR>
+" nmap <leader>dt :call append('.', strftime('%c'))<CR>
+nmap <leader>dt i<C-r>=strftime('%c')<CR>
 
 " Keybindings {
   " Save file
@@ -187,10 +186,11 @@ set mouse=a
 function! ChangeBackground()
   if system("defaults read -g AppleInterfaceStyle") =~ '^Dark'
     set background=dark   " for the dark version of the theme
+    colorscheme gruvbox
   else
     set background=light  " for the light version of the theme
+    colorscheme lucius
   endif
-  colorscheme gruvbox
 
   try
     execute "AirlineRefresh"
