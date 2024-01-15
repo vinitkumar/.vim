@@ -8,9 +8,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'gruvbox-community/gruvbox'
 call plug#end()
 
-
 vmap <TAB> >gv
-
 
 set backspace=indent,eol,start
 set cursorline
@@ -63,6 +61,7 @@ autocmd bufnewfile,bufread *.tsx set filetype=typescript.tsx
 autocmd BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType typescript autocmd CursorHold <buffer> :silent :wa
+autocmd BufNewFile ~/vimwiki/diary/*.wiki :silent 0r !~/.vim/bin/generate-vimwiki-diary-template '%'
 augroup END
 
 
@@ -79,7 +78,7 @@ nmap <leader>gy <Plug>(coc-type-definition)
 nmap <leader>gr <Plug>(coc-references))
 nmap <leader>ev :vsplit $MYVIMRC<CR>
 nmap <leader>d :Dispatch make test<CR>
-" nmap <leader>dt :call append('.', strftime('%c'))<CR>
+nmap <leader>dt :call append('.', strftime('%c'))<CR>
 nmap <leader>dt i<C-r>=strftime('%c')<CR>
 
 " Keybindings {
@@ -96,7 +95,7 @@ nmap <leader>dt i<C-r>=strftime('%c')<CR>
 
   "Enter to go to EOF and backspace to go to start
 nnoremap <CR> G
-nnoremap <BS> gg
+nnutoremap <BS> gg
 " Stop cursor from jumping over wrapped lines
 nnoremap j gj
 nnoremap k gk
@@ -158,28 +157,8 @@ autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
 autocmd FileChangedShellPost *
   \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
-
-" Below code is still a bit iffy, will uncomment when it works without issues
-" command -complete=dir -nargs=+
-"   \ Grep silent grep <args>
-"   \ | redraw!
-"   \ | copen
-" set grepformat=%f:%l:%c:%m
-" set grepformat+=%-GNo\ files\ were\ searched\\,\ which\ means\ ripgrep\ probably\ applied\ a\ filter\ you\ didn't\ expect.\ Try\ running\ again\ with\ --debug.
-" set grepformat+=%-GNo\ files\ were\ searched\\,\ which\ means\ ripgrep\ probably\ applied\ a\ filter\ you\ didn't\ expect.
-" set grepformat+=%-GRunning\ with\ --debug\ will\ show\ why\ files\ are\ being\ skipped.
-" set grepprg=rg
-" if has('unix')
-"   set grepprg+=\ \</dev/null
-" endif
-" set grepprg+=\ --color\ never\ --column\ --line-number\ --no-heading\ --ignore\ --no-require-git\ --hidden\ $*
-" nmap <silent> <Leader>g :Grep<SPACE>
-
-
-
 set t_co=256
 set mouse=a
-
 
 " ChangeBackground changes the background mode based on macOS's `Appearance`
 " setting. We also refresh the statusline colors to reflect the new mode.

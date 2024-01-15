@@ -1,0 +1,58 @@
+#! /opt/homebrew/bin/python3
+
+import sys
+import datetime
+
+template = """# Journal Entry - [Date]
+
+== Overview ==
+
+[Provide a brief overview of the day or the main events.]
+
+== Reflections ==
+
+[Share your thoughts, feelings, and experiences from the day.]
+
+== Gratitude ==
+
+[List a few things you're grateful for today.]
+
+- [Gratitude 1]
+- [Gratitude 2]
+- [Gratitude 3]
+
+== Goals ==
+
+[Set some goals for tomorrow or the near future.]
+
+- [Goal 1]
+- [Goal 2]
+- [Goal 3]
+
+== Highlight of the Day ==
+
+[Share the most memorable or important part of your day.]
+
+== Challenges ==
+
+[Describe any challenges or obstacles you encountered.]
+
+== Lessons Learned ==
+
+[What did you learn from today's experiences?]
+
+== Plans for Tomorrow ==
+
+[List your plans and tasks for tomorrow.]
+
+- [Task 1]
+- [Task 2]
+- [Task 3]
+
+---
+*Feel free to add or modify sections to suit your personal journaling style.*"""
+
+date = (datetime.date.today() if len(sys.argv) < 2
+        # Expecting filename in YYYY-MM-DD.foo format
+        else sys.argv[1].rsplit(".", 1)[0])
+print(template.format(date=date))
