@@ -95,7 +95,7 @@ nmap <leader>dt i<C-r>=strftime('%c')<CR>
 
   "Enter to go to EOF and backspace to go to start
 nnoremap <CR> G
-nnutoremap <BS> gg
+nnoremap <BS> gg
 " Stop cursor from jumping over wrapped lines
 nnoremap j gj
 nnoremap k gk
