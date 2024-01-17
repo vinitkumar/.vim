@@ -41,7 +41,6 @@ set wildoptions=pum
 normal mz
 
 set list
-set listchars=eol:¬,space:·,lead:\ ,trail:·,nbsp:◇,tab:→-,extends:▸,precedes:◂,multispace:···⬝,leadmultispace:\│\ \ \ ,
 set scrolloff=20
 
 " change filetypes for common files
@@ -165,10 +164,10 @@ set mouse=a
 function! ChangeBackground()
   if system("defaults read -g AppleInterfaceStyle") =~ '^Dark'
     set background=dark   " for the dark version of the theme
-    colorscheme gruvbox
+    colorscheme rosepine
   else
     set background=light  " for the light version of the theme
-    colorscheme lucius
+    colorscheme base16-bright
   endif
 
   try
