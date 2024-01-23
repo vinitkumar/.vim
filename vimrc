@@ -5,10 +5,23 @@ call plug#begin('~/.vim/plugged')
   Plug 'neoclide/coc.nvim', {'branch': 'master'}
   Plug 'vimwiki/vimwiki'
   Plug 'tpope/vim-fugitive'
+  Plug 'junegunn/goyo.vim'
+  Plug 'airblade/vim-gitgutter'
   Plug 'gruvbox-community/gruvbox'
 call plug#end()
 
 vmap <TAB> >gv
+set exrc
+set secure
+
+let _hostname = substitute(hostname(), ".lan", "", "")
+let _hostfile = expand("$HOME/.vim/"._hostname.".vim")
+
+if _hostfile != "" && filereadable(_hostfile)
+  exec "source "._hostfile
+endif
+
+set hidden
 
 set backspace=indent,eol,start
 set cursorline
@@ -27,6 +40,9 @@ set number
 set ruler               " show cursor position
 set shiftwidth=4
 set showcmd
+set noautochdir
+set encoding=UTF-8
+set t_Co=256
 set showmode            " show the current mode
 set showtabline=2
 set smartcase           " don't ignore the case if the pattern is uppercase
@@ -38,10 +54,19 @@ set virtualedit=all
 set wildmenu
 set wildmode=longest,list
 set wildoptions=pum
+set history=10000
 normal mz
 
 set list
+set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
 set scrolloff=20
+
+" colorcolumn
+set colorcolumn=120
+highlight OverLength ctermbg=red ctermfg=white
+match OverLength /\%120v.\+/
+
+
 
 " change filetypes for common files
 augroup filetypedetect
@@ -109,6 +134,7 @@ nnoremap('<C-l>', '<C-w>l')
 
 noremap <Leader>h :<C-u>split<CR>
 noremap <Leader>v :<C-u>vsplit<CR>
+noremap <Leader>z :<C-u>Goyo<CR>
 
 "tab management, leader-t to generate a new tab and Control-t to switch
 "between them
@@ -186,25 +212,6 @@ autocmd FocusGained,BufEnter * call ChangeBackground()
 " fix for kitty in vim
 let &t_ut=''
 
-
-hi User1 ctermfg=green ctermbg=black
-hi User2 ctermfg=yellow ctermbg=black
-hi User3 ctermfg=red ctermbg=black
-hi User4 ctermfg=blue ctermbg=black
-hi User5 ctermfg=white ctermbg=black
-
-set statusline=
-set statusline +=%1*\ %n\ %*            "buffer number
-set statusline +=%5*%{&ff}%*            "file format
-set statusline +=%3*%y%*                "file type
-set statusline +=%4*\ %<%F%*            "full path
-set statusline +=%2*%m%*                "modified flag
-set statusline +=%1*%=%5l%*             "current line
-set statusline +=%2*/%L%*               "total lines
-set statusline +=%1*%4v\ %*             "virtual column number
-set statusline +=%2*0x%04B\ %*          "character under cursor
-" Some servers have issues with backup files, see #649.
-"
 set nobackup
 set nowritebackup
 
@@ -339,3 +346,21 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
+
+
+let g:lightline = {
+  \ 'colorscheme': 'deus',
+  \ 'component': {
+  \   'readonly': '%{&readonly?"RO":""}',
+  \ },
+  \ 'component_function': {
+  \   'wordcount': 'WordCount'
+  \ },
+  \ 'active': {
+  \   'right': [
+  \      [ 'lineinfo' ],
+  \      [ 'fileformat', 'fileencoding', 'filetype' ],
+  \      [ 'percent' ]
+  \   ]
+  \ }
+  \ }
