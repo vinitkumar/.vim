@@ -8,6 +8,10 @@ call plug#begin('~/.vim/plugged')
   Plug 'junegunn/goyo.vim'
   Plug 'airblade/vim-gitgutter'
   Plug 'gruvbox-community/gruvbox'
+  Plug 'github/copilot.vim'
+  Plug 'embark-theme/vim', { 'as': 'embark', 'branch': 'main' }
+  Plug 'wadackel/vim-dogrun'
+  Plug 'itchyny/lightline.vim'
 call plug#end()
 
 vmap <TAB> >gv
@@ -73,7 +77,6 @@ augroup filetypedetect
 autocmd BufNewFile,BufRead *.md set filetype=markdown sts=4 shiftwidth=4
 autocmd BufReadPost,BufNewFile *.md,*.txt,COMMIT_EDITMSG set wrap linebreak nolist spell spelllang=en_us complete+=kspell
 autocmd BufReadPost,BufNewFile .html,*.txt,*.md,*.adoc set spell spelllang=en_us
-autocmd BufWinEnter,FileType *.{md,wiki} colorscheme naysayer88
 autocmd Filetype gitcommit setlocal spell textwidth=72
 autocmd FileType javascript setlocal expandtab sw=2 ts=2 sts=2
 autocmd FileType typescript setlocal expandtab sw=2 ts=2 sts=2
@@ -92,6 +95,7 @@ augroup END
 " Collection of all the maps
 let mapleader=","
 nmap <C-p> :Files<CR>
+nmap <C-o> :Files<CR>
 nmap <C-b> :Buffers<CR>
 nmap <C-c> :Commits<CR>
 nmap <C-t> :tabNext<CR>
@@ -190,10 +194,10 @@ set mouse=a
 function! ChangeBackground()
   if system("defaults read -g AppleInterfaceStyle") =~ '^Dark'
     set background=dark   " for the dark version of the theme
-    colorscheme rosepine
+    colorscheme rosepine_moon
   else
     set background=light  " for the light version of the theme
-    colorscheme base16-bright
+    colorscheme rosepine_dawn
   endif
 
   try
