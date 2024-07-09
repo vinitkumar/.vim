@@ -3,7 +3,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
   Plug 'neoclide/coc.nvim', {'branch': 'master'}
-  Plug 'vimwiki/vimwiki'
   Plug 'tpope/vim-fugitive'
   Plug 'junegunn/goyo.vim'
   Plug 'airblade/vim-gitgutter'
@@ -12,6 +11,10 @@ call plug#begin('~/.vim/plugged')
   Plug 'embark-theme/vim', { 'as': 'embark', 'branch': 'main' }
   Plug 'wadackel/vim-dogrun'
   Plug 'itchyny/lightline.vim'
+  Plug 'mctwynne/sitruuna.vim'
+  Plug 'vimwiki/vimwiki'
+  Plug 'liuchengxu/space-vim-dark'
+  Plug 'sainnhe/everforest'
 call plug#end()
 
 vmap <TAB> >gv
@@ -192,6 +195,8 @@ set mouse=a
 " ChangeBackground changes the background mode based on macOS's `Appearance`
 " setting. We also refresh the statusline colors to reflect the new mode.
 function! ChangeBackground()
+  set termguicolors
+  hi LineNr ctermbg=NONE guibg=NONE
   if system("defaults read -g AppleInterfaceStyle") =~ '^Dark'
     set background=dark   " for the dark version of the theme
     colorscheme rosepine_moon
@@ -209,8 +214,8 @@ endfunction
 " initialize the colorscheme for the first run
 call ChangeBackground()
 
-" change the color scheme if we receive a SigUSR1
-" autocmd SigUSR1 * call ChangeBackground()
+" " change the color scheme if we receive a SigUSR1
+" " autocmd SigUSR1 * call ChangeBackground()
 autocmd FocusGained,BufEnter * call ChangeBackground()
 
 " fix for kitty in vim
@@ -368,3 +373,8 @@ let g:lightline = {
   \   ]
   \ }
   \ }
+
+
+if $TERM == "xterm-256color"
+  set t_Co=256
+endif
