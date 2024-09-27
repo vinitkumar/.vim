@@ -6,15 +6,12 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-fugitive'
   Plug 'junegunn/goyo.vim'
   Plug 'airblade/vim-gitgutter'
-  Plug 'gruvbox-community/gruvbox'
   Plug 'github/copilot.vim'
-  Plug 'embark-theme/vim', { 'as': 'embark', 'branch': 'main' }
-  Plug 'wadackel/vim-dogrun'
   Plug 'itchyny/lightline.vim'
   Plug 'mctwynne/sitruuna.vim'
   Plug 'vimwiki/vimwiki'
-  Plug 'liuchengxu/space-vim-dark'
-  Plug 'sainnhe/everforest'
+  Plug 'sheerun/vim-polyglot'
+  Plug 'pineapplegiant/spaceduck', { 'branch': 'main' }
 call plug#end()
 
 vmap <TAB> >gv
@@ -199,10 +196,10 @@ function! ChangeBackground()
   hi LineNr ctermbg=NONE guibg=NONE
   if system("defaults read -g AppleInterfaceStyle") =~ '^Dark'
     set background=dark   " for the dark version of the theme
-    colorscheme rosepine_moon
+    colorscheme spaceduck
   else
     set background=light  " for the light version of the theme
-    colorscheme rosepine_dawn
+    colorscheme rosepine
   endif
 
   try
@@ -358,7 +355,7 @@ let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 
 
 let g:lightline = {
-  \ 'colorscheme': 'deus',
+  \ 'colorscheme': 'spaceduck',
   \ 'component': {
   \   'readonly': '%{&readonly?"RO":""}',
   \ },
