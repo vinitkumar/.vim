@@ -6,12 +6,13 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-fugitive'
   Plug 'junegunn/goyo.vim'
   Plug 'airblade/vim-gitgutter'
-  Plug 'github/copilot.vim'
+  " Plug 'github/copilot.vim'
   Plug 'itchyny/lightline.vim'
   Plug 'mctwynne/sitruuna.vim'
   Plug 'vimwiki/vimwiki'
   Plug 'sheerun/vim-polyglot'
   Plug 'pineapplegiant/spaceduck', { 'branch': 'main' }
+  Plug 'romainl/Apprentice'
 call plug#end()
 
 vmap <TAB> >gv
