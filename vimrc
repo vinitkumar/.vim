@@ -6,13 +6,10 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-fugitive'
   Plug 'junegunn/goyo.vim'
   Plug 'airblade/vim-gitgutter'
-  " Plug 'github/copilot.vim'
+  Plug 'github/copilot.vim'
   Plug 'itchyny/lightline.vim'
-  Plug 'mctwynne/sitruuna.vim'
   Plug 'vimwiki/vimwiki'
-  Plug 'sheerun/vim-polyglot'
-  Plug 'pineapplegiant/spaceduck', { 'branch': 'main' }
-  Plug 'romainl/Apprentice'
+  Plug 'metalelf0/base16-black-metal-scheme'
 call plug#end()
 
 vmap <TAB> >gv
@@ -196,11 +193,11 @@ function! ChangeBackground()
   set termguicolors
   hi LineNr ctermbg=NONE guibg=NONE
   if system("defaults read -g AppleInterfaceStyle") =~ '^Dark'
-    set background=dark   " for the dark version of the theme
-    colorscheme spaceduck
-  else
-    set background=light  " for the light version of the theme
     colorscheme rosepine
+    set background=dark   " for the dark version of the theme
+  else
+    colorscheme rosepine
+    set background=light  " for the light version of the theme
   endif
 
   try
@@ -376,3 +373,10 @@ let g:lightline = {
 if $TERM == "xterm-256color"
   set t_Co=256
 endif
+set clipboard=unnamed
+" Yank to system clipboard
+nnoremap <leader>y "+y
+vnoremap <leader>y "+y
+" Paste from system clipboard
+nnoremap <leader>p "+p
+vnoremap <leader>p "+p
