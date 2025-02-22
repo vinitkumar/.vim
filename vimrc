@@ -55,6 +55,7 @@ set synmaxcol=200
 set virtualedit=all
 set wildmenu
 set wildmode=longest,list
+:colorscheme base16-bright
 set wildoptions=pum
 set history=10000
 normal mz
@@ -78,6 +79,8 @@ autocmd BufReadPost,BufNewFile .html,*.txt,*.md,*.adoc set spell spelllang=en_us
 autocmd Filetype gitcommit setlocal spell textwidth=72
 autocmd FileType javascript setlocal expandtab sw=2 ts=2 sts=2
 autocmd FileType typescript setlocal expandtab sw=2 ts=2 sts=2
+autocmd FileType tsx setlocal expandtab sw=2 ts=2 sts=2
+autocmd FileType jsx setlocal expandtab sw=2 ts=2 sts=2
 autocmd FileType json setlocal expandtab sw=2 ts=2 sts=2
 autocmd FileType c setlocal expandtab sw=2 ts=2 sts=2
 autocmd FileType html setlocal expandtab sw=2 ts=2 sts=2
@@ -193,7 +196,7 @@ function! ChangeBackground()
   set termguicolors
   hi LineNr ctermbg=NONE guibg=NONE
   if system("defaults read -g AppleInterfaceStyle") =~ '^Dark'
-    colorscheme rosepine
+    colorscheme base16-bright
     set background=dark   " for the dark version of the theme
   else
     colorscheme rosepine
