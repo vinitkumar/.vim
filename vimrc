@@ -4,12 +4,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'junegunn/fzf.vim'
   Plug 'neoclide/coc.nvim', {'branch': 'master'}
   Plug 'tpope/vim-fugitive'
-  Plug 'junegunn/goyo.vim'
-  Plug 'airblade/vim-gitgutter'
   Plug 'github/copilot.vim'
-  Plug 'itchyny/lightline.vim'
   Plug 'vimwiki/vimwiki'
-  Plug 'metalelf0/base16-black-metal-scheme'
 call plug#end()
 
 vmap <TAB> >gv
@@ -355,24 +351,6 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 
 
-let g:lightline = {
-  \ 'colorscheme': 'spaceduck',
-  \ 'component': {
-  \   'readonly': '%{&readonly?"RO":""}',
-  \ },
-  \ 'component_function': {
-  \   'wordcount': 'WordCount'
-  \ },
-  \ 'active': {
-  \   'right': [
-  \      [ 'lineinfo' ],
-  \      [ 'fileformat', 'fileencoding', 'filetype' ],
-  \      [ 'percent' ]
-  \   ]
-  \ }
-  \ }
-
-
 if $TERM == "xterm-256color"
   set t_Co=256
 endif
@@ -383,3 +361,23 @@ vnoremap <leader>y "+y
 " Paste from system clipboard
 nnoremap <leader>p "+p
 vnoremap <leader>p "+p
+
+
+" Antirez's vimrc lightline replacement
+"
+hi User1 ctermfg=green ctermbg=black
+hi User2 ctermfg=yellow ctermbg=black
+hi User3 ctermfg=red ctermbg=black
+hi User4 ctermfg=blue ctermbg=black
+hi User5 ctermfg=white ctermbg=black
+
+set statusline=
+set statusline +=%1*\ %n\ %*            "buffer number
+set statusline +=%5*%{&ff}%*            "file format
+set statusline +=%3*%y%*                "file type
+set statusline +=%4*\ %<%F%*            "full path
+set statusline +=%2*%m%*                "modified flag
+set statusline +=%1*%=%5l%*             "current line
+set statusline +=%2*/%L%*               "total lines
+set statusline +=%1*%4v\ %*             "virtual column number
+set statusline +=%2*0x%04B\ %*          "character under cursor
