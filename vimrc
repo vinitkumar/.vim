@@ -51,9 +51,9 @@ set synmaxcol=200
 set virtualedit=all
 set wildmenu
 set wildmode=longest,list
-:colorscheme base16-bright
 set wildoptions=pum
 set history=10000
+set signcolumn=yes
 normal mz
 
 set list
@@ -192,17 +192,18 @@ function! ChangeBackground()
   set termguicolors
   hi LineNr ctermbg=NONE guibg=NONE
   if system("defaults read -g AppleInterfaceStyle") =~ '^Dark'
-    colorscheme base16-bright
-    set background=dark   " for the dark version of the theme
+    set background=dark  " or dark
+    if has('gui_running')
+        colorscheme solarized
+        " Additional GUI-specific settings
+        set guifont=Source\ Code\ Pro:h16
+    else
+        colorscheme base16-bright
+    endif
   else
     colorscheme rosepine
     set background=light  " for the light version of the theme
   endif
-
-  try
-    execute "AirlineRefresh"
-  catch
-  endtry
 endfunction
 
 " initialize the colorscheme for the first run
