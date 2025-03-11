@@ -4,7 +4,7 @@
 
 My vim configuration for writing code and prose.
 
-My terminal is Kitty and GUI editor is MacVim
+My terminal is ~~Kitty~~ Ghostty and GUI editor is MacVim
 
 ### How to Install?
 
