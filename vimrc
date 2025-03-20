@@ -6,6 +6,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-fugitive'
   Plug 'github/copilot.vim'
   Plug 'vimwiki/vimwiki'
+  Plug 'vinitkumar/oscura-vim'
 call plug#end()
 
 vmap <TAB> >gv
@@ -194,15 +195,19 @@ function! ChangeBackground()
   if system("defaults read -g AppleInterfaceStyle") =~ '^Dark'
     set background=dark  " or dark
     if has('gui_running')
-        colorscheme solarized
+        colorscheme oscura
         " Additional GUI-specific settings
         set guifont=Source\ Code\ Pro:h16
     else
         colorscheme oscura
     endif
   else
-    colorscheme rosepine
-    set background=light  " for the light version of the theme
+    if has('gui_running')
+        colorscheme onehalflight
+        " Additional GUI-specific settings
+        set guifont=Source\ Code\ Pro:h16
+    endif
+    colorscheme oscura
   endif
 endfunction
 
