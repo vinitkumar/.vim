@@ -198,7 +198,7 @@ function! ChangeBackground()
         " Additional GUI-specific settings
         set guifont=Source\ Code\ Pro:h16
     else
-        colorscheme base16-bright
+        colorscheme oscura
     endif
   else
     colorscheme rosepine
