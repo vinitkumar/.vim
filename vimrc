@@ -23,7 +23,7 @@ endif
 set hidden
 
 set backspace=indent,eol,start
-set cursorline
+set nocursorline
 set termguicolors
 set expandtab
 set guioptions-=a
@@ -202,12 +202,8 @@ function! ChangeBackground()
         colorscheme oscura
     endif
   else
-    if has('gui_running')
-        colorscheme onehalflight
-        " Additional GUI-specific settings
-        set guifont=Source\ Code\ Pro:h16
-    endif
-    colorscheme oscura
+    colorscheme rosepine
+    set background=light  " for the light version of the theme
   endif
 endfunction
 
