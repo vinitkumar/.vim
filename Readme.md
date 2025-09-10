@@ -1,6 +1,6 @@
 ## .Vim
 
-![vim-screenshot](./mvim-current.png)
+![vim-screenshot](./mvim.png)
 
 My vim configuration for writing code and prose.
 
