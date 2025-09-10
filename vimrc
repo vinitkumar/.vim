@@ -4,9 +4,11 @@ call plug#begin('~/.vim/plugged')
   Plug 'junegunn/fzf.vim'
   Plug 'neoclide/coc.nvim', {'branch': 'master'}
   Plug 'tpope/vim-fugitive'
-  Plug 'github/copilot.vim'
   Plug 'vimwiki/vimwiki'
   Plug 'vinitkumar/oscura-vim'
+  Plug 'gthelding/monokai-pro.nvim'
+  Plug 'vinitkumar/monokai-pro-vim'
+
 call plug#end()
 
 vmap <TAB> >gv
@@ -23,8 +25,8 @@ endif
 set hidden
 
 set backspace=indent,eol,start
-set nocursorline
 set termguicolors
+set cursorline
 set expandtab
 set guioptions-=a
 set ignorecase          " ignore the case
@@ -95,7 +97,7 @@ let mapleader=","
 nmap <C-p> :Files<CR>
 nmap <C-o> :Files<CR>
 nmap <C-b> :Buffers<CR>
-nmap <C-c> :Commits<CR>
+" nmap <C-s> :so %<CR>
 nmap <C-t> :tabNext<CR>
 nmap <C-g> :Grep<CR>
 nmap <C-e> :CocDiagnostics<CR>
@@ -193,19 +195,19 @@ function! ChangeBackground()
   set termguicolors
   hi LineNr ctermbg=NONE guibg=NONE
   if system("defaults read -g AppleInterfaceStyle") =~ '^Dark'
-    set background=dark  " or dark
     if has('gui_running')
-        colorscheme oscura
-        " Additional GUI-specific settings
-        set guifont=Source\ Code\ Pro:h16
+        colorscheme oscura-dusk
+        set background=dark  " or dark
     else
-        colorscheme oscura
+        colorscheme oscura-dusk-light
     endif
   else
-    colorscheme rosepine
+    colorscheme oscura-dusk-light
+    set diffopt+=inline:char
     set background=light  " for the light version of the theme
   endif
 endfunction
+
 
 " initialize the colorscheme for the first run
 call ChangeBackground()

@@ -1,42 +1,42 @@
-" Oscura - A dark Vim/Neovim colorscheme ported from VS Code
+" Oscura Light - A light Vim/Neovim colorscheme ported from VS Code
 " Author: Vinit Kumar
 " Created: March 20, 2025
 " License MIT
 
 " Setup
-set background=dark
+set background=light
 hi clear
 if exists("syntax_on")
   syntax reset
 endif
-let g:colors_name = "oscura"
+let g:colors_name = "oscura-light"
 
-" Define colors
-let s:bg           = "#0B0B0F"
-let s:fg           = "#E6E6E6"
-let s:comment      = "#46474F"
-let s:keyword      = "#9099A1"
-let s:function     = "#E6E7A3"
-let s:string       = "#F9B98C"
-let s:number       = "#F9B98C"
-let s:constant     = "#F9B98C"
-let s:type         = "#E6E7A3"
-let s:error        = "#FF5C5C"
-let s:warning      = "#D2D714"
-let s:special      = "#9592A4"
-let s:visual       = "#232323"
-let s:cursor       = "#FFCC00"
-let s:selection    = "#5A5B63"
-let s:linenum      = "#32333B"
-let s:linenum_act  = "#E6E6E6"
-let s:matchbracket = "#5C6974"
-let s:search       = "#5C6974"
-let s:diffadd      = "#4EBE96"
-let s:diffdelete   = "#FF5C5C"
-let s:diffchange   = "#4EBE96"
-let s:difftext     = "#303030"
-let s:link         = "#479FFA"
-let s:attr         = "#54C0A3"
+" Define colors - Light theme optimized for readability
+let s:bg           = "#FFFFFF"
+let s:fg           = "#2D3748"
+let s:comment      = "#718096"
+let s:keyword      = "#2B6CB0"
+let s:function     = "#805AD5"
+let s:string       = "#38A169"
+let s:number       = "#D69E2E"
+let s:constant     = "#D69E2E"
+let s:type         = "#319795"
+let s:error        = "#E53E3E"
+let s:warning      = "#DD6B20"
+let s:special      = "#4A5568"
+let s:visual       = "#E2E8F0"
+let s:cursor       = "#2B6CB0"
+let s:selection    = "#EDF2F7"
+let s:linenum      = "#A0AEC0"
+let s:linenum_act  = "#2D3748"
+let s:matchbracket = "#38A169"
+let s:search       = "#F6E05E"
+let s:diffadd      = "#C6F6D5"
+let s:diffdelete   = "#FED7D7"
+let s:diffchange   = "#FEF5E7"
+let s:difftext     = "#E2E8F0"
+let s:link         = "#2B6CB0"
+let s:attr         = "#319795"
 
 " Helper function for setting highlight groups
 function! s:Hi(group, fg, bg, attr)
@@ -56,24 +56,24 @@ endfunction
 " Editor highlighting
 call s:Hi("Normal", s:fg, s:bg, "")
 call s:Hi("Cursor", s:bg, s:cursor, "bold")
-" CursorLine set same as background so that it is non obtrusive.
-call s:Hi("CursorLine", "", s:bg, "none")
+" CursorLine set to a subtle background for light mode
+call s:Hi("CursorLine", "", s:selection, "none")
 call s:Hi("LineNr", s:linenum, "", "")
 call s:Hi("CursorLineNr", s:linenum_act, "", "")
 call s:Hi("VertSplit", s:linenum, s:bg, "")
-call s:Hi("StatusLine", s:fg, "#232323", "none")
-call s:Hi("StatusLineNC", s:comment, "#191919", "none")
-call s:Hi("Pmenu", s:fg, "#2C2C31", "")
+call s:Hi("StatusLine", s:fg, s:visual, "none")
+call s:Hi("StatusLineNC", s:comment, s:selection, "none")
+call s:Hi("Pmenu", s:fg, s:visual, "")
 call s:Hi("PmenuSel", s:bg, s:function, "")
-call s:Hi("PmenuSbar", "", "#2C2C31", "")
+call s:Hi("PmenuSbar", "", s:visual, "")
 call s:Hi("PmenuThumb", "", s:selection, "")
 call s:Hi("TabLine", s:comment, s:bg, "none")
 call s:Hi("TabLineFill", s:comment, s:bg, "none")
 call s:Hi("TabLineSel", s:fg, s:bg, "none")
-call s:Hi("Search", s:bg, s:search, "")
-call s:Hi("IncSearch", s:bg, s:search, "")
-call s:Hi("MatchParen", "", s:matchbracket, "")
-call s:Hi("Visual", "", s:visual, "")
+call s:Hi("Search", s:fg, s:search, "")
+call s:Hi("IncSearch", s:fg, s:search, "")
+call s:Hi("MatchParen", s:bg, s:matchbracket, "")
+call s:Hi("Visual", s:fg, s:visual, "")
 call s:Hi("NonText", s:comment, "", "")
 call s:Hi("Todo", s:function, s:bg, "italic")
 call s:Hi("Underlined", s:link, "", "underline")
@@ -83,19 +83,19 @@ call s:Hi("WarningMsg", s:warning, "", "")
 call s:Hi("SpecialKey", s:special, "", "")
 call s:Hi("Title", s:function, "", "bold")
 call s:Hi("SignColumn", "", s:bg, "")
-call s:Hi("DiffAdd", "", s:diffadd, "")
-call s:Hi("DiffDelete", s:diffdelete, s:diffdelete, "")
-call s:Hi("DiffChange", "", s:diffchange, "")
-call s:Hi("DiffText", "", s:difftext, "")
-call s:Hi("Folded", s:comment, "#191919", "")
+call s:Hi("DiffAdd", s:fg, s:diffadd, "")
+call s:Hi("DiffDelete", s:fg, s:diffdelete, "")
+call s:Hi("DiffChange", s:fg, s:diffchange, "")
+call s:Hi("DiffText", s:fg, s:difftext, "")
+call s:Hi("Folded", s:comment, s:selection, "")
 call s:Hi("FoldColumn", s:comment, s:bg, "")
 call s:Hi("Directory", s:function, "", "")
 call s:Hi("SpellBad", s:error, "", "undercurl")
 call s:Hi("SpellCap", s:warning, "", "undercurl")
 call s:Hi("SpellRare", s:warning, "", "undercurl")
 call s:Hi("SpellLocal", s:warning, "", "undercurl")
-call s:Hi("ColorColumn", "", "#232323", "")
-call s:Hi("QuickFixLine", "", "#232323", "none")
+call s:Hi("ColorColumn", "", s:selection, "")
+call s:Hi("QuickFixLine", "", s:selection, "none")
 call s:Hi("Conceal", s:comment, s:bg, "")
 
 " Syntax highlighting groups
@@ -131,7 +131,7 @@ call s:Hi("Delimiter", s:special, "", "")
 call s:Hi("SpecialComment", s:comment, "", "")
 call s:Hi("Debug", s:warning, "", "")
 call s:Hi("WildMenu", s:fg, s:bg, "")
-call s:Hi("NormalFloat", s:fg, "#161616", "")
+call s:Hi("NormalFloat", s:fg, s:visual, "")
 
 " HTML
 call s:Hi("htmlTag", s:special, "", "")
@@ -222,19 +222,19 @@ call s:Hi("jsonNull", s:constant, "", "")
 if has("nvim")
   let g:terminal_color_0 = s:bg
   let g:terminal_color_1 = s:error
-  let g:terminal_color_2 = s:function
-  let g:terminal_color_3 = s:string
-  let g:terminal_color_4 = s:special
-  let g:terminal_color_5 = s:keyword
-  let g:terminal_color_6 = s:attr
+  let g:terminal_color_2 = s:string
+  let g:terminal_color_3 = s:warning
+  let g:terminal_color_4 = s:keyword
+  let g:terminal_color_5 = s:function
+  let g:terminal_color_6 = s:type
   let g:terminal_color_7 = s:fg
   let g:terminal_color_8 = s:comment
   let g:terminal_color_9 = s:error
-  let g:terminal_color_10 = s:function
-  let g:terminal_color_11 = s:string
-  let g:terminal_color_12 = s:special
-  let g:terminal_color_13 = s:keyword
-  let g:terminal_color_14 = s:attr
+  let g:terminal_color_10 = s:string
+  let g:terminal_color_11 = s:warning
+  let g:terminal_color_12 = s:keyword
+  let g:terminal_color_13 = s:function
+  let g:terminal_color_14 = s:type
   let g:terminal_color_15 = s:fg
 endif
 
