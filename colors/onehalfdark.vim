@@ -222,3 +222,16 @@ hi link gitcommitUnmergedArrow gitcommitUnmergedFile
     let g:terminal_color_foreground = s:fg.gui
   endif
 " }
+
+" mitchellh's personal customizations {
+  if has('nvim')
+    " The separator between splits
+    call s:h("WinSeparator", s:comment_fg, "", "")
+
+    " nvim-treesitter-context
+    call s:h("TreesitterContext", s:gutter_fg, s:gutter_bg, "")
+    call s:h("TreesitterContextBottom", "", "", "underline")
+    call s:h("TreesitterContextLineNumber", s:fg, s:gutter_bg, "")
+    call s:h("TreesitterContextLineNumberBottom", "", "", "underline")
+  endif
+  " }

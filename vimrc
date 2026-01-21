@@ -7,8 +7,26 @@ call plug#begin('~/.vim/plugged')
   Plug 'vimwiki/vimwiki'
   Plug 'vinitkumar/oscura-vim'
   Plug 'vinitkumar/monokai-pro-vim'
+  Plug 'ziglang/zig.vim'
+
+  " === Colorschemes ===
+  Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+  Plug 'folke/tokyonight.nvim'
+  Plug 'rebelot/kanagawa.nvim'
+  Plug 'EdenEast/nightfox.nvim'
+  Plug 'rose-pine/vim', { 'as': 'rosepine' }
   Plug 'sainnhe/everforest'
+  Plug 'sainnhe/gruvbox-material'
+  Plug 'lifepillar/vim-gruvbox8'
 call plug#end()
+
+" === Kitty Terminal Support ===
+if $TERM == 'xterm-kitty'
+  set termguicolors
+  let &t_ut=''
+  let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+endif
 
 " Tab indentation
 vmap <TAB> >gv
@@ -39,8 +57,11 @@ set nobackup
 set noswapfile
 set nowritebackup
 set number
+set relativenumber        " Show relative line numbers
 set ruler                 " Show cursor position
-set shiftwidth=4
+set shiftwidth=2          " Spaces per tab (when shifting)
+set tabstop=2             " Spaces per tab
+set softtabstop=2         " Spaces per tab (editing)
 set showcmd
 set noautochdir
 set encoding=UTF-8
@@ -48,23 +69,47 @@ set t_Co=256
 set showmode              " Show current mode
 set showtabline=2
 set smartcase             " Case-sensitive if uppercase in pattern
-set sts=4
-set switchbuf=useopen
+set switchbuf=usetab      " Try to reuse windows/tabs
 set synmaxcol=200
-set virtualedit=all
+set virtualedit=block     " Allow cursor in visual block where no text
+set splitbelow            " Open horizontal splits below
+set splitright            " Open vertical splits to the right
 set wildmenu
-set wildmode=longest,list
+set wildmode=longest:full,full
 set wildoptions=pum
 set history=10000
 set signcolumn=yes
-set updatetime=300        " Faster CoC diagnostics (default 4000ms)
+set updatetime=2000       " CursorHold interval
 set timeoutlen=500        " Faster leader key response
+set autoindent
+set smartindent
+set smarttab
+set linebreak             " Wrap long lines at breakat
+
+" === Borrowed from wincent ===
+set belloff=all           " Never ring the bell
+set visualbell            " Visual bell instead of beeping
+set nojoinspaces          " Don't add two spaces after punctuation on join
+set sidescrolloff=3       " Horizontal scroll margin
+set whichwrap=b,h,l,s,<,>,[,],~  " Allow keys to cross line boundaries
+set shortmess+=A          " Ignore annoying swapfile messages
+set shortmess+=I          " No splash screen
+set shortmess+=W          " Don't echo "[w]"/"[written]" when writing
+set shortmess+=a          " Use abbreviations in messages
+set shortmess+=c          " Completion messages
+set showbreak=↳\          " Visual indicator for wrapped lines
+set undofile              " Persistent undo across sessions
+set undodir=~/.vim/undo// " Keep undo files organized
+set spellcapcheck=        " Don't check for capital letters at sentence start
+
+" Fill chars for nicer UI
+set fillchars=diff:╱,fold:·,vert:│
 normal mz
 
 " Visual guides
 set list
-set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
-set scrolloff=20
+set listchars=nbsp:⦸,extends:»,precedes:«,tab:▷⋯,trail:•
+set scrolloff=3
 set colorcolumn=120
 highlight OverLength ctermbg=red ctermfg=white
 match OverLength /\%120v.\+/
@@ -82,6 +127,7 @@ augroup filetypedetect
   autocmd FileType jsx setlocal expandtab sw=2 ts=2 sts=2
   autocmd FileType json setlocal expandtab sw=2 ts=2 sts=2
   autocmd FileType c setlocal expandtab sw=2 ts=2 sts=2
+  autocmd FileType zig expandtab sw=2 ts=2 sts=2
   autocmd FileType html setlocal expandtab sw=2 ts=2 sts=2
   autocmd FileType htmldjango setlocal expandtab sw=2 ts=2 sts=2
   autocmd BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml
@@ -132,6 +178,8 @@ noremap <Leader>t :<C-u>tabnew<CR>
 " Navigation
 nnoremap j gj
 nnoremap k gk
+nnoremap <CR> G
+nnoremap <BS> gg
 inoremap <C-E> <End>
 inoremap <C-A> <Home>
 
@@ -170,23 +218,50 @@ autocmd FileChangedShellPost *
 
 " === Mouse and Clipboard ===
 set mouse=a
-set clipboard=unnamed
+set clipboard=unnamed,unnamedplus
 
 " === Color Scheme ===
 " Dynamic theme switching based on macOS appearance
+" Available themes (dark/light):
+"   catppuccin-mocha / catppuccin-latte
+"   tokyonight-night / tokyonight-day
+"   kanagawa-wave / kanagawa-lotus
+"   nightfox / dayfox
+"   rose-pine / rose-pine-dawn
+"   everforest (dark/light)
+"   gruvbox-material (dark/light)
+let s:current_bg = ''
+
+" Configure theme variants
+let g:catppuccin_flavour = 'mocha'
+let g:everforest_background = 'medium'
+let g:gruvbox_material_background = 'medium'
+
 function! ChangeBackground()
   set termguicolors
   hi LineNr ctermbg=NONE guibg=NONE
-  if system("defaults read -g AppleInterfaceStyle") =~ '^Dark'
-    colorscheme everforest
+  try
+    let l:is_dark = system("defaults read -g AppleInterfaceStyle 2>/dev/null") =~ 'Dark'
+    let l:bg = l:is_dark ? 'dark' : 'light'
+    if l:bg == s:current_bg
+      return
+    endif
+    let s:current_bg = l:bg
+    if l:is_dark
+      " Dark mode: catppuccin-mocha (swap for tokyonight-night, kanagawa, nightfox, etc)
+      let g:catppuccin_flavour = 'mocha'
+      colorscheme catppuccin_mocha
+      set background=dark
+    else
+      " Light mode: catppuccin-latte (swap for tokyonight-day, kanagawa-lotus, dayfox, etc)
+      let g:catppuccin_flavour = 'latte'
+      colorscheme catppuccin_latte
+      set background=light
+    endif
+  catch
+    colorscheme gruvbox-material
     set background=dark
-    let g:everforest_background = 'soft'
-    let g:everforest_better_performance = 1
-  else
-    colorscheme oscura-dusk-light
-    set diffopt+=inline:char
-    set background=light
-  endif
+  endtry
 endfunction
 
 call ChangeBackground()
