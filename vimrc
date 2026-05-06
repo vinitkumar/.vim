@@ -386,4 +386,4 @@ set statusline +=%2*/%L%*               "total lines
 set statusline +=%1*%4v\ %*             "virtual column number
 set statusline +=%2*0x%04B\ %*          "character under cursor
 
-set guifont=PragmataPro:h15
+set guifont=JetBrains\ Mono:h15
