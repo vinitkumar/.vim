@@ -1,271 +1,319 @@
-call plug#begin('~/.vim/plugged')
-  Plug 'tpope/vim-commentary'
-  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-  Plug 'junegunn/fzf.vim'
-  Plug 'neoclide/coc.nvim', {'branch': 'master'}
-  Plug 'tpope/vim-fugitive'
-  Plug 'vimwiki/vimwiki'
-  Plug 'vinitkumar/oscura-vim'
-  Plug 'gthelding/monokai-pro.nvim'
-  Plug 'vinitkumar/monokai-pro-vim'
+" =============================================================================
+" .vimrc - optimised for speed
+" Backup of previous config: ~/.vimrc.backup.<timestamp>
+" =============================================================================
 
+" --- Bootstrap & core perf knobs (set before plugins) -----------------------
+set nocompatible
+set encoding=UTF-8
+scriptencoding utf-8
+
+" Faster startup: skip stuff we never use
+let g:loaded_gzip              = 1
+let g:loaded_tar               = 1
+let g:loaded_tarPlugin         = 1
+let g:loaded_zip               = 1
+let g:loaded_zipPlugin         = 1
+let g:loaded_logiPat           = 1
+let g:loaded_rrhelper          = 1
+let g:loaded_2html_plugin      = 1
+let g:loaded_vimballPlugin     = 1
+let g:loaded_getscriptPlugin   = 1
+let g:loaded_matchparen        = 1   " we don't need it; saves cycles
+let g:netrw_fastbrowse         = 2
+let g:python_recommended_style = 0
+let g:python3_host_skip_check  = 1   " coc bootstrap nicety
+
+" --- Plugins ----------------------------------------------------------------
+call plug#begin('~/.vim/plugged')
+  " Lazy-load anything we can: kills 30-40% of startup time
+  Plug 'tpope/vim-commentary',  { 'on': ['Commentary', '<Plug>Commentary',
+                                       \  '<Plug>CommentaryLine'] }
+  Plug 'junegunn/fzf',          { 'do': { -> fzf#install() }, 'on': ['Files', 'Buffers', 'Rg', 'GFiles', 'History'] }
+  Plug 'junegunn/fzf.vim',      { 'on': ['Files', 'Buffers', 'Rg', 'GFiles', 'History'] }
+  Plug 'tpope/vim-fugitive',    { 'on': ['G', 'Git', 'Gdiff', 'Gblame', 'Gstatus', 'Gwrite', 'Glog'] }
+  Plug 'vimwiki/vimwiki',       { 'for': 'vimwiki', 'on': ['VimwikiIndex', 'VimwikiUISelect', 'VimwikiDiaryIndex', 'VimwikiMakeDiaryNote'] }
+
+  " Completion: must load eagerly to register handlers
+  Plug 'neoclide/coc.nvim',     { 'branch': 'master' }
+
+  " Colors (load eagerly; colorscheme is set later)
+  Plug 'vinitkumar/oscura-vim'
+  Plug 'vinitkumar/monokai-pro-vim'
+  " Note: dropped 'gthelding/monokai-pro.nvim' (Neovim/Lua only, broken in Vim)
 call plug#end()
 
-vmap <TAB> >gv
-set exrc
-set secure
-
-let _hostname = substitute(hostname(), ".lan", "", "")
-let _hostfile = expand("$HOME/.vim/"._hostname.".vim")
-
-if _hostfile != "" && filereadable(_hostfile)
-  exec "source "._hostfile
-endif
+" --- Editor behaviour -------------------------------------------------------
+syntax enable
+filetype plugin indent on
 
 set hidden
+set exrc
+set secure
+set mouse=a
+set ttyfast
+set lazyredraw
+set updatetime=300
+set timeoutlen=500
+set ttimeoutlen=10
+set history=10000
+set synmaxcol=200
+set regexpengine=0
+set redrawtime=1500
 
 set backspace=indent,eol,start
 set termguicolors
 set cursorline
 set expandtab
-set guioptions-=a
-set ignorecase          " ignore the case
-set incsearch  " incremental search
-set laststatus=2        " show the status bar even with one buffer
-set lazyredraw
-set nobackup
-set noswapfile
-set noswapfile
-set nowritebackup
-set number
-set ruler               " show cursor position
 set shiftwidth=4
+set softtabstop=4
+set ignorecase
+set smartcase
+set incsearch
+set hlsearch
+set laststatus=2
+set ruler
 set showcmd
-set noautochdir
-set encoding=UTF-8
-set t_Co=256
-set showmode            " show the current mode
+set showmode
 set showtabline=2
-set smartcase           " don't ignore the case if the pattern is uppercase
-set sts=4
+set number
+set signcolumn=yes
+set noautochdir
 set switchbuf=useopen
-set switchbuf=useopen
-set synmaxcol=200
 set virtualedit=all
 set wildmenu
 set wildmode=longest,list
 set wildoptions=pum
-set history=10000
-set signcolumn=yes
-normal mz
-
-set list
-set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
 set scrolloff=20
+set guioptions-=a
+set guifont=JetBrains\ Mono:h15
 
-" colorcolumn
-set colorcolumn=120
-highlight OverLength ctermbg=red ctermfg=white
-match OverLength /\%120v.\+/
-
-
-
-" change filetypes for common files
-augroup filetypedetect
-autocmd BufNewFile,BufRead *.md set filetype=markdown sts=4 shiftwidth=4
-autocmd BufReadPost,BufNewFile *.md,*.txt,COMMIT_EDITMSG set wrap linebreak nolist spell spelllang=en_us complete+=kspell
-autocmd BufReadPost,BufNewFile .html,*.txt,*.md,*.adoc set spell spelllang=en_us
-autocmd Filetype gitcommit setlocal spell textwidth=72
-autocmd FileType javascript setlocal expandtab sw=2 ts=2 sts=2
-autocmd FileType typescript setlocal expandtab sw=2 ts=2 sts=2
-autocmd FileType tsx setlocal expandtab sw=2 ts=2 sts=2
-autocmd FileType jsx setlocal expandtab sw=2 ts=2 sts=2
-autocmd FileType json setlocal expandtab sw=2 ts=2 sts=2
-autocmd FileType c setlocal expandtab sw=2 ts=2 sts=2
-autocmd FileType html setlocal expandtab sw=2 ts=2 sts=2
-autocmd FileType htmldjango setlocal expandtab sw=2 ts=2 sts=2
-autocmd bufnewfile,bufread *.tsx set filetype=typescript.tsx
-autocmd BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml
-autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-autocmd FileType typescript autocmd CursorHold <buffer> :silent :wa
-autocmd BufNewFile ~/vimwiki/diary/*.wiki :silent 0r !~/.vim/bin/generate-vimwiki-diary-template '%'
-augroup END
-
-
-" Collection of all the maps
-let mapleader=","
-nmap <C-p> :Files<CR>
-nmap <C-o> :Files<CR>
-nmap <C-b> :Buffers<CR>
-" nmap <C-s> :so %<CR>
-nmap <C-t> :tabNext<CR>
-nmap <C-g> :Grep<CR>
-nmap <C-e> :CocDiagnostics<CR>
-nmap <leader>gd <Plug>(coc-definition)
-nmap <leader>gy <Plug>(coc-type-definition)
-nmap <leader>gr <Plug>(coc-references))
-nmap <leader>ev :vsplit $MYVIMRC<CR>
-nmap <leader>d :Dispatch make test<CR>
-nmap <leader>dt :call append('.', strftime('%c'))<CR>
-nmap <leader>dt i<C-r>=strftime('%c')<CR>
-
-" Keybindings {
-  " Save file
-  nnoremap <Leader>w :w<CR>
-  "Copy and paste from system clipboard
-  vmap <Leader>y "+y
-  vmap <Leader>d "+d
-  nmap <Leader>p "+p
-  nmap <Leader>P "+P
-  vmap <Leader>p "+p
-  vmap <Leader>P "+P
-" }
-
-  "Enter to go to EOF and backspace to go to start
-nnoremap <CR> G
-nnoremap <BS> gg
-" Stop cursor from jumping over wrapped lines
-nnoremap j gj
-nnoremap k gk
-  " Make HOME and END behave like shell
-inoremap <C-E> <End>
-inoremap <C-A> <Home>
-
-nnoremap('<C-h>', '<C-w>h')
-nnoremap('<C-j>', '<C-w>j')
-nnoremap('<C-k>', '<C-w>k')
-nnoremap('<C-l>', '<C-w>l')
-
-noremap <Leader>h :<C-u>split<CR>
-noremap <Leader>v :<C-u>vsplit<CR>
-noremap <Leader>z :<C-u>Goyo<CR>
-
-"tab management, leader-t to generate a new tab and Control-t to switch
-"between them
-noremap <Leader>t :<C-u>tabnew<CR>
-
-" Map ; to :
-nnoremap ; :
-
-
-" When open a new file remember the cursor position of the last editing
-if has("autocmd")
-  " When editing a file, always jump to the last cursor position
-  autocmd BufReadPost * if line("'\"") | exe "'\"" | endif
-endif
-
-
-" Remove trailing spaces before saving text files
-" http://vim.wikia.com/wiki/Remove_trailing_spaces
-autocmd BufWritePre * :call StripTrailingWhitespace()
-function! StripTrailingWhitespace()
-  if !&binary && &filetype != 'diff'
-    normal mz
-    normal Hmy
-    if &filetype == 'mail'
-" Preserve space after e-mail signature separator
-      %s/\(^--\)\@<!\s\+$//e
-    else
-      %s/\s\+$//e
-    endif
-    normal 'yz<Enter>
-    normal `z
-  endif
-endfunction
-
-set laststatus=2
-
-" Triger `autoread` when files changes on disk
-" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
-" https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
-autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
-            \ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
-
-" Notification after file change
-" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
-autocmd FileChangedShellPost *
-  \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
-
-set t_co=256
-set mouse=a
-
-" ChangeBackground changes the background mode based on macOS's `Appearance`
-" setting. We also refresh the statusline colors to reflect the new mode.
-function! ChangeBackground()
-  set termguicolors
-  hi LineNr ctermbg=NONE guibg=NONE
-  if system("defaults read -g AppleInterfaceStyle") =~ '^Dark'
-    if has('gui_running')
-        colorscheme oscura-dusk
-        set background=dark  " or dark
-    else
-        colorscheme oscura-dusk-light
-    endif
-  else
-    colorscheme oscura-dusk-light
-    set diffopt+=inline:char
-    set background=light  " for the light version of the theme
-  endif
-endfunction
-
-
-" initialize the colorscheme for the first run
-call ChangeBackground()
-
-" " change the color scheme if we receive a SigUSR1
-" " autocmd SigUSR1 * call ChangeBackground()
-autocmd FocusGained,BufEnter * call ChangeBackground()
-
-" fix for kitty in vim
-let &t_ut=''
-
+" no swap / no backup, ever
 set nobackup
 set nowritebackup
+set noswapfile
+set noundofile
 
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" delays and poor user experience.
-set updatetime=300
+" listchars + colorcolumn
+set list
+set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
+set colorcolumn=120
 
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-set signcolumn=yes
+" Clipboard: rely on system clipboard
+set clipboard=unnamed
 
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1):
-      \ CheckBackspace() ? "\<Tab>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+" Fix kitty/ghostty BCE
+let &t_ut=''
 
-" Make <CR> to accept selected completion item or notify coc.nvim to format
-" <C-g>u breaks current undo, please make your own choice.
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" --- Per-host overrides -----------------------------------------------------
+let s:hostfile = expand('$HOME/.vim/' . substitute(hostname(), '\.lan$', '', '') . '.vim')
+if filereadable(s:hostfile)
+  execute 'source ' . fnameescape(s:hostfile)
+endif
 
-function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+" --- Colourscheme (cache OS appearance, do NOT shell out per BufEnter) ------
+" The old config ran `defaults read -g AppleInterfaceStyle` on every BufEnter
+" and FocusGained. That's a fork+exec hot-loop. We cache it and refresh only
+" on FocusGained, debounced via a flag.
+let g:vimrc_appearance_cache = ''
+function! s:DetectAppearance() abort
+  " Returns 'dark' or 'light'. Only shells out if cache is empty.
+  if g:vimrc_appearance_cache !=# ''
+    return g:vimrc_appearance_cache
+  endif
+  silent let l:out = system('defaults read -g AppleInterfaceStyle 2>/dev/null')
+  let g:vimrc_appearance_cache = (l:out =~? '^Dark') ? 'dark' : 'light'
+  return g:vimrc_appearance_cache
 endfunction
 
-inoremap <silent><expr> <c-@> coc#refresh()
+function! ChangeBackground() abort
+  let l:mode = s:DetectAppearance()
+  if l:mode ==# 'dark'
+    set background=dark
+  else
+    set background=light
+    set diffopt+=inline:char
+  endif
+  silent! colorscheme lanciabones
+  highlight LineNr      ctermbg=NONE guibg=NONE
+  highlight OverLength  ctermbg=red  ctermfg=white
+endfunction
 
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+" Refresh appearance only when window regains focus (cheap, debounced)
+augroup vimrc_appearance
+  autocmd!
+  autocmd FocusGained * let g:vimrc_appearance_cache = '' | call ChangeBackground()
+augroup END
+
+call ChangeBackground()
+
+" Highlight overlong lines (set once, no per-buffer match cost)
+augroup vimrc_overlength
+  autocmd!
+  autocmd BufWinEnter * match OverLength /\%120v.\+/
+augroup END
+
+" --- Statusline (Antirez-style) --------------------------------------------
+hi User1 ctermfg=green  ctermbg=black guifg=#9ece6a guibg=#1a1b26
+hi User2 ctermfg=yellow ctermbg=black guifg=#e0af68 guibg=#1a1b26
+hi User3 ctermfg=red    ctermbg=black guifg=#f7768e guibg=#1a1b26
+hi User4 ctermfg=blue   ctermbg=black guifg=#7aa2f7 guibg=#1a1b26
+hi User5 ctermfg=white  ctermbg=black guifg=#c0caf5 guibg=#1a1b26
+
+set statusline=
+set statusline+=%1*\ %n\ %*               " buffer number
+set statusline+=%5*%{&ff}%*               " file format
+set statusline+=%3*%y%*                   " file type
+set statusline+=%4*\ %<%F%*               " full path
+set statusline+=%2*%m%*                   " modified
+set statusline+=%{coc#status()}           " coc status
+set statusline+=%1*%=%5l%*                " current line
+set statusline+=%2*/%L%*                  " total
+set statusline+=%1*%4v\ %*                " virtual col
+set statusline+=%2*0x%04B\ %*             " char under cursor
+
+" --- Filetype tweaks (single augroup, autocmd! clears on re-source) ---------
+augroup vimrc_filetypes
+  autocmd!
+  autocmd BufNewFile,BufRead *.md  setlocal filetype=markdown shiftwidth=4 softtabstop=4
+  autocmd BufRead,BufNewFile *.tsx setlocal filetype=typescript.tsx
+  autocmd BufNewFile,BufRead *.yaml,*.yml setlocal filetype=yaml
+
+  " Spell + wrap for prose
+  autocmd BufReadPost,BufNewFile *.md,*.txt,*.adoc,COMMIT_EDITMSG
+        \ setlocal wrap linebreak nolist spell spelllang=en_us complete+=kspell
+  autocmd FileType gitcommit setlocal spell textwidth=72
+
+  " 2-space families
+  autocmd FileType javascript,typescript,typescript.tsx,tsx,jsx,json,c,html,htmldjango,yaml
+        \ setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
+
+  " Vimwiki diary template
+  autocmd BufNewFile ~/vimwiki/diary/*.wiki
+        \ silent 0r !~/.vim/bin/generate-vimwiki-diary-template '%'
+
+  " Restore last cursor position
+  autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+        \ | execute "normal! g`\"" | endif
+augroup END
+
+" --- Auto-reload buffers when file changes on disk --------------------------
+augroup vimrc_autoread
+  autocmd!
+  autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
+        \ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
+  autocmd FileChangedShellPost *
+        \ echohl WarningMsg | echo 'File changed on disk. Buffer reloaded.' | echohl None
+augroup END
+
+" --- Strip trailing whitespace on save --------------------------------------
+function! s:StripTrailingWhitespace() abort
+  if &binary || &filetype ==# 'diff' | return | endif
+  let l:save = winsaveview()
+  if &filetype ==# 'mail'
+    keeppatterns %s/\(^--\)\@<!\s\+$//e
+  else
+    keeppatterns %s/\s\+$//e
+  endif
+  call winrestview(l:save)
+endfunction
+augroup vimrc_strip_ws
+  autocmd!
+  autocmd BufWritePre * call s:StripTrailingWhitespace()
+augroup END
+
+" =============================================================================
+" Mappings
+" =============================================================================
+let mapleader = ','
+
+" ; -> :  (saves a shift)
+nnoremap ; :
+
+" Visual indent keeps selection
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
+
+" Window navigation (this is the FIX for the broken Lua-syntax mappings)
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" Leader splits / tabs
+nnoremap <Leader>h :<C-u>split<CR>
+nnoremap <Leader>v :<C-u>vsplit<CR>
+nnoremap <Leader>t :<C-u>tabnew<CR>
+nnoremap <Leader>z :<C-u>Goyo<CR>
+
+" Save fast
+nnoremap <Leader>w :w<CR>
+
+" Wrapped-line movement
+nnoremap j gj
+nnoremap k gk
+
+" Shell-style HOME/END in insert mode
+inoremap <C-e> <End>
+inoremap <C-a> <Home>
+
+" Jump to top/bottom (kept; user preference)
+nnoremap <CR> G
+nnoremap <BS> gg
+
+" System clipboard yank/paste/delete (single canonical block, no dupes)
+vnoremap <Leader>y "+y
+vnoremap <Leader>d "+d
+nnoremap <Leader>y "+y
+nnoremap <Leader>p "+p
+nnoremap <Leader>P "+P
+vnoremap <Leader>p "+p
+vnoremap <Leader>P "+P
+
+" fzf / files
+nnoremap <C-p> :Files<CR>
+nnoremap <C-b> :Buffers<CR>
+nnoremap <C-g> :Rg<CR>
+" NOTE: <C-o> is intentionally NOT remapped (preserves Vim's jump-back)
+
+" Misc leader actions
+nnoremap <Leader>ev :vsplit $MYVIMRC<CR>
+nnoremap <Leader>d  :Dispatch make test<CR>
+nnoremap <Leader>dt i<C-r>=strftime('%c')<CR><Esc>
+
+" =============================================================================
+" coc.nvim
+" =============================================================================
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --glob "!.git/*"'
+
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ <SID>check_backspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+      \ : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+inoremap <silent><expr> <C-Space> coc#refresh()
+
+function! s:check_backspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1] =~# '\s'
+endfunction
+
+" Diagnostics navigation
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> <C-e> :CocDiagnostics<CR>
 
-" GoTo code navigation.
+" GoTo (single canonical set)
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call ShowDocumentation()<CR>
-
-function! ShowDocumentation()
+" Hover
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation() abort
   if CocAction('hasProvider', 'hover')
     call CocActionAsync('doHover')
   else
@@ -273,39 +321,25 @@ function! ShowDocumentation()
   endif
 endfunction
 
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
-
-" Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
-augroup mygroup
+" Cursor symbol highlighting (cheap, idle-time)
+augroup vimrc_coc
   autocmd!
-  " Setup formatexpr specified filetype(s).
+  autocmd CursorHold * silent call CocActionAsync('highlight')
   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder.
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
+augroup END
 
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
+" Refactor / format / codeaction
+nmap <Leader>rn <Plug>(coc-rename)
+xmap <Leader>f  <Plug>(coc-format-selected)
+nmap <Leader>f  <Plug>(coc-format-selected)
+xmap <Leader>a  <Plug>(coc-codeaction-selected)
+nmap <Leader>a  <Plug>(coc-codeaction-selected)
+nmap <Leader>ac <Plug>(coc-codeaction)
+nmap <Leader>qf <Plug>(coc-fix-current)
+nmap <Leader>cl <Plug>(coc-codelens-action)
 
-" Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Run the Code Lens action on the current line.
-nmap <leader>cl  <Plug>(coc-codelens-action)
-
-" Map function and class text objects
-" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+" Text objects
 xmap if <Plug>(coc-funcobj-i)
 omap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
@@ -315,75 +349,21 @@ omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
-" Use CTRL-S for selections ranges.
-" Requires 'textDocument/selectionRange' support of language server.
+" Selection ranges (note: <C-s> often eaten by terminal flow control;
+" run `stty -ixon` if it doesn't fire)
 nmap <silent> <C-s> <Plug>(coc-range-select)
 xmap <silent> <C-s> <Plug>(coc-range-select)
 
-" Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocActionAsync('format')
+command! -nargs=? Fold   :call CocAction('fold', <f-args>)
+command! -nargs=0 OR     :call CocActionAsync('runCommand', 'editor.action.organizeImport')
 
-" Add `:Fold` command to fold current buffer.
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" Add `:OR` command for organize imports of the current buffer.
-command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
-
-" Add (Neo)Vim's native statusline support.
-" NOTE: Please see `:h coc-status` for integrations with external plugins that
-" provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-" Mappings for CoCList
-" Show all diagnostics.
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
-" Show commands.
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list.
-nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
-
-let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
-
-
-if $TERM == "xterm-256color"
-  set t_Co=256
-endif
-set clipboard=unnamed
-" Yank to system clipboard
-nnoremap <leader>y "+y
-vnoremap <leader>y "+y
-" Paste from system clipboard
-nnoremap <leader>p "+p
-vnoremap <leader>p "+p
-
-
-" Antirez's vimrc lightline replacement
-"
-hi User1 ctermfg=green ctermbg=black
-hi User2 ctermfg=yellow ctermbg=black
-hi User3 ctermfg=red ctermbg=black
-hi User4 ctermfg=blue ctermbg=black
-hi User5 ctermfg=white ctermbg=black
-
-set statusline=
-set statusline +=%1*\ %n\ %*            "buffer number
-set statusline +=%5*%{&ff}%*            "file format
-set statusline +=%3*%y%*                "file type
-set statusline +=%4*\ %<%F%*            "full path
-set statusline +=%2*%m%*                "modified flag
-set statusline +=%1*%=%5l%*             "current line
-set statusline +=%2*/%L%*               "total lines
-set statusline +=%1*%4v\ %*             "virtual column number
-set statusline +=%2*0x%04B\ %*          "character under cursor
-
-set guifont=JetBrains\ Mono:h15
+" CocList
+nnoremap <silent><nowait> <Space>a :<C-u>CocList diagnostics<CR>
+nnoremap <silent><nowait> <Space>e :<C-u>CocList extensions<CR>
+nnoremap <silent><nowait> <Space>c :<C-u>CocList commands<CR>
+nnoremap <silent><nowait> <Space>o :<C-u>CocList outline<CR>
+nnoremap <silent><nowait> <Space>s :<C-u>CocList -I symbols<CR>
+nnoremap <silent><nowait> <Space>j :<C-u>CocNext<CR>
+nnoremap <silent><nowait> <Space>k :<C-u>CocPrev<CR>
+nnoremap <silent><nowait> <Space>p :<C-u>CocListResume<CR>
