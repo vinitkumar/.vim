@@ -1,0 +1,12 @@
+#!/bin/sh
+
+if [ "$#" -ne 3 ] || [ "$1" != 'read' ] || [ "$2" != '-g' ] || [ "$3" != 'AppleInterfaceStyle' ]; then
+  exit 64
+fi
+
+if [ -n "${VIM_APPEARANCE_INVOCATION_LOG:-}" ]; then
+  printf '%s\n' "$*" >> "$VIM_APPEARANCE_INVOCATION_LOG"
+fi
+
+sleep 2
+printf 'Dark\n'

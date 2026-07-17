@@ -111,24 +111,43 @@ if filereadable(s:hostfile)
   execute 'source ' . fnameescape(s:hostfile)
 endif
 
-" --- Colourscheme (cache OS appearance, do NOT shell out per BufEnter) ------
-" The old config ran `defaults read -g AppleInterfaceStyle` on every BufEnter
-" and FocusGained. That's a fork+exec hot-loop. We cache it and refresh only
-" on FocusGained, debounced via a flag.
-let g:vimrc_appearance_cache = ''
-function! s:DetectAppearance() abort
-  " Returns 'dark' or 'light'. Only shells out if cache is empty.
-  if g:vimrc_appearance_cache !=# ''
-    return g:vimrc_appearance_cache
+" --- Colourscheme (refresh OS appearance outside the startup path) ---------
+let g:vimrc_appearance_cache = &background
+let s:appearance_refresh_pending = 0
+let s:appearance_output = ''
+
+function! s:CollectAppearance(channel, message) abort
+  let s:appearance_output .= a:message
+endfunction
+
+function! s:ApplyAppearance(channel) abort
+  let s:appearance_refresh_pending = 0
+  let l:mode = s:appearance_output =~? '^Dark' ? 'dark' : 'light'
+  if l:mode !=# g:vimrc_appearance_cache
+    let g:vimrc_appearance_cache = l:mode
+    call ChangeBackground()
   endif
-  silent let l:out = system('defaults read -g AppleInterfaceStyle 2>/dev/null')
-  let g:vimrc_appearance_cache = (l:out =~? '^Dark') ? 'dark' : 'light'
-  return g:vimrc_appearance_cache
+endfunction
+
+function! s:RefreshAppearance() abort
+  if s:appearance_refresh_pending || !exists('*job_start')
+    return
+  endif
+
+  let s:appearance_refresh_pending = 1
+  let s:appearance_output = ''
+  let l:job = job_start(
+        \ ['defaults', 'read', '-g', 'AppleInterfaceStyle'],
+        \ {'out_cb': function('<SID>CollectAppearance'),
+        \  'close_cb': function('<SID>ApplyAppearance'),
+        \  'err_io': 'null'})
+  if job_status(l:job) ==# 'fail'
+    let s:appearance_refresh_pending = 0
+  endif
 endfunction
 
 function! ChangeBackground() abort
-  let l:mode = s:DetectAppearance()
-  if l:mode ==# 'dark'
+  if g:vimrc_appearance_cache ==# 'dark'
     set background=dark
   else
     set background=light
@@ -139,10 +158,11 @@ function! ChangeBackground() abort
   highlight OverLength  ctermbg=red  ctermfg=white
 endfunction
 
-" Refresh appearance only when window regains focus (cheap, debounced)
+" Start the first lookup after startup and refresh only when focus returns.
 augroup vimrc_appearance
   autocmd!
-  autocmd FocusGained * let g:vimrc_appearance_cache = '' | call ChangeBackground()
+  autocmd VimEnter * call s:RefreshAppearance()
+  autocmd FocusGained * call s:RefreshAppearance()
 augroup END
 
 call ChangeBackground()
