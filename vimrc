@@ -60,8 +60,8 @@ set history=10000
 set synmaxcol=200
 set regexpengine=0
 set redrawtime=1500
+set diffopt+=linematch:60
 
-set backspace=indent,eol,start
 set termguicolors
 set cursorline
 set expandtab
@@ -72,10 +72,10 @@ set smartcase
 set incsearch
 set hlsearch
 set laststatus=2
-set ruler
-set showcmd
 set showmode
-set showtabline=2
+set showtabline=0
+set showtabpanel=1
+set tabpanelopt=columns:20,align:right,vert
 set number
 set signcolumn=yes
 set noautochdir
@@ -83,10 +83,11 @@ set switchbuf=useopen
 set virtualedit=all
 set wildmenu
 set wildmode=longest,list
-set wildoptions=pum
+set wildoptions=pum,fuzzy
+set completeopt=menuone,noselect,fuzzy,popup
 set scrolloff=20
 set guioptions-=a
-set guifont=JetBrains\ Mono:h15
+set guifont=Source\ Code\ Pro:h15
 
 " no swap / no backup, ever
 set nobackup
@@ -111,61 +112,11 @@ if filereadable(s:hostfile)
   execute 'source ' . fnameescape(s:hostfile)
 endif
 
-" --- Colourscheme (refresh OS appearance outside the startup path) ---------
-let g:vimrc_appearance_cache = &background
-let s:appearance_refresh_pending = 0
-let s:appearance_output = ''
-
-function! s:CollectAppearance(channel, message) abort
-  let s:appearance_output .= a:message
-endfunction
-
-function! s:ApplyAppearance(channel) abort
-  let s:appearance_refresh_pending = 0
-  let l:mode = s:appearance_output =~? '^Dark' ? 'dark' : 'light'
-  if l:mode !=# g:vimrc_appearance_cache
-    let g:vimrc_appearance_cache = l:mode
-    call ChangeBackground()
-  endif
-endfunction
-
-function! s:RefreshAppearance() abort
-  if s:appearance_refresh_pending || !exists('*job_start')
-    return
-  endif
-
-  let s:appearance_refresh_pending = 1
-  let s:appearance_output = ''
-  let l:job = job_start(
-        \ ['defaults', 'read', '-g', 'AppleInterfaceStyle'],
-        \ {'out_cb': function('<SID>CollectAppearance'),
-        \  'close_cb': function('<SID>ApplyAppearance'),
-        \  'err_io': 'null'})
-  if job_status(l:job) ==# 'fail'
-    let s:appearance_refresh_pending = 0
-  endif
-endfunction
-
-function! ChangeBackground() abort
-  if g:vimrc_appearance_cache ==# 'dark'
-    set background=dark
-  else
-    set background=light
-    set diffopt+=inline:char
-  endif
-  silent! colorscheme lanciabones
-  highlight LineNr      ctermbg=NONE guibg=NONE
-  highlight OverLength  ctermbg=red  ctermfg=white
-endfunction
-
-" Start the first lookup after startup and refresh only when focus returns.
-augroup vimrc_appearance
-  autocmd!
-  autocmd VimEnter * call s:RefreshAppearance()
-  autocmd FocusGained * call s:RefreshAppearance()
-augroup END
-
-call ChangeBackground()
+" --- Colourscheme ----------------------------------------------------------
+set background=dark
+colorscheme bright
+highlight LineNr      ctermbg=NONE guibg=NONE
+highlight OverLength  ctermbg=red  ctermfg=white
 
 " Highlight overlong lines (set once, no per-buffer match cost)
 augroup vimrc_overlength
@@ -174,11 +125,11 @@ augroup vimrc_overlength
 augroup END
 
 " --- Statusline (Antirez-style) --------------------------------------------
-hi User1 ctermfg=green  ctermbg=black guifg=#9ece6a guibg=#1a1b26
-hi User2 ctermfg=yellow ctermbg=black guifg=#e0af68 guibg=#1a1b26
-hi User3 ctermfg=red    ctermbg=black guifg=#f7768e guibg=#1a1b26
-hi User4 ctermfg=blue   ctermbg=black guifg=#7aa2f7 guibg=#1a1b26
-hi User5 ctermfg=white  ctermbg=black guifg=#c0caf5 guibg=#1a1b26
+hi User1 ctermfg=green  ctermbg=black guifg=#a1c659 guibg=#000000
+hi User2 ctermfg=yellow ctermbg=black guifg=#fda331 guibg=#000000
+hi User3 ctermfg=red    ctermbg=black guifg=#fb0120 guibg=#000000
+hi User4 ctermfg=blue   ctermbg=black guifg=#6fb3d2 guibg=#000000
+hi User5 ctermfg=white  ctermbg=black guifg=#e0e0e0 guibg=#000000
 
 set statusline=
 set statusline+=%1*\ %n\ %*               " buffer number
@@ -264,7 +215,6 @@ nnoremap <C-l> <C-w>l
 nnoremap <Leader>h :<C-u>split<CR>
 nnoremap <Leader>v :<C-u>vsplit<CR>
 nnoremap <Leader>t :<C-u>tabnew<CR>
-nnoremap <Leader>z :<C-u>Goyo<CR>
 
 " Save fast
 nnoremap <Leader>w :w<CR>
@@ -298,7 +248,6 @@ nnoremap <C-g> :Rg<CR>
 
 " Misc leader actions
 nnoremap <Leader>ev :vsplit $MYVIMRC<CR>
-nnoremap <Leader>d  :Dispatch make test<CR>
 nnoremap <Leader>dt i<C-r>=strftime('%c')<CR><Esc>
 
 " =============================================================================
